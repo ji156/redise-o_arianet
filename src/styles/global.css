@@ -1,0 +1,161 @@
+/* =========================================================================
+   arianet — estilos globales: design tokens, reset, keyframes, utilidades.
+   Estética Swiss / neo-brutalista: blanco, retícula hairline negra, tipografía
+   display sobredimensionada, un único acento azul. Sin sombras. Sin radios
+   (salvo el logo, 8px).
+   ========================================================================= */
+
+:root {
+  /* --- Colores --- */
+  --ink: #0a0a0a;          /* texto, estructura, bordes 1.5px, sección oscura, botones */
+  --paper: #ffffff;        /* fondo de página */
+  --blue: #2c49e0;         /* acento de marca: CTAs, hover invert, marcas */
+  --blue-light: #7c8bff;   /* acentos azules SOLO en la sección oscura */
+  --grey-body: #3a3a3a;    /* texto de párrafo secundario sobre blanco */
+  --grey-muted: #6b6b6b;   /* labels mono, índices */
+  --grey-on-dark: #9a9a9a; /* texto secundario sobre negro */
+  --surface-hover: #f5f5f5;/* fondo de card en hover */
+  --hairline: rgba(10, 10, 10, 0.18);      /* divisores secundarios (claro) */
+  --hairline-soft: rgba(10, 10, 10, 0.15); /* divisor interno aún más suave */
+  --hairline-dark: rgba(255, 255, 255, 0.2); /* divisores en sección oscura */
+
+  /* --- Líneas estructurales --- */
+  --line-primary: 1.5px solid var(--ink);
+  --line-secondary: 1px solid var(--hairline);
+
+  /* --- Tipografía --- */
+  /* Fallbacks del sistema por si las fuentes de Google aún no se han cargado
+     (se cargan tras el consentimiento de cookies). */
+  --font-display: 'Archivo', 'Arial Black', system-ui, sans-serif; /* headings, números, wordmark */
+  --font-body: 'Space Grotesk', system-ui, -apple-system, sans-serif; /* párrafos, descripciones */
+  --font-mono: 'Space Mono', ui-monospace, 'SF Mono', monospace; /* labels, índices, tags, precios */
+
+  /* --- Layout --- */
+  --gutter: 44px;
+  --nav-h: 62px; /* altura aprox. del nav sticky, para scroll-margin */
+}
+
+/* --- Reset --- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--blue);
+  color: #fff;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font: inherit;
+}
+
+/* Destinos de ancla: compensa el nav sticky al hacer scroll. */
+[id] {
+  scroll-margin-top: var(--nav-h);
+}
+
+/* =========================================================================
+   Keyframes
+   ========================================================================= */
+@keyframes marqueeX {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.2; }
+}
+
+/* =========================================================================
+   Botones — base compartida (modificadores de color por sección, scoped)
+   ========================================================================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  padding: 18px 30px;
+  transition: background 0.15s, color 0.15s;
+}
+
+/* =========================================================================
+   Scroll-reveal (IntersectionObserver añade .is-visible)
+   ========================================================================= */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* =========================================================================
+   Accesibilidad: foco visible (el proto sólo define hover)
+   ========================================================================= */
+:focus-visible {
+  outline: 2.5px solid var(--blue);
+  outline-offset: 2px;
+}
+
+/* En superficies azules/negras, el foco azul no contrasta: usa blanco. */
+.surface-invert :focus-visible {
+  outline-color: #fff;
+}
+
+/* =========================================================================
+   prefers-reduced-motion: desactiva marquee, reveal, blink y smooth-scroll
+   ========================================================================= */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
