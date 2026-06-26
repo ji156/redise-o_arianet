@@ -1,0 +1,345 @@
+---
+import Base from './Base.astro';
+import { BRAND, FOOTER } from '../data/copy.ts';
+import { LEGAL, legalDocs, type LegalDoc } from '../data/legal.ts';
+
+interface Props {
+  doc: LegalDoc;
+}
+
+const { doc } = Astro.props;
+const title = `${doc.title.es} — ${BRAND}`;
+---
+
+<Base title={title} description={doc.intro.es}>
+  <header class="lhead">
+    <a href="/" class="lhead__brand" aria-label={`${BRAND} — inicio`}>
+      <img src="/logo-app.png" alt={BRAND} width="28" height="28" class="lhead__logo" />
+      <span class="lhead__wordmark">{BRAND}</span>
+    </a>
+    <div class="lhead__actions">
+      <button type="button" class="lhead__lang" data-lang-toggle aria-label="Switch to English">EN</button>
+      <a href="/" class="lhead__back" data-en={LEGAL.back.en}>{LEGAL.back.es}</a>
+    </div>
+  </header>
+
+  <main class="legal">
+    <aside class="legal__nav" aria-label={LEGAL.index.es}>
+      <span class="legal__nav-title" data-en={LEGAL.index.en}>{LEGAL.index.es}</span>
+      {
+        legalDocs.map((d) => (
+          <a
+            href={`/${d.slug}`}
+            class="legal__nav-link"
+            aria-current={d.slug === doc.slug ? 'page' : undefined}
+            data-en={d.nav.en}
+          >
+            {d.nav.es}
+          </a>
+        ))
+      }
+    </aside>
+
+    <article class="legal__doc">
+      <h1 class="legal__title" data-en={doc.title.en}>{doc.title.es}</h1>
+      <p class="legal__intro" data-en={doc.intro.en}>{doc.intro.es}</p>
+      <p class="legal__updated" data-en={LEGAL.updated.en}>{LEGAL.updated.es}</p>
+
+      {
+        doc.sections.map((s) => (
+          <section class="legal__section">
+            <h2 class="legal__h2" data-en={s.heading.en}>
+              {s.heading.es}
+            </h2>
+            {s.paragraphs.map((p) => (
+              <p class="legal__p" data-en={p.en}>
+                {p.es}
+              </p>
+            ))}
+          </section>
+        ))
+      }
+    </article>
+  </main>
+
+  <footer class="lfoot">
+    <div class="lfoot__links">
+      {
+        legalDocs.map((d) => (
+          <a href={`/${d.slug}`} class="lfoot__link" data-en={d.nav.en}>
+            {d.nav.es}
+          </a>
+        ))
+      }
+    </div>
+    <span class="lfoot__copy" data-en={FOOTER.copyright.en}>{FOOTER.copyright.es}</span>
+  </footer>
+</Base>
+
+<style>
+  .lhead {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    background: var(--paper);
+    border-bottom: var(--line-primary);
+  }
+
+  .lhead__brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 26px;
+    text-decoration: none;
+    color: var(--ink);
+    border-right: var(--line-primary);
+  }
+
+  .lhead__logo {
+    border-radius: 8px;
+  }
+
+  .lhead__wordmark {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 19px;
+    letter-spacing: -0.01em;
+  }
+
+  .lhead__actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-right: 26px;
+  }
+
+  .lhead__lang {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 700;
+    background: var(--paper);
+    border: var(--line-primary);
+    color: var(--ink);
+    padding: 6px 11px;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .lhead__lang:hover,
+  .lhead__lang:focus-visible {
+    background: var(--ink);
+    color: #fff;
+  }
+
+  .lhead__back {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .lhead__back:hover,
+  .lhead__back:focus-visible {
+    color: var(--blue);
+  }
+
+  /* --- cuerpo --- */
+  .legal {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    max-width: 1180px;
+    margin: 0 auto;
+    border-left: var(--line-primary);
+    border-right: var(--line-primary);
+    min-height: calc(100vh - 62px);
+  }
+
+  .legal__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 48px 26px;
+    border-right: var(--line-primary);
+    position: sticky;
+    top: 62px;
+    align-self: start;
+  }
+
+  .legal__nav-title {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--grey-muted);
+    margin-bottom: 14px;
+  }
+
+  .legal__nav-link {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--ink);
+    text-decoration: none;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--hairline-soft);
+    transition: color 0.15s, padding-left 0.15s;
+  }
+
+  .legal__nav-link:hover,
+  .legal__nav-link:focus-visible {
+    color: var(--blue);
+    padding-left: 6px;
+  }
+
+  .legal__nav-link[aria-current='page'] {
+    color: var(--blue);
+    font-weight: 700;
+  }
+
+  .legal__doc {
+    padding: 48px 54px 72px;
+    max-width: 760px;
+  }
+
+  .legal__title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(34px, 5vw, 56px);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+  }
+
+  .legal__intro {
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--grey-body);
+    margin-top: 20px;
+  }
+
+  .legal__updated {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--grey-muted);
+    margin-top: 18px;
+    padding-bottom: 28px;
+    border-bottom: var(--line-primary);
+  }
+
+  .legal__section {
+    margin-top: 34px;
+  }
+
+  .legal__h2 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 21px;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .legal__p {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--grey-body);
+    margin-bottom: 12px;
+  }
+
+  /* --- pie --- */
+  .lfoot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 24px var(--gutter);
+    border-top: var(--line-primary);
+  }
+
+  .lfoot__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+  }
+
+  .lfoot__link {
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .lfoot__link:hover,
+  .lfoot__link:focus-visible {
+    color: var(--blue);
+  }
+
+  .lfoot__copy {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--grey-muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* --- responsive --- */
+  @media (max-width: 860px) {
+    .legal {
+      grid-template-columns: 1fr;
+      border-left: none;
+      border-right: none;
+    }
+    .legal__nav {
+      position: static;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+      padding: 20px var(--gutter);
+      border-right: none;
+      border-bottom: var(--line-primary);
+    }
+    .legal__nav-title {
+      flex-basis: 100%;
+      margin-bottom: 4px;
+    }
+    .legal__nav-link {
+      border-bottom: none;
+      padding: 0;
+    }
+    .legal__nav-link:hover,
+    .legal__nav-link:focus-visible {
+      padding-left: 0;
+    }
+    .legal__doc {
+      padding: 36px var(--gutter) 56px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .lhead__brand {
+      padding: 14px 18px;
+    }
+    .lhead__actions {
+      gap: 12px;
+      padding-right: 18px;
+    }
+    .lhead__back {
+      display: none; /* el logo ya vuelve al inicio */
+    }
+    .legal__nav,
+    .legal__doc,
+    .lfoot {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+</style>

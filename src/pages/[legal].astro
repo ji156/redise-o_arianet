@@ -1,0 +1,17 @@
+---
+import Legal from '../layouts/Legal.astro';
+import { legalDocs } from '../data/legal.ts';
+
+// Genera una ruta estática por cada documento legal (/aviso-legal, /privacidad,
+// /cookies, /terminos).
+export function getStaticPaths() {
+  return legalDocs.map((doc) => ({
+    params: { legal: doc.slug },
+    props: { doc },
+  }));
+}
+
+const { doc } = Astro.props;
+---
+
+<Legal doc={doc} />
