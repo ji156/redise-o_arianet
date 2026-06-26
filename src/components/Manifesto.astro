@@ -1,0 +1,138 @@
+---
+import { MANIFIESTO, commitments } from "../data/copy.ts";
+---
+
+<section class="manifesto surface-invert">
+  <div class="manifesto__lead" data-reveal>
+    <div class="manifesto__label" data-en={MANIFIESTO.label.en}>
+      {MANIFIESTO.label.es}
+    </div>
+    <p class="manifesto__statement" data-en={MANIFIESTO.statement.en}>
+      {MANIFIESTO.statement.es}
+    </p>
+  </div>
+
+  <div class="manifesto__grid" data-reveal>
+    {
+      commitments.map((c) => (
+        <div class="commit">
+          <div class="commit__star" aria-hidden="true">
+            ✦
+          </div>
+          <div class="commit__title" data-en={c.title.en}>
+            {c.title.es}
+          </div>
+          <div class="commit__sub" data-en={c.sub.en}>
+            {c.sub.es}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .manifesto {
+    background: var(--ink);
+    color: #fff;
+    padding: 80px var(--gutter);
+    border-bottom: var(--line-primary);
+  }
+
+  .manifesto__lead {
+    max-width: 1100px;
+  }
+
+  .manifesto__label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--blue-light);
+    margin-bottom: 26px;
+  }
+
+  .manifesto__statement {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(30px, 4.6vw, 60px);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+  }
+
+  .manifesto__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 64px;
+    border-top: 1px solid var(--hairline-dark);
+  }
+
+  .commit {
+    padding: 34px 26px 14px 0;
+    border-right: 1px solid var(--hairline-dark);
+  }
+
+  .commit__star {
+    color: var(--blue-light);
+    font-size: 20px;
+    margin-bottom: 18px;
+    margin-left: 10px;
+  }
+
+  .commit__title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    line-height: 1.05;
+    margin-bottom: 10px;
+    margin-left: 10px;
+  }
+
+  .commit__sub {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--grey-on-dark);
+    line-height: 1.4;
+  }
+
+  /* --- responsive --- */
+  @media (max-width: 900px) {
+    .manifesto {
+      padding: 64px var(--gutter);
+    }
+    .manifesto__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    /* quita el borde derecho de la última columna de cada fila */
+    .commit:nth-child(2n) {
+      border-right: none;
+    }
+    .commit {
+      padding: 30px 22px 18px 0;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .manifesto {
+      padding: 48px 20px;
+    }
+    .manifesto__grid {
+      grid-template-columns: 1fr;
+    }
+    .commit {
+      border-right: none;
+      border-bottom: 1px solid var(--hairline-dark);
+      padding: 26px 0 22px;
+    }
+    /* en una sola columna, alinea estrella y título con el subtítulo */
+    .commit__star,
+    .commit__title {
+      margin-left: 0;
+    }
+    .commit:last-child {
+      border-bottom: none;
+    }
+  }
+</style>

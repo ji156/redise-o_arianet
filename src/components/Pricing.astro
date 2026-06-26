@@ -1,0 +1,286 @@
+---
+import { TARIFAS_INTRO, plans } from '../data/copy.ts';
+---
+
+<section id="tarifas" class="section">
+  <div class="head" data-reveal>
+    <div>
+      <div class="head__label">{TARIFAS_INTRO.label}</div>
+      <h2 class="head__h2" data-en={TARIFAS_INTRO.h2.en}>{TARIFAS_INTRO.h2.es}</h2>
+    </div>
+    <p class="head__para" data-en={TARIFAS_INTRO.para.en}>{TARIFAS_INTRO.para.es}</p>
+  </div>
+
+  <div class="swipe-hint" aria-hidden="true" data-en={TARIFAS_INTRO.swipe.en}>
+    {TARIFAS_INTRO.swipe.es}
+  </div>
+
+  <div class="grid">
+    {
+      plans.map((pl) => (
+        <div class="plan" data-reveal>
+          {pl.popular && (
+            <span class="plan__tag" data-en={TARIFAS_INTRO.popular.en}>
+              {TARIFAS_INTRO.popular.es}
+            </span>
+          )}
+          <h3 class="plan__name" data-en={pl.name.en}>
+            {pl.name.es}
+          </h3>
+          <p class="plan__line" data-en={pl.line.en}>
+            {pl.line.es}
+          </p>
+          <div class="plan__price-block">
+            <div class="plan__from" data-en={TARIFAS_INTRO.from.en}>
+              {TARIFAS_INTRO.from.es}
+            </div>
+            <div class="plan__price-row">
+              <span class="plan__price">{pl.price}€</span>
+              <span class="plan__per" data-en={TARIFAS_INTRO.perMonth.en}>
+                {TARIFAS_INTRO.perMonth.es}
+              </span>
+            </div>
+          </div>
+          <div class="plan__items">
+            {pl.items.map((it) => (
+              <div class="item">
+                <span class="item__plus" aria-hidden="true">
+                  +
+                </span>
+                <span data-en={it.en}>{it.es}</span>
+              </div>
+            ))}
+          </div>
+          <a href="#contacto" class="plan__cta">
+            <span class="plan__cta-inner" data-en={TARIFAS_INTRO.cta.en}>{TARIFAS_INTRO.cta.es}</span>
+          </a>
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="footnote" data-reveal data-en={TARIFAS_INTRO.footnote.en}>
+    {TARIFAS_INTRO.footnote.es}
+  </div>
+</section>
+
+<style>
+  .section {
+    border-bottom: var(--line-primary);
+  }
+
+  .head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 54px var(--gutter) 40px;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .head__label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--blue);
+    margin-bottom: 18px;
+  }
+
+  .head__h2 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(40px, 6vw, 78px);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+  }
+
+  .head__para {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.5;
+    max-width: 330px;
+    color: var(--grey-body);
+  }
+
+  /* indicador de scroll (sólo visible en móvil) */
+  .swipe-hint {
+    display: none;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--grey-muted);
+    padding: 0 20px 14px;
+  }
+
+  /* --- grid de planes --- */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: var(--line-primary);
+  }
+
+  .plan {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-right: var(--line-primary);
+    padding: 38px 30px;
+  }
+
+  .plan__tag {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    background: var(--blue);
+    color: #fff;
+    padding: 6px 12px;
+  }
+
+  .plan__name {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 28px;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+
+  .plan__line {
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.45;
+    color: var(--grey-body);
+    margin-top: 8px;
+    min-height: 44px;
+  }
+
+  .plan__price-block {
+    margin: 22px 0 8px;
+  }
+
+  .plan__from {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--grey-muted);
+    letter-spacing: 0.06em;
+    margin-bottom: 4px;
+  }
+
+  .plan__price-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+  }
+
+  .plan__price {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 56px;
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+  }
+
+  .plan__per {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--grey-muted);
+    padding-bottom: 9px;
+  }
+
+  .plan__items {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    border-top: 1px solid var(--hairline-soft);
+    padding-top: 20px;
+    margin-top: 14px;
+  }
+
+  .item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-family: var(--font-body);
+    font-size: 15px;
+  }
+
+  .item__plus {
+    color: var(--blue);
+    font-family: var(--font-mono);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .plan__cta {
+    text-decoration: none;
+    margin-top: auto;
+    padding-top: 26px;
+  }
+
+  .plan__cta-inner {
+    display: block;
+    text-align: center;
+    background: var(--ink);
+    color: #fff;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    padding: 16px;
+    transition: background 0.15s;
+  }
+
+  .plan__cta:hover .plan__cta-inner,
+  .plan__cta:focus-visible .plan__cta-inner {
+    background: var(--blue);
+  }
+
+  .footnote {
+    padding: 22px var(--gutter);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--grey-muted);
+    letter-spacing: 0.03em;
+    line-height: 1.7;
+  }
+
+  /* --- responsive --- */
+  @media (max-width: 900px) {
+    .head {
+      padding: 40px 20px 28px;
+    }
+    .swipe-hint {
+      display: block;
+    }
+    /* carrusel horizontal con scroll-snap en lugar de columna apilada */
+    .grid {
+      display: flex;
+      grid-template-columns: none;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+    }
+    .plan {
+      flex: 0 0 82%;
+      scroll-snap-align: start;
+    }
+    .plan:last-child {
+      border-right: none;
+    }
+    .footnote {
+      padding: 22px 20px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .plan {
+      flex-basis: 86%;
+      padding: 32px 20px;
+    }
+  }
+</style>

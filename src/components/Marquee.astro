@@ -1,0 +1,85 @@
+---
+import { marquee } from '../data/copy.ts';
+---
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__inner">
+    <div class="marquee__track">
+      {
+        marquee.map((w) => (
+          <>
+            <span class="marquee__word" data-en={w.en}>
+              {w.es}
+            </span>
+            <span class="marquee__star">✦</span>
+          </>
+        ))
+      }
+    </div>
+    <div class="marquee__track marquee__track--outline">
+      {
+        marquee.map((w) => (
+          <>
+            <span class="marquee__word" data-en={w.en}>
+              {w.es}
+            </span>
+            <span class="marquee__star">✦</span>
+          </>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<style>
+  .marquee {
+    overflow: hidden;
+    border-bottom: var(--line-primary);
+    padding: 18px 0;
+  }
+
+  .marquee__inner {
+    display: flex;
+    width: max-content;
+    animation: marqueeX 26s linear infinite;
+  }
+
+  .marquee__track {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .marquee__word {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 40px;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    padding: 0 28px;
+  }
+
+  /* Segunda pista en outline para ritmo visual */
+  .marquee__track--outline .marquee__word {
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--ink);
+  }
+
+  @supports not (-webkit-text-stroke: 1.5px #000) {
+    .marquee__track--outline .marquee__word {
+      color: var(--ink);
+    }
+  }
+
+  .marquee__star {
+    color: var(--blue);
+    font-size: 26px;
+  }
+
+  @media (max-width: 600px) {
+    .marquee__word {
+      font-size: 30px;
+      padding: 0 18px;
+    }
+  }
+</style>

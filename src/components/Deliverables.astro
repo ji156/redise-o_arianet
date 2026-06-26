@@ -1,0 +1,170 @@
+---
+import { PROYECTOS_INTRO, packages } from '../data/copy.ts';
+---
+
+<section id="proyectos" class="section">
+  <div class="head" data-reveal>
+    <div>
+      <div class="head__label">{PROYECTOS_INTRO.label}</div>
+      <h2 class="head__h2" data-en={PROYECTOS_INTRO.h2.en}>{PROYECTOS_INTRO.h2.es}</h2>
+    </div>
+    <p class="head__para" data-en={PROYECTOS_INTRO.para.en}>{PROYECTOS_INTRO.para.es}</p>
+  </div>
+
+  <div class="grid">
+    {
+      packages.map((p) => (
+        <div class="card" data-reveal>
+          <div class="card__top">
+            <h3 class="card__title" data-en={p.title.en}>
+              {p.title.es}
+            </h3>
+            <span class="card__num">{p.num}</span>
+          </div>
+          <p class="card__line" data-en={p.line.en}>
+            {p.line.es}
+          </p>
+          <div class="card__items">
+            {p.items.map((it) => (
+              <div class="item">
+                <span class="item__plus" aria-hidden="true">
+                  +
+                </span>
+                <span data-en={it.en}>{it.es}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .section {
+    border-bottom: var(--line-primary);
+  }
+
+  .head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 54px var(--gutter) 40px;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .head__label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--blue);
+    margin-bottom: 18px;
+  }
+
+  .head__h2 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(40px, 6vw, 78px);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+  }
+
+  .head__para {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.5;
+    max-width: 300px;
+    color: var(--grey-body);
+  }
+
+  /* --- grid de cards 2 columnas --- */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: var(--line-primary);
+  }
+
+  .card {
+    border-right: var(--line-primary);
+    border-bottom: var(--line-primary);
+    padding: 34px 30px;
+    transition: background 0.15s;
+  }
+
+  .card:hover {
+    background: var(--surface-hover);
+  }
+
+  .card__top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 9px;
+  }
+
+  .card__title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(22px, 2.4vw, 30px);
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+
+  .card__num {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--grey-muted);
+    flex-shrink: 0;
+  }
+
+  .card__line {
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.45;
+    color: var(--grey-body);
+    margin-bottom: 22px;
+  }
+
+  .card__items {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    border-top: 1px solid var(--hairline-soft);
+    padding-top: 18px;
+  }
+
+  .item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-family: var(--font-body);
+    font-size: 15px;
+  }
+
+  .item__plus {
+    color: var(--blue);
+    font-family: var(--font-mono);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* --- responsive --- */
+  @media (max-width: 900px) {
+    .head {
+      padding: 40px 20px 28px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+    .card {
+      border-right: none;
+      padding: 30px 20px;
+    }
+  }
+</style>

@@ -1,0 +1,112 @@
+---
+import { CTA, CONTACT } from '../data/copy.ts';
+const mailto = `mailto:${CONTACT.email}`;
+---
+
+<section id="contacto" class="cta surface-invert">
+  <div data-reveal>
+    <div class="cta__label">{CTA.label}</div>
+    <h2 class="cta__h2" data-en={CTA.h2.en}>{CTA.h2.es}</h2>
+    <p class="cta__para" data-en={CTA.para.en}>{CTA.para.es}</p>
+
+    <div class="cta__btns">
+      <a href={mailto} class="btn btn--ink" data-en={CTA.ctaStart.en}>{CTA.ctaStart.es}</a>
+      <a href={mailto} class="btn btn--blue">{CONTACT.email.toUpperCase()}</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta {
+    background: var(--blue);
+    color: #fff;
+    padding: 90px var(--gutter);
+    border-bottom: var(--line-primary);
+  }
+
+  .cta__label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 24px;
+  }
+
+  .cta__h2 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(56px, 10vw, 150px);
+    line-height: 0.82;
+    letter-spacing: -0.045em;
+    text-transform: uppercase;
+  }
+
+  .cta__para {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 21px;
+    line-height: 1.45;
+    max-width: 520px;
+    margin-top: 30px;
+  }
+
+  .cta__btns {
+    display: flex;
+    gap: 0;
+    margin-top: 40px;
+    border: var(--line-primary);
+    width: max-content;
+    max-width: 100%;
+    flex-wrap: wrap;
+  }
+
+  /* botones de la sección azul: invierten a blanco/negro en hover */
+  .cta__btns .btn {
+    padding: 20px 34px;
+  }
+
+  .cta__btns .btn--ink {
+    background: var(--ink);
+    color: #fff;
+    border-right: var(--line-primary);
+  }
+
+  .cta__btns .btn--blue {
+    background: var(--blue);
+    color: #fff;
+  }
+
+  .cta__btns .btn--ink:hover,
+  .cta__btns .btn--ink:focus-visible,
+  .cta__btns .btn--blue:hover,
+  .cta__btns .btn--blue:focus-visible {
+    background: #fff;
+    color: var(--ink);
+  }
+
+  /* --- responsive --- */
+  @media (max-width: 900px) {
+    .cta {
+      padding: 72px var(--gutter);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .cta {
+      padding: 56px 20px;
+    }
+    .cta__para {
+      font-size: 18px;
+    }
+    .cta__btns {
+      width: 100%;
+    }
+    .cta__btns .btn {
+      flex: 1 1 100%;
+    }
+    .cta__btns .btn--ink {
+      border-right: none;
+      border-bottom: var(--line-primary);
+    }
+  }
+</style>

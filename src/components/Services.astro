@@ -1,0 +1,155 @@
+---
+import { SERVICIOS_INTRO, services } from '../data/copy.ts';
+---
+
+<section id="servicios" class="section">
+  <div class="head" data-reveal>
+    <div>
+      <div class="head__label">{SERVICIOS_INTRO.label}</div>
+      <h2 class="head__h2" data-en={SERVICIOS_INTRO.h2.en}>{SERVICIOS_INTRO.h2.es}</h2>
+    </div>
+    <p class="head__para" data-en={SERVICIOS_INTRO.para.en}>{SERVICIOS_INTRO.para.es}</p>
+  </div>
+
+  <div class="table">
+    {
+      services.map((s) => (
+        <div class="row" data-reveal>
+          <span class="row__num">{s.num}</span>
+          <h3 class="row__title" data-en={s.title.en}>
+            {s.title.es}
+          </h3>
+          <p class="row__desc" data-en={s.desc.en}>
+            {s.desc.es}
+          </p>
+          <span class="row__arrow" aria-hidden="true">
+            →
+          </span>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .section {
+    border-bottom: var(--line-primary);
+  }
+
+  /* --- cabecera de sección (compartida visualmente entre secciones) --- */
+  .head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 54px var(--gutter) 40px;
+    gap: 30px;
+    flex-wrap: wrap;
+  }
+
+  .head__label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--blue);
+    margin-bottom: 18px;
+  }
+
+  .head__h2 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(40px, 6vw, 78px);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+  }
+
+  .head__para {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.5;
+    max-width: 300px;
+    color: var(--grey-body);
+  }
+
+  /* --- tabla de servicios --- */
+  .table {
+    border-top: var(--line-primary);
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 90px 1.1fr 1.5fr 60px;
+    align-items: center;
+    gap: 24px;
+    padding: 26px var(--gutter);
+    border-bottom: 1px solid var(--hairline);
+    color: var(--ink);
+    transition: background 0.15s, color 0.15s;
+    cursor: default;
+  }
+
+  /* Interacción firma: la fila entera invierte a azul + texto blanco. */
+  .row:hover {
+    background: var(--blue);
+    color: #fff;
+  }
+
+  .row__num {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: inherit;
+    opacity: 0.6;
+  }
+
+  .row__title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(22px, 2.4vw, 34px);
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: inherit;
+  }
+
+  .row__desc {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.45;
+    color: inherit;
+  }
+
+  .row__arrow {
+    font-family: var(--font-mono);
+    font-size: 22px;
+    text-align: right;
+    color: inherit;
+  }
+
+  /* --- responsive --- */
+  @media (max-width: 900px) {
+    .row {
+      grid-template-columns: 60px 1fr 40px;
+      gap: 16px 20px;
+    }
+    /* la descripción baja a una segunda fila bajo el título */
+    .row__desc {
+      grid-column: 2 / 3;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .head {
+      padding: 40px 20px 28px;
+    }
+    .row {
+      grid-template-columns: 44px 1fr;
+      gap: 8px 14px;
+      padding: 22px 20px;
+    }
+    .row__desc {
+      grid-column: 2 / 3;
+    }
+    .row__arrow {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,294 @@
+---
+import { META, HERO, heroIndex } from '../data/copy.ts';
+---
+
+<header id="top">
+  <!-- meta bar -->
+  <div class="meta">
+    <span data-en={META.studio.en}>{META.studio.es}</span>
+    <span data-en={META.tagline.en}>{META.tagline.es}</span>
+    <span data-en={META.est.en}>{META.est.es}</span>
+  </div>
+
+  <div class="hero">
+    <!-- columna índice -->
+    <div class="hero__index">
+      <div class="hero__index-label" data-en={HERO.whatWeDo.en}>{HERO.whatWeDo.es}</div>
+      {
+        heroIndex.map((h) => (
+          <div class="hero__row">
+            <span class="hero__num">{h.num}</span>
+            <span class="hero__label" data-en={h.label.en}>
+              {h.label.es}
+            </span>
+          </div>
+        ))
+      }
+      <div class="hero__square-wrap">
+        <div class="hero__square"></div>
+      </div>
+    </div>
+
+    <!-- tipografía grande -->
+    <div class="hero__display">
+      <div class="hero__status">
+        <span class="hero__dot" aria-hidden="true"></span>
+        <span data-en={HERO.status.en}>{HERO.status.es}</span>
+      </div>
+
+      <h1 class="hero__h1">
+        <span class="hero__line hero__line--solid" data-en={HERO.h1.line1.en}>
+          {HERO.h1.line1.es}
+        </span>
+        <span class="hero__line hero__line--outline" data-en={HERO.h1.line2.en}>
+          {HERO.h1.line2.es}
+        </span>
+      </h1>
+
+      <div class="hero__rule"></div>
+
+      <p class="hero__para" data-en={HERO.paragraph.en}>{HERO.paragraph.es}</p>
+
+      <div class="hero__btns">
+        <a href="#contacto" class="btn btn--blue" data-en={HERO.ctaStart.en}>{HERO.ctaStart.es}</a>
+        <a href="#proyectos" class="btn btn--paper" data-en={HERO.ctaWork.en}>{HERO.ctaWork.es}</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  .meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 13px var(--gutter);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    border-bottom: var(--line-primary);
+    color: var(--ink);
+    text-transform: uppercase;
+  }
+
+  .hero {
+    display: flex;
+    min-height: 74vh;
+    border-bottom: var(--line-primary);
+  }
+
+  /* --- columna índice 300px --- */
+  .hero__index {
+    width: 300px;
+    flex-shrink: 0;
+    border-right: var(--line-primary);
+    padding: 36px 30px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero__index-label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--grey-muted);
+    margin-bottom: 30px;
+  }
+
+  .hero__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--hairline);
+    font-family: var(--font-mono);
+    font-size: 14px;
+  }
+
+  .hero__num {
+    color: var(--grey-muted);
+  }
+
+  .hero__label {
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  .hero__square-wrap {
+    margin-top: auto;
+    padding-top: 30px;
+  }
+
+  .hero__square {
+    width: 64px;
+    height: 64px;
+    background: var(--blue);
+  }
+
+  /* --- columna display --- */
+  .hero__display {
+    flex: 1;
+    padding: 48px var(--gutter);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    min-width: 0;
+  }
+
+  .hero__status {
+    position: absolute;
+    top: 26px;
+    right: var(--gutter);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+
+  .hero__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--blue);
+    display: inline-block;
+    animation: blink 1.8s infinite;
+  }
+
+  .hero__h1 {
+    margin: 0;
+  }
+
+  .hero__line {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(64px, 11vw, 168px);
+    letter-spacing: -0.045em;
+    text-transform: uppercase;
+  }
+
+  .hero__line--solid {
+    line-height: 0.8;
+    color: var(--ink);
+  }
+
+  .hero__line--outline {
+    line-height: 0.82;
+    color: transparent;
+    -webkit-text-stroke: 2px var(--ink);
+  }
+
+  /* Fallback para navegadores sin -webkit-text-stroke */
+  @supports not (-webkit-text-stroke: 2px #000) {
+    .hero__line--outline {
+      color: var(--ink);
+    }
+  }
+
+  .hero__rule {
+    width: 260px;
+    max-width: 100%;
+    height: 14px;
+    background: var(--blue);
+    margin-top: 26px;
+  }
+
+  .hero__para {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 21px;
+    line-height: 1.4;
+    max-width: 520px;
+    margin-top: 30px;
+  }
+
+  .hero__btns {
+    display: flex;
+    gap: 0;
+    margin-top: 38px;
+    border: var(--line-primary);
+    width: max-content;
+    max-width: 100%;
+  }
+
+  .hero__btns .btn--blue {
+    background: var(--blue);
+    color: #fff;
+    border-right: var(--line-primary);
+  }
+
+  .hero__btns .btn--blue:hover,
+  .hero__btns .btn--blue:focus-visible {
+    background: var(--ink);
+  }
+
+  .hero__btns .btn--paper {
+    background: var(--paper);
+    color: var(--ink);
+  }
+
+  .hero__btns .btn--paper:hover,
+  .hero__btns .btn--paper:focus-visible {
+    background: var(--ink);
+    color: #fff;
+  }
+
+  /* --- responsive --- */
+  @media (max-width: 900px) {
+    .hero {
+      flex-direction: column;
+      min-height: 0;
+    }
+    .hero__index {
+      width: 100%;
+      border-right: none;
+      border-bottom: var(--line-primary);
+      padding: 28px var(--gutter);
+    }
+    .hero__square-wrap {
+      margin-top: 28px;
+      padding-top: 24px;
+    }
+    .hero__display {
+      padding: 64px var(--gutter) 48px;
+    }
+    .hero__status {
+      position: static;
+      margin-bottom: 28px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .meta {
+      flex-direction: column;
+      gap: 6px;
+      padding: 12px 20px;
+    }
+    /* En móvil la columna índice (QUÉ HACEMOS + lista) es redundante con la
+       sección Servicios y empujaba el H1 fuera de la primera pantalla. */
+    .hero__index {
+      display: none;
+    }
+    .hero__display {
+      padding: 40px 20px 40px;
+    }
+    /* baja el mínimo del clamp para no desbordar en móviles estrechos (~320px) */
+    .hero__line {
+      font-size: clamp(48px, 13.5vw, 92px);
+    }
+    .hero__para {
+      font-size: 18px;
+    }
+    .hero__btns {
+      flex-direction: column;
+      width: 100%;
+    }
+    .hero__btns .btn--blue {
+      border-right: none;
+      border-bottom: var(--line-primary);
+    }
+  }
+</style>

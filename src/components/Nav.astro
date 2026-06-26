@@ -1,0 +1,396 @@
+---
+import { BRAND, NAV } from '../data/copy.ts';
+---
+
+<nav class="nav">
+  <a href="#top" class="nav__brand" aria-label={`${BRAND} — inicio`}>
+    <img src="/logo-app.png" alt={BRAND} width="30" height="30" class="nav__logo" />
+    <span class="nav__wordmark">{BRAND}</span>
+  </a>
+
+  <div class="nav__links">
+    {
+      NAV.links.map((l) => (
+        <a href={l.href} class="nav__link" data-en={l.label.en}>
+          {l.label.es}
+        </a>
+      ))
+    }
+  </div>
+
+  <div class="nav__actions">
+    <button type="button" class="nav__toggle" data-lang-toggle aria-label="Switch to English">
+      EN
+    </button>
+    <a href="#contacto" class="nav__cta" data-en={NAV.cta.en}>{NAV.cta.es}</a>
+    <button
+      type="button"
+      class="nav__burger"
+      data-menu-toggle
+      aria-expanded="false"
+      aria-controls="nav-menu"
+      aria-label="Abrir menú"
+    >
+      <span class="nav__burger-box" aria-hidden="true"><span class="nav__burger-line"></span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Panel desplegable (sólo móvil/tablet ≤900px) -->
+<div class="nav-menu" id="nav-menu" data-menu-panel>
+  <div class="nav-menu__inner">
+    {
+      NAV.links.map((l) => (
+        <a href={l.href} class="nav-menu__link" data-en={l.label.en}>
+          {l.label.es}
+        </a>
+      ))
+    }
+    <button type="button" class="nav-menu__lang" data-lang-toggle aria-label="Switch to English">
+      <span class="nav-menu__lang-label" data-en={NAV.language.en}>{NAV.language.es}</span>
+      <span class="nav-menu__lang-value" data-lang-value>EN</span>
+    </button>
+    <a href="#contacto" class="nav-menu__cta" data-en={NAV.cta.en}>{NAV.cta.es}</a>
+  </div>
+</div>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    background: var(--paper);
+    border-bottom: var(--line-primary);
+  }
+
+  .nav__brand {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 18px 26px;
+    text-decoration: none;
+    color: var(--ink);
+    border-right: var(--line-primary);
+  }
+
+  .nav__logo {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px; /* única esquina redondeada de toda la página */
+  }
+
+  .nav__wordmark {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: -0.01em;
+  }
+
+  .nav__links {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 0 8px 0 30px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.02em;
+  }
+
+  .nav__link {
+    text-decoration: none;
+    color: var(--ink);
+    transition: color 0.15s;
+  }
+
+  .nav__link:hover,
+  .nav__link:focus-visible {
+    color: var(--blue);
+  }
+
+  .nav__actions {
+    display: flex;
+    align-items: stretch;
+  }
+
+  .nav__toggle {
+    align-self: center;
+    margin: 0 14px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 700;
+    background: var(--paper);
+    border: var(--line-primary);
+    color: var(--ink);
+    padding: 7px 12px;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .nav__toggle:hover,
+  .nav__toggle:focus-visible {
+    background: var(--ink);
+    color: #fff;
+  }
+
+  .nav__cta {
+    display: flex;
+    align-items: center;
+    padding: 0 30px;
+    text-decoration: none;
+    background: var(--blue);
+    color: #fff;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    border-left: var(--line-primary);
+    transition: background 0.15s;
+  }
+
+  .nav__cta:hover,
+  .nav__cta:focus-visible {
+    background: var(--ink);
+  }
+
+  /* --- Hamburguesa (oculta en escritorio) --- */
+  .nav__burger {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 58px;
+    background: var(--paper);
+    border: none;
+    border-left: var(--line-primary);
+    cursor: pointer;
+    color: var(--ink);
+  }
+
+  .nav__burger-box {
+    position: relative;
+    display: block;
+    width: 24px;
+    height: 16px;
+  }
+
+  .nav__burger-line,
+  .nav__burger-line::before,
+  .nav__burger-line::after {
+    position: absolute;
+    left: 0;
+    width: 24px;
+    height: 2px;
+    background: currentColor;
+    transition: transform 0.25s ease, opacity 0.2s ease;
+  }
+
+  .nav__burger-line {
+    top: 7px;
+  }
+
+  .nav__burger-line::before,
+  .nav__burger-line::after {
+    content: '';
+  }
+
+  .nav__burger-line::before {
+    top: -7px;
+  }
+
+  .nav__burger-line::after {
+    top: 7px;
+  }
+
+  /* estado abierto → "X" */
+  .nav__burger[aria-expanded='true'] .nav__burger-line {
+    background: transparent;
+  }
+
+  .nav__burger[aria-expanded='true'] .nav__burger-line::before {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .nav__burger[aria-expanded='true'] .nav__burger-line::after {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* --- Panel desplegable (no se renderiza en escritorio) --- */
+  .nav-menu {
+    display: none;
+  }
+
+  /* --- Tablet: reduce holgura --- */
+  @media (max-width: 1040px) and (min-width: 901px) {
+    .nav__brand {
+      padding: 16px 20px;
+    }
+    .nav__links {
+      gap: 16px;
+      padding: 0 8px 0 20px;
+      font-size: 12px;
+    }
+    .nav__cta {
+      padding: 0 22px;
+    }
+    .nav__toggle {
+      margin: 0 10px;
+    }
+  }
+
+  /* --- Móvil/tablet ≤900px: hamburguesa + panel --- */
+  @media (max-width: 900px) {
+    .nav__links,
+    .nav__cta,
+    .nav__toggle {
+      display: none; /* el cambio de idioma se traslada al panel */
+    }
+    .nav__burger {
+      display: flex;
+    }
+    .nav__actions {
+      align-items: stretch;
+    }
+
+    .nav-menu {
+      display: block;
+      position: fixed;
+      top: var(--nav-h);
+      left: 0;
+      right: 0;
+      height: calc(100dvh - var(--nav-h));
+      z-index: 90;
+      background: var(--paper);
+      border-bottom: var(--line-primary);
+      overflow-y: auto;
+      transform: translateY(-100%);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease,
+        visibility 0s linear 0.32s;
+    }
+
+    .nav-menu.is-open {
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease;
+    }
+
+    .nav-menu__inner {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .nav-menu__link {
+      display: flex;
+      align-items: center;
+      padding: 22px 20px;
+      text-decoration: none;
+      color: var(--ink);
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 26px;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--hairline);
+      transition: background 0.15s, color 0.15s, padding-left 0.15s;
+    }
+
+    .nav-menu__link:hover,
+    .nav-menu__link:focus-visible,
+    .nav-menu__link:active {
+      background: var(--blue);
+      color: #fff;
+      padding-left: 28px;
+    }
+
+    /* fila de cambio de idioma (estética de link + badge con el idioma destino) */
+    .nav-menu__lang {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 22px 20px;
+      background: var(--paper);
+      border: none;
+      border-bottom: 1px solid var(--hairline);
+      cursor: pointer;
+      color: var(--ink);
+      text-align: left;
+      transition: background 0.15s, color 0.15s, padding-left 0.15s;
+    }
+
+    .nav-menu__lang:hover,
+    .nav-menu__lang:focus-visible {
+      background: var(--blue);
+      color: #fff;
+      padding-left: 28px;
+    }
+
+    .nav-menu__lang-label {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 26px;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+    }
+
+    .nav-menu__lang-value {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      border: 2px solid currentColor;
+      padding: 5px 12px;
+    }
+
+    .nav-menu__cta {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 26px 20px;
+      text-decoration: none;
+      background: var(--blue);
+      color: #fff;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: 0.06em;
+      transition: background 0.15s;
+    }
+
+    .nav-menu__cta:hover,
+    .nav-menu__cta:focus-visible {
+      background: var(--ink);
+    }
+  }
+
+  /* --- Móvil pequeño --- */
+  @media (max-width: 600px) {
+    .nav__brand {
+      padding: 14px 16px;
+      gap: 9px;
+    }
+    .nav__wordmark {
+      font-size: 18px;
+    }
+    .nav__toggle {
+      font-size: 12px;
+      padding: 6px 10px;
+    }
+    .nav__burger {
+      width: 52px;
+    }
+  }
+
+  /* bloqueo de scroll cuando el menú está abierto */
+  :global(body.menu-open) {
+    overflow: hidden;
+  }
+</style>

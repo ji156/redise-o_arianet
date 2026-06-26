@@ -1,0 +1,204 @@
+---
+import { FAQ_INTRO, faqs } from '../data/copy.ts';
+---
+
+<section id="faq" class="section">
+  <div class="head" data-reveal>
+    <div>
+      <div class="head__label">{FAQ_INTRO.label}</div>
+      <h2 class="head__h2" data-en={FAQ_INTRO.h2.en}>{FAQ_INTRO.h2.es}</h2>
+    </div>
+    <p class="head__para" data-en={FAQ_INTRO.para.en}>{FAQ_INTRO.para.es}</p>
+  </div>
+
+  <div class="faq">
+    {
+      faqs.map((f, i) => (
+        <details class="faq__item" data-reveal>
+          <summary class="faq__q">
+            <span class="faq__index">{String(i + 1).padStart(2, '0')}</span>
+            <span class="faq__text" data-en={f.q.en}>
+              {f.q.es}
+            </span>
+            <span class="faq__icon" aria-hidden="true" />
+          </summary>
+          <div class="faq__a">
+            <p data-en={f.a.en}>{f.a.es}</p>
+          </div>
+        </details>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .section {
+    border-bottom: var(--line-primary);
+  }
+
+  .head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 54px var(--gutter) 40px;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .head__label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--blue);
+    margin-bottom: 18px;
+  }
+
+  .head__h2 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(40px, 6vw, 78px);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    white-space: pre-line; /* respeta el \n de FAQ_INTRO.h2 */
+  }
+
+  .head__para {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.5;
+    max-width: 330px;
+    color: var(--grey-body);
+  }
+
+  /* --- acordeón --- */
+  .faq {
+    border-top: var(--line-primary);
+  }
+
+  .faq__item {
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  .faq__q {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    padding: 26px var(--gutter);
+    cursor: pointer;
+    list-style: none;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  /* oculta el triángulo nativo de <summary> */
+  .faq__q::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq__q:hover {
+    background: var(--blue);
+    color: #fff;
+  }
+
+  .faq__index {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--grey-muted);
+    flex-shrink: 0;
+  }
+
+  .faq__q:hover .faq__index {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .faq__text {
+    flex: 1;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(19px, 2.2vw, 28px);
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    line-height: 1.1;
+  }
+
+  /* icono +/× construido con dos barras */
+  .faq__icon {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  .faq__icon::before,
+  .faq__icon::after {
+    content: '';
+    position: absolute;
+    background: currentColor;
+    transition: transform 0.25s, opacity 0.2s;
+  }
+
+  .faq__icon::before {
+    top: 8px;
+    left: 0;
+    width: 18px;
+    height: 2px;
+  }
+
+  .faq__icon::after {
+    top: 0;
+    left: 8px;
+    width: 2px;
+    height: 18px;
+  }
+
+  /* al abrir, la barra vertical desaparece → queda un "−" */
+  .faq__item[open] .faq__icon::after {
+    opacity: 0;
+    transform: rotate(90deg);
+  }
+
+  .faq__a {
+    padding: 0 var(--gutter) 30px;
+    /* alinea la respuesta con el texto de la pregunta (índice + gap) */
+    padding-left: calc(var(--gutter) + 22px + 14px);
+    max-width: 760px;
+  }
+
+  .faq__a p {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--grey-body);
+  }
+
+  /* --- responsive --- */
+  @media (max-width: 900px) {
+    .head {
+      padding: 40px 20px 28px;
+    }
+    .faq__q {
+      padding: 24px 20px;
+      gap: 14px;
+    }
+    .faq__a {
+      padding: 0 20px 26px;
+      padding-left: calc(20px + 22px + 14px);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .faq__index {
+      display: none;
+    }
+    .faq__q {
+      gap: 16px;
+      padding: 22px 20px;
+    }
+    .faq__a {
+      padding: 0 20px 24px;
+    }
+    .faq__a p {
+      font-size: 15px;
+    }
+  }
+</style>

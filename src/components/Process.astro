@@ -1,0 +1,133 @@
+---
+import { PROCESO_INTRO, steps } from '../data/copy.ts';
+---
+
+<section id="proceso" class="section">
+  <div class="head" data-reveal>
+    <div class="head__label">{PROCESO_INTRO.label}</div>
+    <h2 class="head__h2" data-en={PROCESO_INTRO.h2.en}>{PROCESO_INTRO.h2.es}</h2>
+  </div>
+
+  <div class="grid">
+    {
+      steps.map((st) => (
+        <div class="step" data-reveal>
+          <div class="step__num" aria-hidden="true">
+            {st.num}
+          </div>
+          <h3 class="step__title" data-en={st.title.en}>
+            {st.title.es}
+          </h3>
+          <p class="step__desc" data-en={st.desc.en}>
+            {st.desc.es}
+          </p>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .section {
+    border-bottom: var(--line-primary);
+  }
+
+  .head {
+    padding: 54px var(--gutter) 40px;
+  }
+
+  .head__label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--blue);
+    margin-bottom: 18px;
+  }
+
+  .head__h2 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(40px, 6vw, 78px);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: var(--line-primary);
+  }
+
+  .step {
+    padding: 34px 26px 44px;
+    border-right: 1px solid var(--hairline);
+  }
+
+  .step:last-child {
+    border-right: none;
+  }
+
+  .step__num {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 60px;
+    letter-spacing: -0.03em;
+    color: transparent;
+    -webkit-text-stroke: 2px var(--blue);
+    margin-bottom: 24px;
+  }
+
+  @supports not (-webkit-text-stroke: 2px #000) {
+    .step__num {
+      color: var(--blue);
+    }
+  }
+
+  .step__title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 23px;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .step__desc {
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--grey-body);
+  }
+
+  /* --- responsive --- */
+  @media (max-width: 900px) {
+    .head {
+      padding: 40px 20px 28px;
+    }
+    .grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .step:nth-child(2n) {
+      border-right: none;
+    }
+    .step:nth-child(1),
+    .step:nth-child(2) {
+      border-bottom: 1px solid var(--hairline);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+    .step {
+      border-right: none;
+      border-bottom: 1px solid var(--hairline);
+      padding: 28px 20px 32px;
+    }
+    .step:last-child {
+      border-bottom: none;
+    }
+  }
+</style>
