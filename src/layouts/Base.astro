@@ -1,0 +1,95 @@
+---
+// Fuentes auto-hospedadas (servidas desde el propio dominio, sin terceros).
+// Sólo los pesos usados y el subset `latin` (cubre español e inglés: ñ, tildes,
+// ¿, ¡), para empaquetar lo mínimo imprescindible.
+import '@fontsource/archivo/latin-500.css';
+import '@fontsource/archivo/latin-600.css';
+import '@fontsource/archivo/latin-700.css';
+import '@fontsource/archivo/latin-800.css';
+import '@fontsource/archivo/latin-900.css';
+import '@fontsource/space-grotesk/latin-400.css';
+import '@fontsource/space-grotesk/latin-500.css';
+import '@fontsource/space-grotesk/latin-600.css';
+import '@fontsource/space-grotesk/latin-700.css';
+import '@fontsource/space-mono/latin-400.css';
+import '@fontsource/space-mono/latin-700.css';
+
+import '../styles/global.css';
+import { BRAND } from '../data/copy.ts';
+import CookieBanner from '../components/CookieBanner.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = `${BRAND} — Estudio digital · Diseño + Desarrollo web`,
+  description = 'Estudio de diseño y desarrollo web. Branding, web y tiendas online diseñadas desde cero. Tarifas planas, sin permanencias.',
+} = Astro.props;
+
+// URLs absolutas para canonical y Open Graph (requeridas por redes sociales).
+// `Astro.site` viene de astro.config.mjs (https://arianet.studio).
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL('/logo-app.png', Astro.site).href;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0A0A0A" />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={BRAND} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="232" />
+    <meta property="og:image:height" content="240" />
+    <meta property="og:image:alt" content={`${BRAND} — estudio digital`} />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:locale:alternate" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="icon" type="image/png" href="/logo-app.png" />
+  </head>
+  <body>
+    <slot />
+
+    <CookieBanner />
+
+    <script>
+      import { initReveal } from '../scripts/reveal.ts';
+      import { initLangToggle } from '../scripts/lang.ts';
+      import { initMenu } from '../scripts/menu.ts';
+      import { initCookies } from '../scripts/cookies.ts';
+
+      const boot = () => {
+        initReveal();
+        initLangToggle();
+        initMenu();
+        initCookies();
+      };
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', boot);
+      } else {
+        boot();
+      }
+    </script>
+  </body>
+</html>
