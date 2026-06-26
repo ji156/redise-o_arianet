@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#FFFFFF; -webkit-font-smoothing:antialiased; }
+  ::selection { background:#2C49E0; color:#fff; }
+  @keyframes marqueeX { from { transform:translateX(0);} to { transform:translateX(-50%);} }
+  @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:.2;} }
+</style>
+</helmet>
+
+<div ref="{{ rootRef }}" style="background:#FFFFFF; color:#0A0A0A; font-family:'Space Grotesk',sans-serif; overflow-x:hidden;">
+
+  <!-- ===== NAV ===== -->
+  <nav style="position:sticky; top:0; z-index:100; display:flex; align-items:stretch; justify-content:space-between; background:#fff; border-bottom:1.5px solid #0A0A0A;">
+    <a href="#top" style="display:flex; align-items:center; gap:11px; padding:18px 26px; text-decoration:none; color:#0A0A0A; border-right:1.5px solid #0A0A0A;">
+      <img src="uploads/logo-app.png" alt="nodo" style="width:30px; height:30px; border-radius:7px;">
+      <span style="font-family:'Archivo'; font-weight:800; font-size:20px; letter-spacing:-0.01em;">NODO</span>
+    </a>
+    <div style="display:flex; align-items:center; gap:24px; padding:0 8px 0 30px; font-family:'Space Mono',monospace; font-size:13px; letter-spacing:0.02em;">
+      <a href="#servicios" style="text-decoration:none; color:#0A0A0A;" style-hover="color:#2C49E0;" data-en="SERVICES">SERVICIOS</a>
+      <a href="#proyectos" style="text-decoration:none; color:#0A0A0A;" style-hover="color:#2C49E0;" data-en="WHAT YOU GET">QUÉ INCLUYE</a>
+      <a href="#tarifas" style="text-decoration:none; color:#0A0A0A;" style-hover="color:#2C49E0;" data-en="PRICING">TARIFAS</a>
+      <a href="#proceso" style="text-decoration:none; color:#0A0A0A;" style-hover="color:#2C49E0;" data-en="PROCESS">PROCESO</a>
+      <button onClick="{{ toggleLang }}" style="font-family:'Space Mono',monospace; font-size:13px; font-weight:700; background:#fff; border:1.5px solid #0A0A0A; color:#0A0A0A; padding:7px 12px; cursor:pointer; letter-spacing:0.04em;" style-hover="background:#0A0A0A; color:#fff;">{{ langLabel }}</button>
+    </div>
+    <a href="#contacto" style="display:flex; align-items:center; padding:0 30px; text-decoration:none; background:#2C49E0; color:#fff; font-family:'Space Mono',monospace; font-weight:700; font-size:13px; letter-spacing:0.06em; border-left:1.5px solid #0A0A0A;" style-hover="background:#0A0A0A;" data-en="LET'S TALK →">HABLEMOS →</a>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <header id="top">
+    <!-- meta bar -->
+    <div style="display:flex; justify-content:space-between; padding:13px 44px; font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.04em; border-bottom:1.5px solid #0A0A0A; color:#0A0A0A;">
+      <span>NODO™ ESTUDIO</span>
+      <span data-en="WEB DESIGN + DEVELOPMENT">DISEÑO + DESARROLLO WEB</span>
+      <span>EST. 2026</span>
+    </div>
+    <div style="display:flex; min-height:74vh; border-bottom:1.5px solid #0A0A0A;">
+      <!-- left index -->
+      <div style="width:300px; flex-shrink:0; border-right:1.5px solid #0A0A0A; padding:36px 30px; display:flex; flex-direction:column;">
+        <div style="font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.1em; color:#6B6B6B; margin-bottom:30px;" data-en="WHAT WE DO ↓">QUÉ HACEMOS ↓</div>
+        <sc-for list="{{ heroIndex }}" as="h" hint-placeholder-count="5">
+          <div style="display:flex; justify-content:space-between; align-items:baseline; padding:15px 0; border-bottom:1px solid rgba(10,10,10,0.18); font-family:'Space Mono',monospace; font-size:14px;">
+            <span style="color:#6B6B6B;">{{ h.num }}</span>
+            <span style="font-weight:700; letter-spacing:0.02em;">{{ h.label }}</span>
+          </div>
+        </sc-for>
+        <div style="margin-top:auto; padding-top:30px;">
+          <div style="width:64px; height:64px; background:#2C49E0;"></div>
+        </div>
+      </div>
+      <!-- big type -->
+      <div style="flex:1; padding:48px 44px; display:flex; flex-direction:column; justify-content:center; position:relative; min-width:0;">
+        <div style="position:absolute; top:26px; right:44px; font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.06em; display:flex; align-items:center; gap:9px;">
+          <span style="width:8px; height:8px; border-radius:50%; background:#2C49E0; display:inline-block; animation:blink 1.8s infinite;"></span>
+          <span data-en="OPEN FOR NEW PROJECTS">DISPONIBLES PARA PROYECTOS</span>
+        </div>
+        <h1 style="margin:0;">
+          <span style="display:block; font-family:'Archivo'; font-weight:900; font-size:clamp(64px,11vw,168px); line-height:0.8; letter-spacing:-0.045em; text-transform:uppercase;" data-en="DIGITAL">ESTUDIO</span>
+          <span style="display:block; font-family:'Archivo'; font-weight:900; font-size:clamp(64px,11vw,168px); line-height:0.82; letter-spacing:-0.045em; text-transform:uppercase; color:transparent; -webkit-text-stroke:2px #0A0A0A;" data-en="STUDIO">DIGITAL</span>
+        </h1>
+        <div style="width:260px; height:14px; background:#2C49E0; margin-top:26px;"></div>
+        <p style="font-family:'Space Grotesk'; font-weight:500; font-size:21px; line-height:1.4; max-width:520px; margin-top:30px;" data-en="We build the websites your competitors will wish they had. Branding, web and online stores, designed from scratch.">Construimos las webs que tu competencia va a querer copiar. Branding, web y tiendas online, diseñadas desde cero.</p>
+        <div style="display:flex; gap:0; margin-top:38px; border:1.5px solid #0A0A0A; width:max-content;">
+          <a href="#contacto" style="text-decoration:none; background:#2C49E0; color:#fff; font-family:'Space Mono',monospace; font-weight:700; font-size:14px; letter-spacing:0.05em; padding:18px 30px; border-right:1.5px solid #0A0A0A;" style-hover="background:#0A0A0A;" data-en="START A PROJECT →">EMPEZAR PROYECTO →</a>
+          <a href="#proyectos" style="text-decoration:none; background:#fff; color:#0A0A0A; font-family:'Space Mono',monospace; font-weight:700; font-size:14px; letter-spacing:0.05em; padding:18px 30px;" style-hover="background:#0A0A0A; color:#fff;" data-en="SEE WORK">VER TRABAJO</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== MARQUEE ===== -->
+  <div style="overflow:hidden; border-bottom:1.5px solid #0A0A0A; padding:18px 0;">
+    <div style="display:flex; width:max-content; animation:marqueeX 26s linear infinite;">
+      <div style="display:flex; align-items:center; flex-shrink:0;">
+        <sc-for list="{{ marquee }}" as="w" hint-placeholder-count="7">
+          <span style="font-family:'Archivo'; font-weight:800; font-size:40px; letter-spacing:-0.02em; text-transform:uppercase; padding:0 28px;">{{ w }}</span>
+          <span style="color:#2C49E0; font-size:26px;">✦</span>
+        </sc-for>
+      </div>
+      <div style="display:flex; align-items:center; flex-shrink:0;" aria-hidden="true">
+        <sc-for list="{{ marquee }}" as="w" hint-placeholder-count="7">
+          <span style="font-family:'Archivo'; font-weight:800; font-size:40px; letter-spacing:-0.02em; text-transform:uppercase; padding:0 28px; color:transparent; -webkit-text-stroke:1.5px #0A0A0A;">{{ w }}</span>
+          <span style="color:#2C49E0; font-size:26px;">✦</span>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SERVICIOS ===== -->
+  <section id="servicios" style="border-bottom:1.5px solid #0A0A0A;">
+    <div data-reveal style="display:flex; align-items:flex-end; justify-content:space-between; padding:54px 44px 40px; gap:30px; flex-wrap:wrap;">
+      <div>
+        <div style="font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.1em; color:#2C49E0; margin-bottom:18px;">(SERVICIOS / 01)</div>
+        <h2 style="font-family:'Archivo'; font-weight:900; font-size:clamp(40px,6vw,78px); line-height:0.9; letter-spacing:-0.04em; text-transform:uppercase;" data-en="WHAT WE DO">LO QUE HACEMOS</h2>
+      </div>
+      <p style="font-family:'Space Grotesk'; font-size:16px; line-height:1.5; max-width:300px; color:#3A3A3A;" data-en="One team, end to end — from the first sketch to launch day.">Un solo equipo, de principio a fin — del primer boceto al día del lanzamiento.</p>
+    </div>
+    <!-- table -->
+    <div style="border-top:1.5px solid #0A0A0A;">
+      <sc-for list="{{ services }}" as="s" hint-placeholder-count="7">
+        <div data-reveal style="display:grid; grid-template-columns:90px 1.1fr 1.5fr 60px; align-items:center; gap:24px; padding:26px 44px; border-bottom:1px solid rgba(10,10,10,0.18); color:#0A0A0A; transition:background .15s, color .15s; cursor:default;" style-hover="background:#2C49E0; color:#fff;">
+          <span style="font-family:'Space Mono',monospace; font-size:14px; color:inherit; opacity:0.6;">{{ s.num }}</span>
+          <h3 style="font-family:'Archivo'; font-weight:800; font-size:clamp(22px,2.4vw,34px); letter-spacing:-0.02em; text-transform:uppercase; color:inherit;" data-en="{{ s.titleEn }}">{{ s.title }}</h3>
+          <p style="font-family:'Space Grotesk'; font-size:16px; line-height:1.45; color:inherit;" data-en="{{ s.descEn }}">{{ s.desc }}</p>
+          <span style="font-family:'Space Mono'; font-size:22px; text-align:right; color:inherit;">→</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- ===== QUÉ TE LLEVAS ===== -->
+  <section id="proyectos" style="border-bottom:1.5px solid #0A0A0A;">
+    <div data-reveal style="display:flex; align-items:flex-end; justify-content:space-between; padding:54px 44px 40px; gap:24px; flex-wrap:wrap;">
+      <div>
+        <div style="font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.1em; color:#2C49E0; margin-bottom:18px;">(QUÉ INCLUYE / 02)</div>
+        <h2 style="font-family:'Archivo'; font-weight:900; font-size:clamp(40px,6vw,78px); line-height:0.9; letter-spacing:-0.04em; text-transform:uppercase;" data-en="WHAT YOU GET">QUÉ TE LLEVAS</h2>
+      </div>
+      <p style="font-family:'Space Grotesk'; font-size:16px; line-height:1.5; max-width:300px; color:#3A3A3A;" data-en="Clear deliverables, zero surprises — exactly what ends up in your hands.">Entregables claros, cero sorpresas — justo lo que acaba en tus manos.</p>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; border-top:1.5px solid #0A0A0A;">
+      <sc-for list="{{ packages }}" as="p" hint-placeholder-count="4">
+        <div data-reveal style="border-right:1.5px solid #0A0A0A; border-bottom:1.5px solid #0A0A0A; padding:34px 30px; transition:background .15s;" style-hover="background:#F5F5F5;">
+          <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:9px;">
+            <h3 style="font-family:'Archivo'; font-weight:800; font-size:clamp(22px,2.4vw,30px); letter-spacing:-0.02em; text-transform:uppercase;" data-en="{{ p.titleEn }}">{{ p.title }}</h3>
+            <span style="font-family:'Space Mono',monospace; font-size:13px; color:#6B6B6B;">{{ p.num }}</span>
+          </div>
+          <p style="font-family:'Space Grotesk'; font-size:15px; line-height:1.45; color:#3A3A3A; margin-bottom:22px;" data-en="{{ p.lineEn }}">{{ p.line }}</p>
+          <div style="display:flex; flex-direction:column; gap:11px; border-top:1px solid rgba(10,10,10,0.15); padding-top:18px;">
+            <sc-for list="{{ p.items }}" as="it" hint-placeholder-count="4">
+              <div style="display:flex; gap:12px; align-items:flex-start; font-family:'Space Grotesk'; font-size:15px;">
+                <span style="color:#2C49E0; font-family:'Space Mono'; font-weight:700; flex-shrink:0;">+</span>
+                <span data-en="{{ it.e }}">{{ it.t }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- ===== MANIFESTO (INVERTED) ===== -->
+  <section style="background:#0A0A0A; color:#fff; padding:80px 44px; border-bottom:1.5px solid #0A0A0A;">
+    <div data-reveal style="max-width:1100px;">
+      <div style="font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.1em; color:#7C8BFF; margin-bottom:26px;" data-en="(MANIFESTO)">(MANIFIESTO)</div>
+      <p style="font-family:'Archivo'; font-weight:800; font-size:clamp(30px,4.6vw,60px); line-height:1.02; letter-spacing:-0.03em;" data-en="We don't sell templates. We design every pixel on purpose — so your brand looks like nobody else's.">No vendemos plantillas. Diseñamos cada píxel a propósito — para que tu marca no se parezca a ninguna otra.</p>
+    </div>
+    <div data-reveal style="display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin-top:64px; border-top:1px solid rgba(255,255,255,0.2);">
+      <sc-for list="{{ commitments }}" as="c" hint-placeholder-count="4">
+        <div style="padding:34px 26px 14px 0; border-right:1px solid rgba(255,255,255,0.2);">
+          <div style="color:#7C8BFF; font-size:20px; margin-bottom:18px;">✦</div>
+          <div style="font-family:'Archivo'; font-weight:800; font-size:20px; letter-spacing:-0.01em; text-transform:uppercase; line-height:1.05; margin-bottom:10px;" data-en="{{ c.titleEn }}">{{ c.title }}</div>
+          <div style="font-family:'Space Grotesk'; font-size:14px; color:#9A9A9A; line-height:1.4;" data-en="{{ c.subEn }}">{{ c.sub }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- ===== PROCESO ===== -->
+  <section id="proceso" style="border-bottom:1.5px solid #0A0A0A;">
+    <div data-reveal style="padding:54px 44px 40px;">
+      <div style="font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.1em; color:#2C49E0; margin-bottom:18px;">(PROCESO / 03)</div>
+      <h2 style="font-family:'Archivo'; font-weight:900; font-size:clamp(40px,6vw,78px); line-height:0.9; letter-spacing:-0.04em; text-transform:uppercase;" data-en="HOW WE WORK">CÓMO TRABAJAMOS</h2>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); border-top:1.5px solid #0A0A0A;">
+      <sc-for list="{{ steps }}" as="st" hint-placeholder-count="4">
+        <div data-reveal style="padding:34px 26px 44px; border-right:1px solid rgba(10,10,10,0.18);">
+          <div style="font-family:'Archivo'; font-weight:900; font-size:60px; letter-spacing:-0.03em; color:transparent; -webkit-text-stroke:2px #2C49E0; margin-bottom:24px;">{{ st.num }}</div>
+          <h3 style="font-family:'Archivo'; font-weight:800; font-size:23px; letter-spacing:-0.01em; text-transform:uppercase; margin-bottom:12px;" data-en="{{ st.titleEn }}">{{ st.title }}</h3>
+          <p style="font-family:'Space Grotesk'; font-size:15px; line-height:1.5; color:#3A3A3A;" data-en="{{ st.descEn }}">{{ st.desc }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- ===== TARIFAS ===== -->
+  <section id="tarifas" style="border-bottom:1.5px solid #0A0A0A;">
+    <div data-reveal style="display:flex; align-items:flex-end; justify-content:space-between; padding:54px 44px 40px; gap:24px; flex-wrap:wrap;">
+      <div>
+        <div style="font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.1em; color:#2C49E0; margin-bottom:18px;">(TARIFAS / 04)</div>
+        <h2 style="font-family:'Archivo'; font-weight:900; font-size:clamp(40px,6vw,78px); line-height:0.9; letter-spacing:-0.04em; text-transform:uppercase;" data-en="FLAT-RATE PLANS">TARIFAS PLANAS</h2>
+      </div>
+      <p style="font-family:'Space Grotesk'; font-size:16px; line-height:1.5; max-width:330px; color:#3A3A3A;" data-en="One fixed fee a month. Hosting, SSL, domain and maintenance — all in. No weird invoices.">Una cuota fija al mes. Hosting, SSL, dominio y mantenimiento — todo dentro. Sin facturas raras.</p>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); border-top:1.5px solid #0A0A0A;">
+      <sc-for list="{{ plans }}" as="pl" hint-placeholder-count="3">
+        <div data-reveal style="position:relative; display:flex; flex-direction:column; border-right:1.5px solid #0A0A0A; padding:38px 30px;">
+          <sc-if value="{{ pl.popular }}" hint-placeholder-val="{{ false }}">
+            <span style="position:absolute; top:0; right:0; font-family:'Space Mono',monospace; font-weight:700; font-size:11px; letter-spacing:0.06em; background:#2C49E0; color:#fff; padding:6px 12px;" data-en="POPULAR">POPULAR</span>
+          </sc-if>
+          <h3 style="font-family:'Archivo'; font-weight:800; font-size:28px; letter-spacing:-0.02em; text-transform:uppercase;" data-en="{{ pl.nameEn }}">{{ pl.name }}</h3>
+          <p style="font-family:'Space Grotesk'; font-size:15px; line-height:1.45; color:#3A3A3A; margin-top:8px; min-height:44px;" data-en="{{ pl.lineEn }}">{{ pl.line }}</p>
+          <div style="margin:22px 0 8px;">
+            <div style="font-family:'Space Mono',monospace; font-size:12px; color:#6B6B6B; letter-spacing:0.06em; margin-bottom:4px;" data-en="FROM">DESDE</div>
+            <div style="display:flex; align-items:flex-end; gap:6px;">
+              <span style="font-family:'Archivo'; font-weight:900; font-size:56px; line-height:0.9; letter-spacing:-0.03em;">{{ pl.price }}€</span>
+              <span style="font-family:'Space Mono',monospace; font-size:14px; color:#6B6B6B; padding-bottom:9px;" data-en="/mo">/mes</span>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:11px; border-top:1px solid rgba(10,10,10,0.15); padding-top:20px; margin-top:14px;">
+            <sc-for list="{{ pl.items }}" as="it" hint-placeholder-count="5">
+              <div style="display:flex; gap:12px; align-items:flex-start; font-family:'Space Grotesk'; font-size:15px;">
+                <span style="color:#2C49E0; font-family:'Space Mono'; font-weight:700; flex-shrink:0;">+</span>
+                <span data-en="{{ it.e }}">{{ it.t }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <a href="#contacto" style="text-decoration:none; margin-top:auto; padding-top:26px;">
+            <span style="display:block; text-align:center; background:#0A0A0A; color:#fff; font-family:'Space Mono',monospace; font-weight:700; font-size:13px; letter-spacing:0.05em; padding:16px;" style-hover="background:#2C49E0;" data-en="GET STARTED →">EMPEZAR →</span>
+          </a>
+        </div>
+      </sc-for>
+    </div>
+    <div data-reveal style="padding:22px 44px; font-family:'Space Mono',monospace; font-size:12px; color:#6B6B6B; letter-spacing:0.03em; line-height:1.7;" data-en="* Domain subject to availability and price. Dedicated server depending on the project's needs. No lock-in — cancel whenever you want.">* Dominio sujeto a disponibilidad y precio. Servidor dedicado según las necesidades del proyecto. Sin permanencia — cancela cuando quieras.</div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section id="contacto" style="background:#2C49E0; color:#fff; padding:90px 44px; border-bottom:1.5px solid #0A0A0A;">
+    <div data-reveal>
+      <div style="font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.1em; color:rgba(255,255,255,0.8); margin-bottom:24px;">(CONTACTO / 05)</div>
+      <h2 style="font-family:'Archivo'; font-weight:900; font-size:clamp(56px,10vw,150px); line-height:0.82; letter-spacing:-0.045em; text-transform:uppercase;" data-en="LET'S TALK?">¿HABLAMOS?</h2>
+      <p style="font-family:'Space Grotesk'; font-weight:500; font-size:21px; line-height:1.45; max-width:520px; margin-top:30px;" data-en="Tell us where you are and where you want to go. We reply within 24 hours.">Cuéntanos dónde estás y a dónde quieres llegar. Te respondemos en menos de 24 horas.</p>
+      <div style="display:flex; gap:0; margin-top:40px; border:1.5px solid #0A0A0A; width:max-content; max-width:100%; flex-wrap:wrap;">
+        <a href="mailto:hola@nodo.studio" style="text-decoration:none; background:#0A0A0A; color:#fff; font-family:'Space Mono',monospace; font-weight:700; font-size:14px; letter-spacing:0.05em; padding:20px 34px; border-right:1.5px solid #0A0A0A;" style-hover="background:#fff; color:#0A0A0A;" data-en="START A PROJECT →">EMPEZAR PROYECTO →</a>
+        <a href="mailto:hola@nodo.studio" style="text-decoration:none; background:#2C49E0; color:#fff; font-family:'Space Mono',monospace; font-weight:700; font-size:14px; letter-spacing:0.05em; padding:20px 34px;" style-hover="background:#fff; color:#0A0A0A;">HOLA@NODO.STUDIO</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer style="padding:44px;">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:30px; padding-bottom:40px; border-bottom:1px solid rgba(10,10,10,0.18);">
+      <a href="#top" style="display:flex; align-items:center; gap:12px; text-decoration:none; color:#0A0A0A;">
+        <img src="uploads/logo-app.png" alt="nodo" style="width:34px; height:34px; border-radius:8px;">
+        <span style="font-family:'Archivo'; font-weight:800; font-size:22px;">NODO</span>
+      </a>
+      <div style="display:flex; gap:48px; font-family:'Space Mono',monospace; font-size:13px;">
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <span style="color:#6B6B6B; letter-spacing:0.06em;" data-en="STUDIO">ESTUDIO</span>
+          <a href="#servicios" style="text-decoration:none; color:#0A0A0A;" style-hover="color:#2C49E0;" data-en="Services">Servicios</a>
+          <a href="#proyectos" style="text-decoration:none; color:#0A0A0A;" style-hover="color:#2C49E0;" data-en="What you get">Qué incluye</a>
+          <a href="#proceso" style="text-decoration:none; color:#0A0A0A;" style-hover="color:#2C49E0;" data-en="Process">Proceso</a>
+          <a href="#tarifas" style="text-decoration:none; color:#0A0A0A;" style-hover="color:#2C49E0;" data-en="Pricing">Tarifas</a>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <span style="color:#6B6B6B; letter-spacing:0.06em;" data-en="CONTACT">CONTACTO</span>
+          <a href="mailto:hola@nodo.studio" style="text-decoration:none; color:#0A0A0A;" style-hover="color:#2C49E0;">hola@nodo.studio</a>
+          <a href="#contacto" style="text-decoration:none; color:#0A0A0A;" style-hover="color:#2C49E0;">Instagram</a>
+          <a href="#contacto" style="text-decoration:none; color:#0A0A0A;" style-hover="color:#2C49E0;">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; padding-top:24px; font-family:'Space Mono',monospace; font-size:12px; color:#6B6B6B; letter-spacing:0.04em;">
+      <span>© {{ year }} NODO ESTUDIO</span>
+      <span data-en="DESIGNED &amp; BUILT IN-HOUSE">DISEÑADO Y DESARROLLADO EN CASA</span>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { lang: 'es' };
+
+  renderVals() {
+    const heroIndex = [
+      { num:'01', label:'BRANDING' },
+      { num:'02', label:'WEB' },
+      { num:'03', label:'E-COMMERCE' },
+      { num:'04', label:'UX / UI' },
+      { num:'05', label:'SEO' },
+    ];
+
+    const services = [
+      { num:'01', title:'Branding e identidad', titleEn:'Branding & identity', desc:'Logo, paleta y un sistema visual que hace que te recuerden.', descEn:'Logo, palette and a visual system that makes you memorable.' },
+      { num:'02', title:'Diseño de páginas web', titleEn:'Web design', desc:'Diseños a medida pensados para tu negocio, nunca plantillas.', descEn:'Custom designs built for your business — never templates.' },
+      { num:'03', title:'Tiendas online', titleEn:'Online stores', desc:'E-commerce rápido y fácil de gestionar que convierte.', descEn:'Fast, easy-to-manage e-commerce that converts.' },
+      { num:'04', title:'Landing pages', titleEn:'Landing pages', desc:'Páginas de campaña con un único objetivo: convertir.', descEn:'Campaign pages with one single goal: converting.' },
+      { num:'05', title:'UX / UI de apps', titleEn:'App UX / UI', desc:'Interfaces claras para aplicaciones web y móviles.', descEn:'Clear interfaces for web and mobile apps.' },
+      { num:'06', title:'SEO y posicionamiento', titleEn:'SEO', desc:'Optimización técnica y de contenido para que te encuentren.', descEn:'Technical and content optimization so people find you.' },
+      { num:'07', title:'Mantenimiento web', titleEn:'Maintenance', desc:'Actualizaciones, seguridad y soporte continuo.', descEn:'Updates, security and ongoing support.' },
+    ];
+
+    const packages = [
+      { num:'01', title:'Web a medida', titleEn:'Custom website', line:'Tu sitio diseñado desde cero, sin plantillas.', lineEn:'Your site designed from scratch — no templates.', items:[
+        { t:'Diseño único para tu marca', e:'A design unique to your brand' },
+        { t:'100% responsive (móvil y escritorio)', e:'100% responsive (mobile & desktop)' },
+        { t:'Rápida y optimizada', e:'Fast and optimized' },
+        { t:'SEO básico incluido', e:'Basic SEO included' },
+      ]},
+      { num:'02', title:'Tienda online', titleEn:'Online store', line:'Lista para empezar a vender desde el día uno.', lineEn:'Ready to start selling from day one.', items:[
+        { t:'Catálogo de productos', e:'Product catalogue' },
+        { t:'Pasarela de pago segura', e:'Secure payment gateway' },
+        { t:'Gestión fácil para ti', e:'Easy to manage yourself' },
+        { t:'Pensada para convertir', e:'Built to convert' },
+      ]},
+      { num:'03', title:'Branding', titleEn:'Branding', line:'Una identidad que hace que te recuerden.', lineEn:'An identity that makes you memorable.', items:[
+        { t:'Logo y marca', e:'Logo and wordmark' },
+        { t:'Paleta de color y tipografías', e:'Colour palette and type' },
+        { t:'Mini guía de uso', e:'Mini brand guide' },
+        { t:'Coherencia en todo', e:'Consistency everywhere' },
+      ]},
+      { num:'04', title:'Landing / campaña', titleEn:'Landing / campaign', line:'Una página, un objetivo: convertir.', lineEn:'One page, one goal: convert.', items:[
+        { t:'Enfocada en un solo objetivo', e:'Focused on a single goal' },
+        { t:'Texto persuasivo', e:'Persuasive copy' },
+        { t:'Lista en pocos días', e:'Ready in a few days' },
+        { t:'Medible y optimizable', e:'Measurable and optimizable' },
+      ]},
+    ];
+
+    const commitments = [
+      { title:'Revisiones sin límite', titleEn:'Unlimited revisions', sub:'Hasta que estés 100% contento.', subEn:"Until you're 100% happy." },
+      { title:'Entrega rápida', titleEn:'Fast delivery', sub:'Plazos cortos, sin esperas eternas.', subEn:'Short timelines, no endless waits.' },
+      { title:'Sin permanencias', titleEn:'No lock-ins', sub:'Ni letra pequeña. Cero sorpresas.', subEn:'No fine print. Zero surprises.' },
+      { title:'Dedicación total', titleEn:'Full dedication', sub:'Trato directo y foco en tu proyecto.', subEn:'Direct contact, focused on your project.' },
+    ];
+
+    const plans = [
+      { name:'Esencial', nameEn:'Essential', popular:false, price:'29',
+        line:'Tu presencia online, lista y sin preocupaciones.', lineEn:'Your online presence, sorted and worry-free.',
+        items:[
+          { t:'Web de hasta 5 páginas', e:'Website up to 5 pages' },
+          { t:'Hosting + SSL incluidos', e:'Hosting + SSL included' },
+          { t:'Dominio gestionado*', e:'Managed domain*' },
+          { t:'Mantenimiento y actualizaciones', e:'Maintenance & updates' },
+          { t:'Soporte por email', e:'Email support' },
+        ]},
+      { name:'Profesional', nameEn:'Professional', popular:true, price:'59',
+        line:'Para negocios que quieren crecer en serio.', lineEn:'For businesses that want to grow for real.',
+        items:[
+          { t:'Todo lo de Esencial', e:'Everything in Essential' },
+          { t:'Hasta 15 páginas', e:'Up to 15 pages' },
+          { t:'Blog y formularios', e:'Blog and forms' },
+          { t:'SEO y velocidad optimizados', e:'SEO & speed optimized' },
+          { t:'Soporte prioritario', e:'Priority support' },
+        ]},
+      { name:'Tienda online', nameEn:'Online store', popular:false, price:'99',
+        line:'Vende online con login, carrito y pagos.', lineEn:'Sell online with login, cart and payments.',
+        items:[
+          { t:'Todo lo de Profesional', e:'Everything in Professional' },
+          { t:'Carrito y pasarela de pago', e:'Cart & payment gateway' },
+          { t:'Login y área de clientes', e:'Login & customer area' },
+          { t:'Gestión de productos y stock', e:'Product & stock management' },
+          { t:'Integraciones a medida', e:'Custom integrations' },
+        ]},
+    ];
+
+    const steps = [
+      { num:'01', title:'Descubrimiento', titleEn:'Discovery', desc:'Entendemos tu negocio, tu público y tus objetivos.', descEn:'We understand your business, audience and goals.' },
+      { num:'02', title:'Diseño', titleEn:'Design', desc:'Damos forma a la identidad y a cada pantalla, contigo.', descEn:'We shape the identity and every screen, with you.' },
+      { num:'03', title:'Desarrollo', titleEn:'Development', desc:'Construimos una web rápida, segura y lista para crecer.', descEn:'We build a fast, secure site ready to grow.' },
+      { num:'04', title:'Lanzamiento', titleEn:'Launch', desc:'Publicamos, medimos y te acompañamos después.', descEn:'We publish, measure and support you after.' },
+    ];
+
+    const marquee = ['Branding','Diseño Web','E-Commerce','UX/UI','SEO','Landing Pages','Mantenimiento'];
+
+    return {
+      rootRef: (el) => { this._root = el; },
+      heroIndex, services, packages, commitments, plans, steps, marquee,
+      year: new Date().getFullYear(),
+      langLabel: this.state.lang === 'es' ? 'EN' : 'ES',
+      toggleLang: () => this.setState(
+        s => ({ lang: s.lang === 'es' ? 'en' : 'es' }),
+        () => this.applyLang()
+      ),
+    };
+  }
+
+  componentDidMount() {
+    const root = this._root || document;
+    root.querySelectorAll('[data-en]').forEach(n => { if (n._es === undefined) n._es = n.textContent; });
+
+    this._reveals = [...root.querySelectorAll('[data-reveal]')];
+    this._reveals.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(26px)';
+      el.style.transition = 'opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1)';
+    });
+
+    this._show = (el, animate) => {
+      if (el._shown) return;
+      el._shown = true;
+      if (!animate) el.style.transition = 'none';
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+      el.querySelectorAll('[data-count]').forEach(c => this.runCounter(c));
+    };
+
+    this._inView = (el) => {
+      const r = el.getBoundingClientRect();
+      const h = window.innerHeight || 800;
+      return r.top < h * 0.9 && r.bottom > 0;
+    };
+
+    this._sweep = (animate) => {
+      this._reveals.forEach(el => { if (!el._shown && this._inView(el)) this._show(el, animate); });
+    };
+
+    // best-effort smooth reveal
+    if ('IntersectionObserver' in window) {
+      this._io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { this._show(e.target, true); this._io.unobserve(e.target); } });
+      }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+      this._reveals.forEach(el => this._io.observe(el));
+    }
+    // robust fallbacks: reveal in-view items now, on scroll, and on resize —
+    // works even where IntersectionObserver never fires (offscreen iframes).
+    requestAnimationFrame(() => this._sweep(true));
+    this._onScroll = () => this._sweep(true);
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    window.addEventListener('resize', this._onScroll, { passive: true });
+    setTimeout(() => this._sweep(false), 700);
+
+    if (this.state.lang === 'en') this.applyLang();
+  }
+
+  applyLang() {
+    const en = this.state.lang === 'en';
+    (this._root || document).querySelectorAll('[data-en]').forEach(n => {
+      const txt = en ? n.getAttribute('data-en') : n._es;
+      if (txt != null) n.textContent = txt;
+    });
+  }
+
+  runCounter(el) {
+    if (el._done) return;
+    el._done = true;
+    const target = parseFloat(el.getAttribute('data-count')) || 0;
+    const suffix = el.getAttribute('data-suffix') || '';
+    const start = performance.now();
+    const tick = (now) => {
+      const t = Math.min((now - start) / 1300, 1);
+      const eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = Math.round(target * eased) + suffix;
+      if (t < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+
+  componentWillUnmount() {
+    if (this._io) this._io.disconnect();
+    window.removeEventListener('scroll', this._onScroll);
+    window.removeEventListener('resize', this._onScroll);
+  }
+}
+</script>
+</body>
+</html>
