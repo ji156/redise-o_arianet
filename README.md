@@ -59,3 +59,4 @@ Todo está centralizado en **`src/data/copy.ts`**:
 Definidos como CSS custom properties en `src/styles/global.css` (`--ink`, `--paper`,
 `--blue`, `--blue-light`, grises, hairlines, `--line-primary` 1.5px, `--line-secondary`
 1px, `--gutter` 44px). Sin border-radius salvo el logo (8px). Sin box-shadows.
+# redise-o_arianet
