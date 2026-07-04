@@ -49,6 +49,10 @@ export const NAV = {
   menu: { es: 'MENÚ', en: 'MENU' },
   close: { es: 'CERRAR', en: 'CLOSE' },
   language: { es: 'IDIOMA', en: 'LANGUAGE' },
+  menuToggle: {
+    open: { es: 'Abrir menú', en: 'Open menu' },
+    close: { es: 'Cerrar menú', en: 'Close menu' },
+  },
 };
 
 /** Hero. */
@@ -306,20 +310,31 @@ export const TARIFAS_INTRO = {
   },
   from: { es: 'DESDE', en: 'FROM' },
   perMonth: { es: '/mes', en: '/mo' },
-  popular: { es: 'POPULAR', en: 'POPULAR' },
+  altaLabel: { es: '+ alta única', en: '+ one-time setup' },
+  noAlta: { es: 'Sin cuota de alta', en: 'No setup fee' },
+  changesLabel: { es: 'CAMBIOS INCLUIDOS', en: 'INCLUDED CHANGES' },
   cta: { es: 'EMPEZAR →', en: 'GET STARTED →' },
   swipe: { es: 'DESLIZA PARA VER LOS PLANES →', en: 'SWIPE TO SEE THE PLANS →' },
   footnote: {
-    es: '* Dominio sujeto a disponibilidad y precio. Servidor dedicado según las necesidades del proyecto. Sin permanencia — cancela cuando quieras.',
-    en: "* Domain subject to availability and price. Dedicated server depending on the project's needs. No lock-in — cancel whenever you want.",
+    es: '* Dominio sujeto a disponibilidad y precio, pago único aparte. Cada plan incluye una alta única de puesta en marcha (ver cada tarjeta). En Tienda online y Premium, gestionar tu catálogo desde tu propio panel no cuenta como cambio; las comisiones de la pasarela de pago las cobra directamente tu proveedor de pago. Sin permanencia — cancela cuando quieras.',
+    en: "* Domain subject to availability and price, one-time payment. Each plan includes a one-time setup fee (see each card). On Online store and Premium, managing your catalogue from your own panel doesn't count as a change; payment gateway fees are charged directly by your payment provider. No lock-in — cancel whenever you want.",
   },
 };
 
-export const plans: { name: Bi; popular: boolean; price: string; line: Bi; items: Bi[] }[] = [
+export const plans: {
+  name: Bi;
+  tag: Bi | null;
+  price: string;
+  alta: string | null;
+  line: Bi;
+  items: Bi[];
+  changes: Bi;
+}[] = [
   {
     name: { es: 'Esencial', en: 'Essential' },
-    popular: false,
+    tag: null,
     price: '29',
+    alta: '49',
     line: {
       es: 'Tu presencia online, lista y sin preocupaciones.',
       en: 'Your online presence, sorted and worry-free.',
@@ -331,11 +346,13 @@ export const plans: { name: Bi; popular: boolean; price: string; line: Bi; items
       { es: 'Mantenimiento y actualizaciones', en: 'Maintenance & updates' },
       { es: 'Soporte por email', en: 'Email support' },
     ],
+    changes: { es: 'Hasta 2 cambios de contenido/mes', en: 'Up to 2 content changes/mo' },
   },
   {
     name: { es: 'Profesional', en: 'Professional' },
-    popular: true,
+    tag: { es: 'POPULAR', en: 'POPULAR' },
     price: '59',
+    alta: '79',
     line: {
       es: 'Para negocios que quieren crecer en serio.',
       en: 'For businesses that want to grow for real.',
@@ -347,11 +364,13 @@ export const plans: { name: Bi; popular: boolean; price: string; line: Bi; items
       { es: 'SEO y velocidad optimizados', en: 'SEO & speed optimized' },
       { es: 'Soporte prioritario', en: 'Priority support' },
     ],
+    changes: { es: 'Hasta 5 cambios de contenido/mes', en: 'Up to 5 content changes/mo' },
   },
   {
     name: { es: 'Tienda online', en: 'Online store' },
-    popular: false,
+    tag: null,
     price: '99',
+    alta: '129',
     line: {
       es: 'Vende online con login, carrito y pagos.',
       en: 'Sell online with login, cart and payments.',
@@ -363,6 +382,35 @@ export const plans: { name: Bi; popular: boolean; price: string; line: Bi; items
       { es: 'Gestión de productos y stock', en: 'Product & stock management' },
       { es: 'Integraciones a medida', en: 'Custom integrations' },
     ],
+    changes: {
+      es: 'Hasta 5 cambios de contenido/diseño al mes*',
+      en: 'Up to 5 content/design changes a month*',
+    },
+  },
+  {
+    name: { es: 'Premium', en: 'Premium' },
+    tag: { es: 'SIN ALTA', en: 'NO SETUP FEE' },
+    price: '199',
+    alta: null,
+    line: {
+      es: 'Para negocios que se han quedado pequeños en Tienda online.',
+      en: 'For businesses that have outgrown Online store.',
+    },
+    items: [
+      { es: 'Todo lo de Tienda online', en: 'Everything in Online store' },
+      { es: 'Catálogo de productos sin límite', en: 'Unlimited product catalogue' },
+      {
+        es: 'Integraciones avanzadas (marketplaces, CRM, email marketing)',
+        en: 'Advanced integrations (marketplaces, CRM, email marketing)',
+      },
+      { es: 'Informe mensual de rendimiento', en: 'Monthly performance report' },
+      { es: 'Soporte prioritario por WhatsApp/teléfono', en: 'Priority WhatsApp/phone support' },
+      { es: 'Llamada mensual de seguimiento', en: 'Monthly check-in call' },
+    ],
+    changes: {
+      es: 'Hasta 12 cambios de contenido/diseño al mes',
+      en: 'Up to 12 content/design changes a month',
+    },
   },
 ];
 
@@ -392,6 +440,13 @@ export const faqs: { q: Bi; a: Bi }[] = [
     },
   },
   {
+    q: { es: '¿Hay algún coste además de la cuota mensual?', en: 'Is there any cost besides the monthly fee?' },
+    a: {
+      es: 'Solo una alta única al empezar (entre 49€ y 129€ según el plan; gratis en Premium) que cubre la puesta en marcha. Aparte de eso, únicamente el dominio es un pago aparte si lo compramos por ti. Sin sorpresas después.',
+      en: "Just a one-time setup fee when you start (between €49 and €129 depending on the plan; free on Premium) that covers getting everything up and running. Beyond that, only the domain is a separate payment if we buy it for you. No surprises after that.",
+    },
+  },
+  {
     q: { es: '¿Hay permanencia?', en: 'Is there a lock-in?' },
     a: {
       es: 'Ninguna. Sin permanencias ni letra pequeña: puedes cancelar cuando quieras.',
@@ -411,8 +466,8 @@ export const faqs: { q: Bi; a: Bi }[] = [
   {
     q: { es: '¿Hacéis cambios después del lanzamiento?', en: 'Do you make changes after launch?' },
     a: {
-      es: 'Sí. Las actualizaciones del día a día entran en el mantenimiento, y seguimos contigo para que la web crezca con tu negocio.',
-      en: "Yes. Day-to-day updates are part of maintenance, and we stay with you so the site grows with your business.",
+      es: 'Sí. Cada plan incluye un número de cambios de contenido al mes (2 en Esencial, 5 en Profesional y Tienda online, 12 en Premium), y seguimos contigo para que la web crezca con tu negocio.',
+      en: 'Yes. Each plan includes a number of monthly content changes (2 on Essential, 5 on Professional and Online store, 12 on Premium), and we stay with you so the site grows with your business.',
     },
   },
   {
@@ -433,6 +488,17 @@ export const CTA = {
     en: 'Tell us where you are and where you want to go. We reply within 24 hours.',
   },
   ctaStart: { es: 'EMPEZAR PROYECTO →', en: 'START A PROJECT →' },
+};
+
+/** Página 404. */
+export const NOT_FOUND = {
+  eyebrow: { es: '(ERROR 404)', en: '(ERROR 404)' },
+  title: { es: 'Página no encontrada', en: 'Page not found' },
+  message: {
+    es: 'La página que buscas no existe o se ha movido de sitio.',
+    en: "The page you're looking for doesn't exist or has moved.",
+  },
+  cta: { es: 'VOLVER AL INICIO →', en: 'BACK TO HOME →' },
 };
 
 /** Footer. */

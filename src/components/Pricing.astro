@@ -15,13 +15,13 @@ import { TARIFAS_INTRO, plans } from '../data/copy.ts';
     {TARIFAS_INTRO.swipe.es}
   </div>
 
-  <div class="grid">
+  <div class="grid" tabindex="0" role="region" aria-label="Planes de tarifas">
     {
       plans.map((pl) => (
         <div class="plan" data-reveal>
-          {pl.popular && (
-            <span class="plan__tag" data-en={TARIFAS_INTRO.popular.en}>
-              {TARIFAS_INTRO.popular.es}
+          {pl.tag && (
+            <span class="plan__tag" data-en={pl.tag.en}>
+              {pl.tag.es}
             </span>
           )}
           <h3 class="plan__name" data-en={pl.name.en}>
@@ -40,6 +40,18 @@ import { TARIFAS_INTRO, plans } from '../data/copy.ts';
                 {TARIFAS_INTRO.perMonth.es}
               </span>
             </div>
+            <div class="plan__alta">
+              {pl.alta && (
+                <span>
+                  <span data-en={TARIFAS_INTRO.altaLabel.en}>{TARIFAS_INTRO.altaLabel.es}</span> {pl.alta}€
+                </span>
+              )}
+              {!pl.alta && (
+                <span class="plan__alta--free" data-en={TARIFAS_INTRO.noAlta.en}>
+                  {TARIFAS_INTRO.noAlta.es}
+                </span>
+              )}
+            </div>
           </div>
           <div class="plan__items">
             {pl.items.map((it) => (
@@ -50,6 +62,12 @@ import { TARIFAS_INTRO, plans } from '../data/copy.ts';
                 <span data-en={it.en}>{it.es}</span>
               </div>
             ))}
+          </div>
+          <div class="plan__changes">
+            <span class="plan__changes-label" data-en={TARIFAS_INTRO.changesLabel.en}>
+              {TARIFAS_INTRO.changesLabel.es}
+            </span>
+            <span data-en={pl.changes.en}>{pl.changes.es}</span>
           </div>
           <a href="#contacto" class="plan__cta">
             <span class="plan__cta-inner" data-en={TARIFAS_INTRO.cta.en}>{TARIFAS_INTRO.cta.es}</span>
@@ -116,7 +134,7 @@ import { TARIFAS_INTRO, plans } from '../data/copy.ts';
   /* --- grid de planes --- */
   .grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     border-top: var(--line-primary);
   }
 
@@ -191,6 +209,19 @@ import { TARIFAS_INTRO, plans } from '../data/copy.ts';
     padding-bottom: 9px;
   }
 
+  .plan__alta {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--grey-muted);
+    letter-spacing: 0.02em;
+    margin-top: 6px;
+  }
+
+  .plan__alta--free {
+    color: var(--blue);
+    font-weight: 700;
+  }
+
   .plan__items {
     display: flex;
     flex-direction: column;
@@ -198,6 +229,24 @@ import { TARIFAS_INTRO, plans } from '../data/copy.ts';
     border-top: 1px solid var(--hairline-soft);
     padding-top: 20px;
     margin-top: 14px;
+  }
+
+  .plan__changes {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--hairline-soft);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--grey-body);
+  }
+
+  .plan__changes-label {
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    color: var(--grey-muted);
   }
 
   .item {

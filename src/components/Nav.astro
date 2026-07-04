@@ -29,7 +29,11 @@ import { BRAND, NAV } from '../data/copy.ts';
       data-menu-toggle
       aria-expanded="false"
       aria-controls="nav-menu"
-      aria-label="Abrir menú"
+      aria-label={NAV.menuToggle.open.es}
+      data-label-open-es={NAV.menuToggle.open.es}
+      data-label-open-en={NAV.menuToggle.open.en}
+      data-label-close-es={NAV.menuToggle.close.es}
+      data-label-close-en={NAV.menuToggle.close.en}
     >
       <span class="nav__burger-box" aria-hidden="true"><span class="nav__burger-line"></span></span>
     </button>

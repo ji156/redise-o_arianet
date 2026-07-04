@@ -39,6 +39,14 @@ export function initLangToggle(): void {
         next === 'es' ? 'Switch to English' : 'Cambiar a español',
       );
     });
+
+    // Sincroniza el aria-label del botón de menú móvil con el idioma activo.
+    document.querySelectorAll<HTMLButtonElement>('[data-menu-toggle]').forEach((btn) => {
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+      const attr = isOpen ? `data-label-close-${next}` : `data-label-open-${next}`;
+      const label = btn.getAttribute(attr);
+      if (label) btn.setAttribute('aria-label', label);
+    });
   };
 
   document.querySelectorAll<HTMLElement>('[data-lang-toggle]').forEach((btn) => {

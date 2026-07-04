@@ -38,7 +38,7 @@ public/logo-app.png        # logo del cliente
 Todo está centralizado en **`src/data/copy.ts`**:
 - `BRAND` — nombre del estudio (`arianet`). Usado en nav, footer, meta y copyright.
 - `CONTACT.email` — `hola@arianet.studio` (provisional).
-- `CONTACT.social` — Instagram / LinkedIn (apuntan a `#`, pendientes de URL real).
+- `CONTACT.social` — Instagram / LinkedIn (sin URL real todavía; los iconos del footer se han quitado hasta tenerla — al rellenar, hay que devolver los enlaces a `Footer.astro`).
 - `plans[].price` — tarifas de ejemplo **29 / 59 / 99 €** (confirmar con cliente).
 
 ## Decisiones tomadas (no especificadas en el handoff)

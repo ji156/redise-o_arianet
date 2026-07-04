@@ -1,10 +1,8 @@
 /**
  * Contenido legal del sitio (bilingüe ES/EN) + datos del banner de cookies.
  *
- * ⚠️ PLACEHOLDERS: los datos del titular (razón social, NIF, domicilio) son
- * provisionales y DEBEN completarse con los datos fiscales reales antes de
- * publicar. Estas plantillas cubren los documentos habituales de una web en
- * España (LSSI-CE + RGPD/LOPDGDD); conviene que un asesor legal las revise.
+ * Estas plantillas cubren los documentos habituales de una web en España
+ * (LSSI-CE + RGPD/LOPDGDD); conviene que un asesor legal las revise.
  *
  * Cada documento se renderiza desde `src/pages/[legal].astro` con el layout
  * `Legal.astro`. El texto traducible usa el mismo patrón { es, en } que el
@@ -14,11 +12,15 @@
 import type { Bi } from './copy.ts';
 import { BRAND, CONTACT } from './copy.ts';
 
-/** Datos identificativos del titular (PLACEHOLDERS — completar con datos reales). */
+/**
+ * Datos identificativos del titular. Operando como autónomo (NIF personal)
+ * bajo el nombre comercial `BRAND` mientras se constituye la sociedad; el
+ * CIF de la sociedad, cuando esté disponible, sustituirá a `nif`.
+ */
 export const LEGAL = {
   marca: BRAND,
-  titular: 'Arianet WebStudio',
-  nif: '[NIF / CIF — pendiente]',
+  titular: 'Jonathan Izquierdo (Arianet WebStudio)',
+  nif: '44558564C',
   domicilio: 'C/ María Juncal Labandibar n.º 9, 1.º derecha, 20305 Irún (Guipúzcoa), España',
   email: CONTACT.email,
   web: 'arianet.studio',
@@ -266,6 +268,10 @@ export const legalDocs: LegalDoc[] = [
           {
             es: 'El dominio no está incluido en la cuota: su registro es un pago único e independiente, cuyo importe varía según el nombre elegido. El titular puede gestionar su compra por cuenta del cliente.',
             en: 'The domain is not included in the fee: its registration is a separate one-time payment whose amount varies depending on the chosen name. The owner may handle its purchase on behalf of the client.',
+          },
+          {
+            es: 'Además de la cuota mensual, la contratación de cualquier plan incluye una alta única de puesta en marcha, cuyo importe depende del plan contratado (consultar tarifas vigentes); esta alta no es reembolsable una vez iniciado el servicio. En los planes con tienda online, las comisiones de la pasarela de pago las factura directamente el proveedor de pago (p. ej. Stripe o Redsys) y no forman parte de la cuota del titular.',
+            en: "In addition to the monthly fee, signing up to any plan includes a one-time setup fee, the amount of which depends on the plan contracted (see current pricing); this setup fee is non-refundable once the service has started. On plans that include an online store, payment gateway fees are billed directly by the payment provider (e.g. Stripe or Redsys) and are not part of the owner's fee.",
           },
         ],
       },

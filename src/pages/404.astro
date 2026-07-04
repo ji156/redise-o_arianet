@@ -1,0 +1,200 @@
+---
+import Base from '../layouts/Base.astro';
+import { BRAND, FOOTER, NOT_FOUND } from '../data/copy.ts';
+import { legalDocs } from '../data/legal.ts';
+
+const title = `${NOT_FOUND.title.es} — ${BRAND}`;
+---
+
+<Base title={title} description={NOT_FOUND.message.es}>
+  <header class="nf-head">
+    <a href="/" class="nf-head__brand" aria-label={`${BRAND} — inicio`}>
+      <img src="/logo-app.png" alt={BRAND} width="28" height="28" class="nf-head__logo" />
+      <span class="nf-head__wordmark">{BRAND}</span>
+    </a>
+    <button type="button" class="nf-head__lang" data-lang-toggle aria-label="Switch to English">EN</button>
+  </header>
+
+  <main class="nf">
+    <span class="nf__eyebrow" data-en={NOT_FOUND.eyebrow.en}>{NOT_FOUND.eyebrow.es}</span>
+    <p class="nf__code" aria-hidden="true">404</p>
+    <h1 class="nf__title" data-en={NOT_FOUND.title.en}>{NOT_FOUND.title.es}</h1>
+    <p class="nf__message" data-en={NOT_FOUND.message.en}>{NOT_FOUND.message.es}</p>
+    <a href="/" class="btn btn--blue" data-en={NOT_FOUND.cta.en}>{NOT_FOUND.cta.es}</a>
+  </main>
+
+  <footer class="nf-foot">
+    <div class="nf-foot__links">
+      {
+        legalDocs.map((d) => (
+          <a href={`/${d.slug}`} class="nf-foot__link" data-en={d.nav.en}>
+            {d.nav.es}
+          </a>
+        ))
+      }
+    </div>
+    <span class="nf-foot__copy" data-en={FOOTER.copyright.en}>{FOOTER.copyright.es}</span>
+  </footer>
+</Base>
+
+<style>
+  .nf-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 26px;
+    border-bottom: var(--line-primary);
+  }
+
+  .nf-head__brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--ink);
+  }
+
+  .nf-head__logo {
+    border-radius: 8px;
+  }
+
+  .nf-head__wordmark {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 19px;
+    letter-spacing: -0.01em;
+  }
+
+  .nf-head__lang {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 700;
+    background: var(--paper);
+    border: var(--line-primary);
+    color: var(--ink);
+    padding: 6px 11px;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .nf-head__lang:hover,
+  .nf-head__lang:focus-visible {
+    background: var(--ink);
+    color: #fff;
+  }
+
+  .nf {
+    min-height: calc(100dvh - 62px - 60px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 48px var(--gutter);
+  }
+
+  .nf__eyebrow {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    color: var(--grey-muted);
+    margin-bottom: 18px;
+  }
+
+  .nf__code {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(96px, 18vw, 220px);
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    color: transparent;
+    -webkit-text-stroke: 2px var(--ink);
+    margin: 0;
+  }
+
+  @supports not (-webkit-text-stroke: 2px #000) {
+    .nf__code {
+      color: var(--ink);
+    }
+  }
+
+  .nf__title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(24px, 3vw, 34px);
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    margin-top: 20px;
+  }
+
+  .nf__message {
+    font-family: var(--font-body);
+    font-size: 17px;
+    color: var(--grey-body);
+    max-width: 480px;
+    margin-top: 14px;
+  }
+
+  .nf .btn {
+    margin-top: 34px;
+    text-decoration: none;
+    background: var(--blue);
+    color: #fff;
+    border: var(--line-primary);
+  }
+
+  .nf .btn:hover,
+  .nf .btn:focus-visible {
+    background: var(--ink);
+  }
+
+  .nf-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 24px var(--gutter);
+    border-top: var(--line-primary);
+  }
+
+  .nf-foot__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+  }
+
+  .nf-foot__link {
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .nf-foot__link:hover,
+  .nf-foot__link:focus-visible {
+    color: var(--blue);
+  }
+
+  .nf-foot__copy {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--grey-muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 600px) {
+    .nf-head {
+      padding: 14px 18px;
+    }
+    .nf {
+      padding: 40px 20px;
+    }
+    .nf-foot {
+      padding: 20px 20px;
+    }
+  }
+</style>
