@@ -515,6 +515,7 @@ export const FOOTER = {
   },
   contactCol: {
     heading: { es: 'CONTACTO', en: 'CONTACT' },
+    note: { es: 'Respondemos en <24h', en: 'We reply within 24h' },
   },
   legalCol: {
     heading: { es: 'LEGAL', en: 'LEGAL' },
@@ -526,5 +527,5 @@ export const FOOTER = {
     ],
   },
   copyright: { es: `© ${YEAR} ${BRAND} ESTUDIO`, en: `© ${YEAR} ${BRAND} STUDIO` },
-  built: { es: 'DISEÑADO Y DESARROLLADO EN CASA', en: 'DESIGNED & BUILT IN-HOUSE' },
+  location: { es: 'IRÚN, ESPAÑA', en: 'IRÚN, SPAIN' },
 };

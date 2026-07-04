@@ -1,53 +1,57 @@
 ---
-import { BRAND, FOOTER, CONTACT } from '../data/copy.ts';
+import { BRAND, META, FOOTER, CONTACT } from '../data/copy.ts';
 ---
 
 <footer class="footer">
-  <div class="footer__top">
+  <div class="footer__nav">
+    <div class="footer__col">
+      <span class="footer__heading" data-en={FOOTER.studioCol.heading.en}>
+        {FOOTER.studioCol.heading.es}
+      </span>
+      {
+        FOOTER.studioCol.links.map((l) => (
+          <a href={l.href} class="footer__link" data-en={l.label.en}>
+            {l.label.es}
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="footer__col">
+      <span class="footer__heading" data-en={FOOTER.legalCol.heading.en}>
+        {FOOTER.legalCol.heading.es}
+      </span>
+      {
+        FOOTER.legalCol.links.map((l) => (
+          <a href={l.href} class="footer__link" data-en={l.label.en}>
+            {l.label.es}
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="footer__col">
+      <span class="footer__heading" data-en={FOOTER.contactCol.heading.en}>
+        {FOOTER.contactCol.heading.es}
+      </span>
+      <a href={`mailto:${CONTACT.email}`} class="footer__link">{CONTACT.email}</a>
+      <span class="footer__note" data-en={FOOTER.contactCol.note.en}>
+        {FOOTER.contactCol.note.es}
+      </span>
+    </div>
+  </div>
+
+  <div class="footer__brand-row">
     <a href="#top" class="footer__brand" aria-label={`${BRAND} — inicio`}>
-      <img src="/logo-app.png" alt={BRAND} width="34" height="34" class="footer__logo" />
+      <img src="/logo-app.png" alt={BRAND} width="40" height="40" class="footer__logo" />
       <span class="footer__wordmark">{BRAND}</span>
     </a>
-
-    <div class="footer__cols">
-      <div class="footer__col">
-        <span class="footer__heading" data-en={FOOTER.studioCol.heading.en}>
-          {FOOTER.studioCol.heading.es}
-        </span>
-        {
-          FOOTER.studioCol.links.map((l) => (
-            <a href={l.href} class="footer__link" data-en={l.label.en}>
-              {l.label.es}
-            </a>
-          ))
-        }
-      </div>
-
-      <div class="footer__col">
-        <span class="footer__heading" data-en={FOOTER.contactCol.heading.en}>
-          {FOOTER.contactCol.heading.es}
-        </span>
-        <a href={`mailto:${CONTACT.email}`} class="footer__link">{CONTACT.email}</a>
-      </div>
-
-      <div class="footer__col">
-        <span class="footer__heading" data-en={FOOTER.legalCol.heading.en}>
-          {FOOTER.legalCol.heading.es}
-        </span>
-        {
-          FOOTER.legalCol.links.map((l) => (
-            <a href={l.href} class="footer__link" data-en={l.label.en}>
-              {l.label.es}
-            </a>
-          ))
-        }
-      </div>
-    </div>
+    <span class="footer__tagline" data-en={META.tagline.en}>{META.tagline.es}</span>
   </div>
 
   <div class="footer__bottom">
     <span data-en={FOOTER.copyright.en}>{FOOTER.copyright.es}</span>
-    <span data-en={FOOTER.built.en}>{FOOTER.built.es}</span>
+    <span data-en={FOOTER.location.en}>{FOOTER.location.es}</span>
   </div>
 </footer>
 
@@ -56,13 +60,50 @@ import { BRAND, FOOTER, CONTACT } from '../data/copy.ts';
     padding: var(--gutter);
   }
 
-  .footer__top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
+  .footer__nav {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 30px;
     padding-bottom: 40px;
+    border-bottom: var(--line-primary);
+  }
+
+  .footer__col {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    font-family: var(--font-mono);
+    font-size: 14px;
+  }
+
+  .footer__heading {
+    color: var(--grey-muted);
+    letter-spacing: 0.06em;
+  }
+
+  .footer__note {
+    color: var(--grey-muted);
+    font-size: 12px;
+  }
+
+  .footer__link {
+    text-decoration: none;
+    color: var(--ink);
+    transition: color 0.15s, padding-left 0.15s;
+  }
+
+  .footer__link:hover,
+  .footer__link:focus-visible {
+    color: var(--blue);
+    padding-left: 4px;
+  }
+
+  .footer__brand-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 18px;
+    padding: 28px 0;
     border-bottom: 1px solid var(--hairline);
   }
 
@@ -75,45 +116,23 @@ import { BRAND, FOOTER, CONTACT } from '../data/copy.ts';
   }
 
   .footer__logo {
-    width: 34px;
-    height: 34px;
+    width: 40px;
+    height: 40px;
     border-radius: 8px; /* única esquina redondeada */
   }
 
   .footer__wordmark {
     font-family: var(--font-display);
     font-weight: 800;
-    font-size: 22px;
+    font-size: 24px;
   }
 
-  .footer__cols {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 48px;
+  .footer__tagline {
     font-family: var(--font-mono);
-    font-size: 13px;
-  }
-
-  .footer__col {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .footer__heading {
-    color: var(--grey-muted);
+    font-size: 12px;
     letter-spacing: 0.06em;
-  }
-
-  .footer__link {
-    text-decoration: none;
-    color: var(--ink);
-    transition: color 0.15s;
-  }
-
-  .footer__link:hover,
-  .footer__link:focus-visible {
-    color: var(--blue);
+    text-transform: uppercase;
+    color: var(--grey-muted);
   }
 
   .footer__bottom {
@@ -135,8 +154,9 @@ import { BRAND, FOOTER, CONTACT } from '../data/copy.ts';
     .footer {
       padding: 32px 20px;
     }
-    .footer__cols {
-      gap: 32px;
+    .footer__nav {
+      grid-template-columns: 1fr;
+      gap: 28px;
     }
   }
 </style>
