@@ -39,6 +39,7 @@ export const META = {
 /** Navegación. */
 export const NAV = {
   links: [
+    { href: '#trabajo', label: { es: 'TRABAJO', en: 'WORK' } },
     { href: '#servicios', label: { es: 'SERVICIOS', en: 'SERVICES' } },
     { href: '#proyectos', label: { es: 'QUÉ INCLUYE', en: 'WHAT YOU GET' } },
     { href: '#tarifas', label: { es: 'TARIFAS', en: 'PRICING' } },
@@ -93,9 +94,59 @@ export const marquee: Bi[] = [
   { es: 'Mantenimiento', en: 'Maintenance' },
 ];
 
+/** Trabajo realizado. */
+export const WORK_INTRO = {
+  label: '(TRABAJO / 01)',
+  h2: { es: 'ALGUNOS PROYECTOS', en: 'SOME PROJECTS' },
+  para: {
+    es: 'Proyectos reales, no maquetas. Muy pronto habrá más.',
+    en: "Real projects, not mockups. More coming very soon.",
+  },
+  swipe: { es: 'DESLIZA PARA VER MÁS →', en: 'SWIPE TO SEE MORE →' },
+};
+
+export const work: {
+  tag: Bi;
+  title: string;
+  desc: Bi;
+  url: string;
+  image: string;
+}[] = [
+  {
+    tag: { es: 'TIENDA ONLINE', en: 'ONLINE STORE' },
+    title: 'Supermercado Jonathan',
+    desc: {
+      es: 'Boutique de licores en Irún — recogida en tienda y verificación de edad.',
+      en: 'A boutique liquor store in Irún — in-store pickup and age verification.',
+    },
+    url: 'https://supermercadojonathan.com',
+    image: '/work/supermercado-jonathan.jpg',
+  },
+  {
+    tag: { es: 'APLICACIÓN WEB · UX/UI', en: 'WEB APP · UX/UI' },
+    title: 'King of Spain',
+    desc: {
+      es: 'Portal a medida para un clan de Clash of Clans: login, guerras y estadísticas.',
+      en: 'A custom portal for a Clash of Clans clan: login, wars and stats.',
+    },
+    url: 'https://kingofspain.org',
+    image: '/work/king-of-spain.jpg',
+  },
+  {
+    tag: { es: 'PROYECTO PROPIO · SEO', en: 'OWN PROJECT · SEO' },
+    title: 'Mejores Purificadores',
+    desc: {
+      es: 'Comparativas y guías para posicionar en buscadores. Sin cliente detrás.',
+      en: 'Comparisons and guides built to rank in search. No client behind it.',
+    },
+    url: 'https://mejorespurificadores.com',
+    image: '/work/mejores-purificadores.jpg',
+  },
+];
+
 /** Servicios. */
 export const SERVICIOS_INTRO = {
-  label: '(SERVICIOS / 01)',
+  label: '(SERVICIOS / 02)',
   h2: { es: 'LO QUE HACEMOS', en: 'WHAT WE DO' },
   para: {
     es: 'Un solo equipo, de principio a fin — del primer boceto al día del lanzamiento.',
@@ -164,7 +215,7 @@ export const services: { num: string; title: Bi; desc: Bi }[] = [
 
 /** Qué te llevas / deliverables. */
 export const PROYECTOS_INTRO = {
-  label: '(QUÉ INCLUYE / 02)',
+  label: '(QUÉ INCLUYE / 03)',
   h2: { es: 'QUÉ TE LLEVAS', en: 'WHAT YOU GET' },
   para: {
     es: 'Entregables claros, cero sorpresas — justo lo que acaba en tus manos.',
@@ -261,7 +312,7 @@ export const commitments: { title: Bi; sub: Bi }[] = [
 
 /** Proceso. */
 export const PROCESO_INTRO = {
-  label: '(PROCESO / 03)',
+  label: '(PROCESO / 04)',
   h2: { es: 'CÓMO TRABAJAMOS', en: 'HOW WE WORK' },
 };
 
@@ -302,7 +353,7 @@ export const steps: { num: string; title: Bi; desc: Bi }[] = [
 
 /** Tarifas. */
 export const TARIFAS_INTRO = {
-  label: '(TARIFAS / 04)',
+  label: '(TARIFAS / 05)',
   h2: { es: 'TARIFAS PLANAS', en: 'FLAT-RATE PLANS' },
   para: {
     es: 'Una cuota fija al mes. Hosting, SSL, dominio y mantenimiento — todo dentro. Sin facturas raras.',
@@ -416,7 +467,7 @@ export const plans: {
 
 /** FAQ. */
 export const FAQ_INTRO = {
-  label: '(FAQ / 05)',
+  label: '(FAQ / 06)',
   h2: { es: 'PREGUNTAS\nFRECUENTES', en: 'FREQUENTLY\nASKED' },
   para: {
     es: 'Lo que casi todo el mundo nos pregunta antes de empezar. ¿Te queda otra duda? Escríbenos.',
@@ -481,7 +532,7 @@ export const faqs: { q: Bi; a: Bi }[] = [
 
 /** CTA final. */
 export const CTA = {
-  label: '(CONTACTO / 06)',
+  label: '(CONTACTO / 07)',
   h2: { es: '¿HABLAMOS?', en: "LET'S TALK?" },
   para: {
     es: 'Cuéntanos dónde estás y a dónde quieres llegar. Te respondemos en menos de 24 horas.',
@@ -506,6 +557,7 @@ export const FOOTER = {
   studioCol: {
     heading: { es: 'ESTUDIO', en: 'STUDIO' },
     links: [
+      { href: '#trabajo', label: { es: 'Trabajo', en: 'Work' } },
       { href: '#servicios', label: { es: 'Servicios', en: 'Services' } },
       { href: '#proyectos', label: { es: 'Qué incluye', en: 'What you get' } },
       { href: '#proceso', label: { es: 'Proceso', en: 'Process' } },
