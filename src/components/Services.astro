@@ -14,7 +14,7 @@ import { SERVICIOS_INTRO, services } from '../data/copy.ts';
   <div class="table">
     {
       services.map((s) => (
-        <div class="row" data-reveal>
+        <a href={`/servicios/${s.slug}`} class="row" data-reveal>
           <span class="row__num">{s.num}</span>
           <h3 class="row__title" data-en={s.title.en}>
             {s.title.es}
@@ -25,7 +25,7 @@ import { SERVICIOS_INTRO, services } from '../data/copy.ts';
           <span class="row__arrow" aria-hidden="true">
             →
           </span>
-        </div>
+        </a>
       ))
     }
   </div>
@@ -84,12 +84,13 @@ import { SERVICIOS_INTRO, services } from '../data/copy.ts';
     padding: 26px var(--gutter);
     border-bottom: 1px solid var(--hairline);
     color: var(--ink);
+    text-decoration: none;
     transition: background 0.15s, color 0.15s;
-    cursor: default;
   }
 
   /* Interacción firma: la fila entera invierte a azul + texto blanco. */
-  .row:hover {
+  .row:hover,
+  .row:focus-visible {
     background: var(--blue);
     color: #fff;
   }

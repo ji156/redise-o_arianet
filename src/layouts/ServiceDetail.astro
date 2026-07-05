@@ -1,0 +1,485 @@
+---
+import Base from './Base.astro';
+import { BRAND, FOOTER, SERVICE_PAGE, services, type ServiceDetail } from '../data/copy.ts';
+
+interface Props {
+  service: (typeof services)[number];
+  detail: ServiceDetail;
+}
+
+const { service, detail } = Astro.props;
+const title = `${service.title.es} — ${BRAND}`;
+---
+
+<Base title={title} description={service.desc.es}>
+  <header class="shead">
+    <a href="/" class="shead__brand" aria-label={`${BRAND} — inicio`}>
+      <img src="/logo-app.png" alt={BRAND} width="28" height="28" class="shead__logo" />
+      <span class="shead__wordmark">{BRAND}</span>
+    </a>
+    <div class="shead__actions">
+      <button type="button" class="shead__lang" data-lang-toggle aria-label="Switch to English">EN</button>
+      <a href="/" class="shead__back" data-en={SERVICE_PAGE.back.en}>{SERVICE_PAGE.back.es}</a>
+    </div>
+  </header>
+
+  <main class="svc">
+    <aside class="svc__nav" aria-label={SERVICE_PAGE.index.es}>
+      <span class="svc__nav-title" data-en={SERVICE_PAGE.index.en}>
+        {SERVICE_PAGE.index.es}
+      </span>
+      {
+        services.map((s) => (
+          <a
+            href={`/servicios/${s.slug}`}
+            class="svc__nav-link"
+            aria-current={s.slug === service.slug ? 'page' : undefined}
+            data-en={s.title.en}
+          >
+            {s.title.es}
+          </a>
+        ))
+      }
+    </aside>
+
+    <article class="svc__doc">
+      <span class="svc__num">{service.num}</span>
+      <h1 class="svc__title" data-en={service.title.en}>
+        {service.title.es}
+      </h1>
+      <p class="svc__intro" data-en={detail.intro.en}>
+        {detail.intro.es}
+      </p>
+
+      <h2 class="svc__h2" data-en={SERVICE_PAGE.includes.en}>
+        {SERVICE_PAGE.includes.es}
+      </h2>
+      <div class="svc__bullets">
+        {
+          detail.bullets.map((b) => (
+            <div class="svc__bullet">
+              <span class="svc__bullet-plus" aria-hidden="true">
+                +
+              </span>
+              <div>
+                <h3 class="svc__bullet-title" data-en={b.title.en}>
+                  {b.title.es}
+                </h3>
+                <p class="svc__bullet-desc" data-en={b.desc.en}>
+                  {b.desc.es}
+                </p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+      <h2 class="svc__h2" data-en={SERVICE_PAGE.example.en}>
+        {SERVICE_PAGE.example.es}
+      </h2>
+      {
+        detail.example ? (
+          <a href={detail.example.url} target="_blank" rel="noopener noreferrer" class="svc__example">
+            <div class="svc__example-media">
+              <img src={detail.example.image} alt={detail.example.name} class="svc__example-img" loading="lazy" />
+            </div>
+            <div class="svc__example-body">
+              <span class="svc__example-name">{detail.example.name}</span>
+              <span class="svc__example-cta" data-en={SERVICE_PAGE.visitSite.en}>
+                {SERVICE_PAGE.visitSite.es}
+              </span>
+            </div>
+          </a>
+        ) : (
+          <p class="svc__no-example" data-en={detail.exampleNote.en}>
+            {detail.exampleNote.es}
+          </p>
+        )
+      }
+
+      <a href="/#contacto" class="svc__cta" data-en={SERVICE_PAGE.cta.en}>
+        {SERVICE_PAGE.cta.es}
+      </a>
+    </article>
+  </main>
+
+  <footer class="sfoot">
+    <div class="sfoot__links">
+      {
+        services.map((s) => (
+          <a href={`/servicios/${s.slug}`} class="sfoot__link" data-en={s.title.en}>
+            {s.title.es}
+          </a>
+        ))
+      }
+    </div>
+    <span class="sfoot__copy" data-en={FOOTER.copyright.en}>{FOOTER.copyright.es}</span>
+  </footer>
+</Base>
+
+<style>
+  .shead {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    background: var(--paper);
+    border-bottom: var(--line-primary);
+  }
+
+  .shead__brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 26px;
+    text-decoration: none;
+    color: var(--ink);
+    border-right: var(--line-primary);
+  }
+
+  .shead__logo {
+    border-radius: 8px;
+  }
+
+  .shead__wordmark {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 19px;
+    letter-spacing: -0.01em;
+  }
+
+  .shead__actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-right: 26px;
+  }
+
+  .shead__lang {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 700;
+    background: var(--paper);
+    border: var(--line-primary);
+    color: var(--ink);
+    padding: 6px 11px;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .shead__lang:hover,
+  .shead__lang:focus-visible {
+    background: var(--ink);
+    color: #fff;
+  }
+
+  .shead__back {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .shead__back:hover,
+  .shead__back:focus-visible {
+    color: var(--blue);
+  }
+
+  /* --- cuerpo --- */
+  .svc {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    max-width: 1180px;
+    margin: 0 auto;
+    border-left: var(--line-primary);
+    border-right: var(--line-primary);
+    min-height: calc(100vh - 62px);
+  }
+
+  .svc__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 48px 26px;
+    border-right: var(--line-primary);
+    position: sticky;
+    top: 62px;
+    align-self: start;
+  }
+
+  .svc__nav-title {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--grey-muted);
+    margin-bottom: 14px;
+  }
+
+  .svc__nav-link {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--ink);
+    text-decoration: none;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--hairline-soft);
+    transition: color 0.15s, padding-left 0.15s;
+  }
+
+  .svc__nav-link:hover,
+  .svc__nav-link:focus-visible {
+    color: var(--blue);
+    padding-left: 6px;
+  }
+
+  .svc__nav-link[aria-current='page'] {
+    color: var(--blue);
+    font-weight: 700;
+  }
+
+  .svc__doc {
+    padding: 48px 54px 72px;
+    max-width: 760px;
+  }
+
+  .svc__num {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--blue);
+    letter-spacing: 0.06em;
+  }
+
+  .svc__title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(34px, 5vw, 56px);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+    margin-top: 8px;
+  }
+
+  .svc__intro {
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--grey-body);
+    margin-top: 20px;
+    padding-bottom: 28px;
+    border-bottom: var(--line-primary);
+  }
+
+  .svc__h2 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 21px;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    margin-top: 34px;
+    margin-bottom: 18px;
+  }
+
+  .svc__bullets {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .svc__bullet {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .svc__bullet-plus {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--blue);
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+
+  .svc__bullet-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: -0.005em;
+  }
+
+  .svc__bullet-desc {
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--grey-body);
+    margin-top: 4px;
+  }
+
+  .svc__example {
+    display: block;
+    text-decoration: none;
+    color: var(--ink);
+    border: var(--line-primary);
+  }
+
+  .svc__example-media {
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: var(--ink);
+    border-bottom: var(--line-primary);
+  }
+
+  .svc__example-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(1) contrast(1.05);
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), filter 0.4s ease;
+  }
+
+  .svc__example:hover .svc__example-img,
+  .svc__example:focus-visible .svc__example-img {
+    transform: scale(1.03);
+    filter: grayscale(0) contrast(1);
+  }
+
+  .svc__example-body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    font-family: var(--font-mono);
+    font-size: 14px;
+  }
+
+  .svc__example-name {
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .svc__example-cta {
+    color: var(--blue);
+  }
+
+  .svc__no-example {
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--grey-muted);
+    font-style: italic;
+  }
+
+  .svc__cta {
+    display: inline-block;
+    margin-top: 40px;
+    background: var(--ink);
+    color: #fff;
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    padding: 18px 30px;
+    transition: background 0.15s;
+  }
+
+  .svc__cta:hover,
+  .svc__cta:focus-visible {
+    background: var(--blue);
+  }
+
+  /* --- pie --- */
+  .sfoot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 24px var(--gutter);
+    border-top: var(--line-primary);
+  }
+
+  .sfoot__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+  }
+
+  .sfoot__link {
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .sfoot__link:hover,
+  .sfoot__link:focus-visible {
+    color: var(--blue);
+  }
+
+  .sfoot__copy {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--grey-muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* --- responsive --- */
+  @media (max-width: 860px) {
+    .svc {
+      grid-template-columns: 1fr;
+      border-left: none;
+      border-right: none;
+    }
+    .svc__nav {
+      position: static;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+      padding: 20px var(--gutter);
+      border-right: none;
+      border-bottom: var(--line-primary);
+    }
+    .svc__nav-title {
+      flex-basis: 100%;
+      margin-bottom: 4px;
+    }
+    .svc__nav-link {
+      border-bottom: none;
+      padding: 0;
+    }
+    .svc__nav-link:hover,
+    .svc__nav-link:focus-visible {
+      padding-left: 0;
+    }
+    .svc__doc {
+      padding: 36px var(--gutter) 56px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .shead__brand {
+      padding: 14px 18px;
+    }
+    .shead__actions {
+      gap: 12px;
+      padding-right: 18px;
+    }
+    .shead__back {
+      display: none;
+    }
+    .svc__nav,
+    .svc__doc,
+    .sfoot {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+</style>

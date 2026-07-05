@@ -9,7 +9,8 @@
  *  - BRAND ............ nombre del estudio
  *  - CONTACT.email .... email de contacto (mailto)
  *  - CONTACT.social ... redes
- *  - plans[].price .... tarifas de ejemplo (29 / 59 / 99 €)
+ *  - plans[].price .... tarifas de ejemplo (29 / 59 / 99 / 199 €)
+ *  - STRIPE_LINKS ..... Payment Links de Stripe, uno por plan (ver comentario junto al objeto)
  */
 
 export type Bi = { es: string; en: string };
@@ -27,6 +28,26 @@ export const CONTACT = {
     instagram: '#',
     linkedin: '#',
   },
+};
+
+/**
+ * Payment Links de Stripe — PLACEHOLDERS, sustituir por los reales.
+ *
+ * Para cada plan, crea en el panel de Stripe (Payment Links → Crear) un enlace
+ * de pago para el precio recurrente correspondiente, con:
+ *  - Modo suscripción, precio mensual igual al de `plans[].price`.
+ *  - Periodo de prueba: 60-90 días (más que suficiente para cualquier plazo de
+ *    entrega). El primer cobro no ocurre hasta que el trial termina.
+ *  - El día que la web esté en producción: Stripe → Clientes → esa suscripción
+ *    → "Finalizar prueba ahora". Se factura automáticamente ese mismo día.
+ *  - La alta única (`plans[].alta`) puede cobrarse aparte como "importe único
+ *    adicional" en el propio Payment Link, o facturarse a mano — a tu criterio.
+ */
+export const STRIPE_LINKS: Record<string, string> = {
+  esencial: 'https://buy.stripe.com/PENDIENTE_ESENCIAL',
+  profesional: 'https://buy.stripe.com/PENDIENTE_PROFESIONAL',
+  'tienda-online': 'https://buy.stripe.com/PENDIENTE_TIENDA_ONLINE',
+  premium: 'https://buy.stripe.com/PENDIENTE_PREMIUM',
 };
 
 /** Barra meta del hero. */
@@ -75,12 +96,12 @@ export const HERO = {
 };
 
 /** Índice del hero (columna izquierda). */
-export const heroIndex: { num: string; label: Bi }[] = [
-  { num: '01', label: { es: 'BRANDING', en: 'BRANDING' } },
-  { num: '02', label: { es: 'WEB', en: 'WEB' } },
-  { num: '03', label: { es: 'E-COMMERCE', en: 'E-COMMERCE' } },
-  { num: '04', label: { es: 'UX / UI', en: 'UX / UI' } },
-  { num: '05', label: { es: 'SEO', en: 'SEO' } },
+export const heroIndex: { num: string; slug: string; label: Bi }[] = [
+  { num: '01', slug: 'branding', label: { es: 'BRANDING', en: 'BRANDING' } },
+  { num: '02', slug: 'diseno-web', label: { es: 'WEB', en: 'WEB' } },
+  { num: '03', slug: 'tiendas-online', label: { es: 'E-COMMERCE', en: 'E-COMMERCE' } },
+  { num: '04', slug: 'ux-ui', label: { es: 'UX / UI', en: 'UX / UI' } },
+  { num: '05', slug: 'seo', label: { es: 'SEO', en: 'SEO' } },
 ];
 
 /** Marquee. */
@@ -154,9 +175,10 @@ export const SERVICIOS_INTRO = {
   },
 };
 
-export const services: { num: string; title: Bi; desc: Bi }[] = [
+export const services: { num: string; slug: string; title: Bi; desc: Bi }[] = [
   {
     num: '01',
+    slug: 'branding',
     title: { es: 'Branding e identidad', en: 'Branding & identity' },
     desc: {
       es: 'Logo, paleta y un sistema visual que hace que te recuerden.',
@@ -165,6 +187,7 @@ export const services: { num: string; title: Bi; desc: Bi }[] = [
   },
   {
     num: '02',
+    slug: 'diseno-web',
     title: { es: 'Diseño de páginas web', en: 'Web design' },
     desc: {
       es: 'Diseños a medida pensados para tu negocio, nunca plantillas.',
@@ -173,6 +196,7 @@ export const services: { num: string; title: Bi; desc: Bi }[] = [
   },
   {
     num: '03',
+    slug: 'tiendas-online',
     title: { es: 'Tiendas online', en: 'Online stores' },
     desc: {
       es: 'E-commerce rápido y fácil de gestionar que convierte.',
@@ -181,6 +205,7 @@ export const services: { num: string; title: Bi; desc: Bi }[] = [
   },
   {
     num: '04',
+    slug: 'landing-pages',
     title: { es: 'Landing pages', en: 'Landing pages' },
     desc: {
       es: 'Páginas de campaña con un único objetivo: convertir.',
@@ -189,6 +214,7 @@ export const services: { num: string; title: Bi; desc: Bi }[] = [
   },
   {
     num: '05',
+    slug: 'ux-ui',
     title: { es: 'UX / UI de apps', en: 'App UX / UI' },
     desc: {
       es: 'Interfaces claras para aplicaciones web y móviles.',
@@ -197,6 +223,7 @@ export const services: { num: string; title: Bi; desc: Bi }[] = [
   },
   {
     num: '06',
+    slug: 'seo',
     title: { es: 'SEO y posicionamiento', en: 'SEO' },
     desc: {
       es: 'Optimización técnica y de contenido para que te encuentren.',
@@ -205,6 +232,7 @@ export const services: { num: string; title: Bi; desc: Bi }[] = [
   },
   {
     num: '07',
+    slug: 'mantenimiento',
     title: { es: 'Mantenimiento web', en: 'Maintenance' },
     desc: {
       es: 'Actualizaciones, seguridad y soporte continuo.',
@@ -212,6 +240,277 @@ export const services: { num: string; title: Bi; desc: Bi }[] = [
     },
   },
 ];
+
+/** Contenido de las páginas de detalle de cada servicio (/servicios/[slug]). */
+export type ServiceDetail = {
+  slug: string;
+  intro: Bi;
+  bullets: { title: Bi; desc: Bi }[];
+  example: { name: string; url: string; image: string } | null;
+  exampleNote: Bi;
+};
+
+export const serviceDetails: ServiceDetail[] = [
+  {
+    slug: 'branding',
+    intro: {
+      es: 'Antes de escribir una sola línea de código, definimos quién eres: el logo, los colores, la tipografía y el tono con el que hablas a tus clientes. Todo lo que viene después — la web, las redes, hasta las facturas — parte de aquí.',
+      en: "Before writing a single line of code, we define who you are: the logo, the colours, the type and the tone you use with your customers. Everything that comes after — the website, social media, even invoices — starts here.",
+    },
+    bullets: [
+      {
+        title: { es: 'Logo y variantes', en: 'Logo and variants' },
+        desc: {
+          es: 'Tu marca en positivo, en negativo y a una sola tinta, lista para cualquier soporte.',
+          en: 'Your mark in positive, negative and single-colour versions, ready for any medium.',
+        },
+      },
+      {
+        title: { es: 'Paleta y tipografía', en: 'Colour palette and type' },
+        desc: {
+          es: 'Los colores y las fuentes que te van a representar en todas partes, no solo en la web.',
+          en: 'The colours and typefaces that represent you everywhere, not just on the website.',
+        },
+      },
+      {
+        title: { es: 'Mini guía de marca', en: 'Mini brand guide' },
+        desc: {
+          es: 'Un documento corto con las reglas básicas, para que quien use tu marca no la desvirtúe.',
+          en: 'A short document with the basic rules, so anyone using your brand keeps it consistent.',
+        },
+      },
+    ],
+    example: null,
+    exampleNote: {
+      es: 'Aún no tenemos un caso de branding público — si quieres ser el primero, hablamos.',
+      en: "We don't have a public branding case yet — if you want to be the first, let's talk.",
+    },
+  },
+  {
+    slug: 'diseno-web',
+    intro: {
+      es: 'Diseñamos cada pantalla pensando en tu negocio real, no en una plantilla genérica. Estructura, jerarquía visual y texto persuasivo — todo colocado con intención.',
+      en: 'We design every screen thinking about your actual business, not a generic template. Structure, visual hierarchy and persuasive copy — all placed with intention.',
+    },
+    bullets: [
+      {
+        title: { es: 'Diseño a medida', en: 'Custom design' },
+        desc: {
+          es: 'Cada sección pensada para tu contenido real, no rellenada con texto de relleno.',
+          en: 'Every section designed for your real content, not filled with placeholder text.',
+        },
+      },
+      {
+        title: { es: '100% responsive', en: '100% responsive' },
+        desc: {
+          es: 'Se ve bien en el móvil de tu cliente igual que en tu portátil.',
+          en: "Looks good on your customer's phone just as well as on your laptop.",
+        },
+      },
+      {
+        title: { es: 'SEO técnico desde la base', en: 'Technical SEO from day one' },
+        desc: {
+          es: 'Estructura y velocidad pensadas para que Google te encuentre desde el primer día.',
+          en: 'Structure and speed built so Google finds you from day one.',
+        },
+      },
+    ],
+    example: {
+      name: 'Supermercado Jonathan',
+      url: 'https://supermercadojonathan.com',
+      image: '/work/supermercado-jonathan.jpg',
+    },
+    exampleNote: { es: '', en: '' },
+  },
+  {
+    slug: 'tiendas-online',
+    intro: {
+      es: 'Catálogo, carrito, pagos y gestión — todo conectado para que puedas vender desde el primer día, sin depender de nosotros para cada cambio de precio.',
+      en: 'Catalogue, cart, payments and management — all connected so you can start selling from day one, without depending on us for every price change.',
+    },
+    bullets: [
+      {
+        title: { es: 'Catálogo y categorías', en: 'Catalogue and categories' },
+        desc: {
+          es: 'Organiza tus productos como tiene sentido para tus clientes, no para una plantilla.',
+          en: 'Organise your products the way your customers expect, not the way a template dictates.',
+        },
+      },
+      {
+        title: { es: 'Pasarela de pago segura', en: 'Secure payment gateway' },
+        desc: {
+          es: 'Cobros online con los proveedores habituales, sin que tengas que gestionar tarjetas tú mismo.',
+          en: "Online payments with standard providers, without you having to handle card data yourself.",
+        },
+      },
+      {
+        title: { es: 'Panel de gestión propio', en: 'Your own admin panel' },
+        desc: {
+          es: 'Añade productos, cambia precios y stock tú mismo, sin escribirnos cada vez.',
+          en: 'Add products, change prices and stock yourself, without writing to us every time.',
+        },
+      },
+    ],
+    example: {
+      name: 'Supermercado Jonathan',
+      url: 'https://supermercadojonathan.com',
+      image: '/work/supermercado-jonathan.jpg',
+    },
+    exampleNote: { es: '', en: '' },
+  },
+  {
+    slug: 'landing-pages',
+    intro: {
+      es: 'Una página, un objetivo. Ideal para campañas, lanzamientos o anuncios — lista en días, no en semanas.',
+      en: 'One page, one goal. Ideal for campaigns, launches or ads — ready in days, not weeks.',
+    },
+    bullets: [
+      {
+        title: { es: 'Un solo objetivo', en: 'A single goal' },
+        desc: {
+          es: 'Nada de menús ni enlaces de salida — todo empuja hacia la misma acción.',
+          en: 'No menus or exit links — everything pushes toward the same action.',
+        },
+      },
+      {
+        title: { es: 'Copy persuasivo', en: 'Persuasive copy' },
+        desc: {
+          es: 'Texto escrito para convertir, no solo para informar.',
+          en: 'Copy written to convert, not just to inform.',
+        },
+      },
+      {
+        title: { es: 'Medible desde el día uno', en: 'Measurable from day one' },
+        desc: {
+          es: 'Lista para conectar analítica y medir qué funciona de verdad.',
+          en: 'Ready to connect analytics and measure what actually works.',
+        },
+      },
+    ],
+    example: null,
+    exampleNote: {
+      es: 'Aún no tenemos una landing propia que enseñar — muy pronto.',
+      en: "We don't have our own landing example to show yet — coming soon.",
+    },
+  },
+  {
+    slug: 'ux-ui',
+    intro: {
+      es: 'Interfaces claras para aplicaciones web y móviles — desde el primer boceto hasta la pantalla final, pensando en cómo la usa alguien de verdad, no en cómo queda en una presentación.',
+      en: 'Clear interfaces for web and mobile apps — from the first sketch to the final screen, designed around how someone actually uses it, not how it looks in a slide.',
+    },
+    bullets: [
+      {
+        title: { es: 'Flujos de principio a fin', en: 'End-to-end flows' },
+        desc: {
+          es: 'Cada pantalla resuelve un paso concreto del usuario, sin fricción de más.',
+          en: 'Every screen solves one concrete user step, with no extra friction.',
+        },
+      },
+      {
+        title: { es: 'Sistemas de diseño reutilizables', en: 'Reusable design systems' },
+        desc: {
+          es: 'Componentes consistentes que escalan cuando la aplicación crece.',
+          en: 'Consistent components that scale as the application grows.',
+        },
+      },
+      {
+        title: { es: 'Prototipos navegables', en: 'Clickable prototypes' },
+        desc: {
+          es: 'Pruebas la aplicación antes de que se escriba una sola línea de código de producción.',
+          en: 'You try the app before a single line of production code is written.',
+        },
+      },
+    ],
+    example: {
+      name: 'King of Spain',
+      url: 'https://kingofspain.org',
+      image: '/work/king-of-spain.jpg',
+    },
+    exampleNote: { es: '', en: '' },
+  },
+  {
+    slug: 'seo',
+    intro: {
+      es: 'De poco sirve una web bonita si nadie la encuentra. Trabajamos la parte técnica y el contenido para que aparezcas cuando tu cliente te busca.',
+      en: "A beautiful website is not much use if nobody finds it. We work the technical side and the content so you show up when your customer searches for you.",
+    },
+    bullets: [
+      {
+        title: { es: 'SEO técnico', en: 'Technical SEO' },
+        desc: {
+          es: 'Velocidad, estructura y metadatos — la base que Google necesita para entenderte.',
+          en: 'Speed, structure and metadata — the foundation Google needs to understand you.',
+        },
+      },
+      {
+        title: { es: 'Contenido pensado para buscar', en: 'Content built for search' },
+        desc: {
+          es: 'Textos escritos para las preguntas reales que hace tu cliente, no solo para sonar bien.',
+          en: 'Copy written for the real questions your customers ask, not just to sound good.',
+        },
+      },
+      {
+        title: { es: 'Seguimiento de posiciones', en: 'Ranking tracking' },
+        desc: {
+          es: 'Medimos si subes en Google, no solo si publicamos contenido.',
+          en: 'We measure whether you climb in Google, not just whether content gets published.',
+        },
+      },
+    ],
+    example: {
+      name: 'Mejores Purificadores',
+      url: 'https://mejorespurificadores.com',
+      image: '/work/mejores-purificadores.jpg',
+    },
+    exampleNote: { es: '', en: '' },
+  },
+  {
+    slug: 'mantenimiento',
+    intro: {
+      es: 'Una web no se acaba el día del lanzamiento. Nos encargamos de que siga funcionando, segura y actualizada — para que no tengas que pensar en ello.',
+      en: "A website isn't finished on launch day. We make sure it keeps running, secure and up to date — so you don't have to think about it.",
+    },
+    bullets: [
+      {
+        title: { es: 'Actualizaciones y seguridad', en: 'Updates and security' },
+        desc: {
+          es: 'Parcheamos y actualizamos por ti, sin que tengas que estar pendiente.',
+          en: 'We patch and update on your behalf, without you needing to keep watch.',
+        },
+      },
+      {
+        title: { es: 'Copias de seguridad', en: 'Backups' },
+        desc: {
+          es: 'Si algo falla, hay una versión anterior a la que volver.',
+          en: 'If something breaks, there is a previous version to fall back to.',
+        },
+      },
+      {
+        title: { es: 'Soporte real', en: 'Real support' },
+        desc: {
+          es: 'Nos escribes, te respondemos — no un ticket que desaparece en un buzón.',
+          en: "You write to us, we reply — not a ticket that disappears into an inbox.",
+        },
+      },
+    ],
+    example: null,
+    exampleNote: {
+      es: 'Es un servicio continuo, no un proyecto puntual — por eso no lleva un ejemplo cerrado.',
+      en: "It's an ongoing service, not a one-off project — that's why it has no single example.",
+    },
+  },
+];
+
+/** Textos de interfaz compartidos por las páginas de detalle de servicio. */
+export const SERVICE_PAGE = {
+  back: { es: '← Volver al inicio', en: '← Back to home' },
+  index: { es: 'Servicios', en: 'Services' },
+  includes: { es: 'Qué incluye', en: "What's included" },
+  example: { es: 'Ejemplo real', en: 'Real example' },
+  visitSite: { es: 'Ver sitio →', en: 'Visit site →' },
+  cta: { es: '¿Hablamos de tu proyecto? →', en: "Let's talk about your project →" },
+};
 
 /** Qué te llevas / deliverables. */
 export const PROYECTOS_INTRO = {
@@ -373,6 +672,7 @@ export const TARIFAS_INTRO = {
 };
 
 export const plans: {
+  slug: string;
   name: Bi;
   tag: Bi | null;
   price: string;
@@ -382,6 +682,7 @@ export const plans: {
   changes: Bi;
 }[] = [
   {
+    slug: 'esencial',
     name: { es: 'Esencial', en: 'Essential' },
     tag: null,
     price: '29',
@@ -400,6 +701,7 @@ export const plans: {
     changes: { es: 'Hasta 2 cambios de contenido/mes', en: 'Up to 2 content changes/mo' },
   },
   {
+    slug: 'profesional',
     name: { es: 'Profesional', en: 'Professional' },
     tag: { es: 'POPULAR', en: 'POPULAR' },
     price: '59',
@@ -418,6 +720,7 @@ export const plans: {
     changes: { es: 'Hasta 5 cambios de contenido/mes', en: 'Up to 5 content changes/mo' },
   },
   {
+    slug: 'tienda-online',
     name: { es: 'Tienda online', en: 'Online store' },
     tag: null,
     price: '99',
@@ -439,6 +742,7 @@ export const plans: {
     },
   },
   {
+    slug: 'premium',
     name: { es: 'Premium', en: 'Premium' },
     tag: { es: 'SIN ALTA', en: 'NO SETUP FEE' },
     price: '199',
@@ -529,6 +833,117 @@ export const faqs: { q: Bi; a: Bi }[] = [
     },
   },
 ];
+
+/** Formulario "Empezar proyecto" (/empezar). */
+export const EMPEZAR = {
+  label: '(EMPEZAR PROYECTO)',
+  h2: { es: 'CUÉNTANOS DE TU PROYECTO', en: 'TELL US ABOUT YOUR PROJECT' },
+  para: {
+    es: 'Unas pocas preguntas para entender qué necesitas. Sin ningún compromiso hasta el último paso.',
+    en: "A few questions so we understand what you need. No commitment until the very last step.",
+  },
+  back: { es: '← Volver al inicio', en: '← Back to home' },
+
+  step1: {
+    num: '01',
+    title: { es: 'Tus datos', en: 'Your details' },
+    name: { es: 'Nombre', en: 'Name' },
+    email: { es: 'Email', en: 'Email' },
+    phone: { es: 'Teléfono (opcional)', en: 'Phone (optional)' },
+  },
+  step2: {
+    num: '02',
+    title: { es: 'Tu negocio', en: 'Your business' },
+    business: { es: '¿Cómo se llama tu negocio?', en: "What's your business called?" },
+    about: {
+      es: '¿A qué te dedicas? Cuéntanoslo con tus palabras.',
+      en: 'What do you do? Tell us in your own words.',
+    },
+    hasSite: { es: '¿Ya tienes una web?', en: 'Do you already have a website?' },
+    hasSiteYes: { es: 'Sí', en: 'Yes' },
+    hasSiteNo: { es: 'No', en: 'No' },
+    currentUrl: { es: 'URL de tu web actual (opcional)', en: 'Your current website URL (optional)' },
+  },
+  step3: {
+    num: '03',
+    title: { es: 'Qué necesitas', en: 'What you need' },
+    hint: {
+      es: 'Elige el plan que más se ajuste. Si no lo tienes claro, dínoslo y te aconsejamos nosotros.',
+      en: "Pick the plan that fits best. If you're not sure, tell us and we'll advise you.",
+    },
+    unsure: {
+      es: 'No lo tengo claro, aconsejadme',
+      en: "I'm not sure, advise me",
+    },
+  },
+  stepStyle: {
+    num: '04',
+    title: { es: 'Qué estilo te gusta', en: 'What style do you like' },
+    hint: {
+      es: 'Son 3 proyectos reales nuestros, cada uno con una personalidad distinta. Elige el que más se acerque a lo que imaginas para ti.',
+      en: 'These are 3 real projects of ours, each with a different personality. Pick the one closest to what you imagine for yourself.',
+    },
+    unsure: { es: 'No tengo preferencia, aconsejadme', en: 'No preference, advise me' },
+  },
+  styles: [
+    {
+      slug: 'elegante',
+      label: { es: 'Elegante y premium', en: 'Elegant and premium' },
+      image: '/work/supermercado-jonathan.jpg',
+    },
+    {
+      slug: 'atrevido',
+      label: { es: 'Atrevido y con carácter', en: 'Bold and full of character' },
+      image: '/work/king-of-spain.jpg',
+    },
+    {
+      slug: 'minimalista',
+      label: { es: 'Limpio y minimalista', en: 'Clean and minimal' },
+      image: '/work/mejores-purificadores.jpg',
+    },
+  ],
+  step4: {
+    num: '05',
+    title: { es: 'Algo más', en: 'Anything else' },
+    notes: {
+      es: '¿Algo más que debamos saber? Referencias, plazos, lo que sea.',
+      en: 'Anything else we should know? References, timelines, anything at all.',
+    },
+  },
+  submit: { es: 'ENVIAR →', en: 'SEND →' },
+  sending: { es: 'ENVIANDO…', en: 'SENDING…' },
+  required: { es: '* Campo obligatorio', en: '* Required field' },
+
+  /** Aviso de error si falla el envío (API caída, sin red, etc.). */
+  error: {
+    es: 'No hemos podido enviar tu solicitud. Comprueba tu conexión e inténtalo de nuevo, o escríbenos directamente.',
+    en: "We couldn't send your request. Check your connection and try again, or email us directly.",
+  },
+  errorCta: { es: 'ESCRIBIR UN EMAIL →', en: 'SEND AN EMAIL →' },
+
+  /** Panel final tras enviar (rama con plan elegido). */
+  donePlan: {
+    title: { es: '¡Gracias! Un último paso.', en: 'Thanks! One last step.' },
+    body: {
+      es: 'Hemos recibido tu pedido — en breve te llegará un email de confirmación. Para reservar tu plaza, suscríbete abajo: no se te cobrará nada hasta que tu web esté en producción.',
+      en: "We've received your order — a confirmation email is on its way. To reserve your spot, subscribe below: you won't be charged anything until your website is live.",
+    },
+    cta: { es: 'SUSCRIBIRME →', en: 'SUBSCRIBE →' },
+    note: {
+      es: 'No se te cobrará hasta que tu web esté en producción.',
+      en: "You won't be charged until your website is live.",
+    },
+  },
+
+  /** Panel final tras enviar (rama "no lo tengo claro"). */
+  doneUnsure: {
+    title: { es: '¡Gracias!', en: 'Thanks!' },
+    body: {
+      es: 'Hemos recibido tu pedido y en breve te llegará un email de confirmación. Te responderemos en menos de 24 horas con el plan que mejor encaja contigo, antes de pedirte nada de pago.',
+      en: "We've received your order and a confirmation email is on its way. We'll get back to you within 24 hours with the plan that fits best, before asking for any payment.",
+    },
+  },
+};
 
 /** CTA final. */
 export const CTA = {

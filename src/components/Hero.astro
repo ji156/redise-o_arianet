@@ -16,12 +16,12 @@ import { META, HERO, heroIndex } from '../data/copy.ts';
       <div class="hero__index-label" data-en={HERO.whatWeDo.en}>{HERO.whatWeDo.es}</div>
       {
         heroIndex.map((h) => (
-          <div class="hero__row">
+          <a href={`/servicios/${h.slug}`} class="hero__row">
             <span class="hero__num">{h.num}</span>
             <span class="hero__label" data-en={h.label.en}>
               {h.label.es}
             </span>
-          </div>
+          </a>
         ))
       }
       <div class="hero__square-wrap">
@@ -50,7 +50,7 @@ import { META, HERO, heroIndex } from '../data/copy.ts';
       <p class="hero__para" data-en={HERO.paragraph.en}>{HERO.paragraph.es}</p>
 
       <div class="hero__btns">
-        <a href="#contacto" class="btn btn--blue" data-en={HERO.ctaStart.en}>{HERO.ctaStart.es}</a>
+        <a href="/empezar" class="btn btn--blue" data-en={HERO.ctaStart.en}>{HERO.ctaStart.es}</a>
         <a href="#trabajo" class="btn btn--paper" data-en={HERO.ctaWork.en}>{HERO.ctaWork.es}</a>
       </div>
     </div>
@@ -103,6 +103,14 @@ import { META, HERO, heroIndex } from '../data/copy.ts';
     border-bottom: 1px solid var(--hairline);
     font-family: var(--font-mono);
     font-size: 14px;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .hero__row:hover,
+  .hero__row:focus-visible {
+    color: var(--blue);
   }
 
   .hero__num {

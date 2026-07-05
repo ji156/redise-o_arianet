@@ -1,0 +1,15 @@
+---
+import ServiceDetail from '../../layouts/ServiceDetail.astro';
+import { services, serviceDetails } from '../../data/copy.ts';
+
+export function getStaticPaths() {
+  return services.map((service) => ({
+    params: { slug: service.slug },
+    props: { service, detail: serviceDetails.find((d) => d.slug === service.slug)! },
+  }));
+}
+
+const { service, detail } = Astro.props;
+---
+
+<ServiceDetail service={service} detail={detail} />

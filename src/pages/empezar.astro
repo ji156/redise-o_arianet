@@ -1,0 +1,650 @@
+---
+import Base from '../layouts/Base.astro';
+import { BRAND, EMPEZAR, FOOTER, plans } from '../data/copy.ts';
+
+const title = `${EMPEZAR.h2.es} — ${BRAND}`;
+---
+
+<Base title={title} description={EMPEZAR.para.es}>
+  <header class="ehead">
+    <a href="/" class="ehead__brand" aria-label={`${BRAND} — inicio`}>
+      <img src="/logo-app.png" alt={BRAND} width="28" height="28" class="ehead__logo" />
+      <span class="ehead__wordmark">{BRAND}</span>
+    </a>
+    <div class="ehead__actions">
+      <button type="button" class="ehead__lang" data-lang-toggle aria-label="Switch to English">EN</button>
+      <a href="/" class="ehead__back" data-en={EMPEZAR.back.en}>{EMPEZAR.back.es}</a>
+    </div>
+  </header>
+
+  <main class="empezar">
+    <div class="empezar__head" data-reveal>
+      <div class="empezar__label">{EMPEZAR.label}</div>
+      <h1 class="empezar__h1" data-en={EMPEZAR.h2.en}>{EMPEZAR.h2.es}</h1>
+      <p class="empezar__para" data-en={EMPEZAR.para.en}>{EMPEZAR.para.es}</p>
+    </div>
+
+    <form id="project-form" class="pform" novalidate>
+      <!-- 01 — datos de contacto -->
+      <section class="pform__step">
+        <div class="pform__step-head">
+          <span class="pform__num">{EMPEZAR.step1.num}</span>
+          <h2 class="pform__title" data-en={EMPEZAR.step1.title.en}>{EMPEZAR.step1.title.es}</h2>
+        </div>
+        <div class="pform__grid">
+          <label class="pform__field">
+            <span data-en={EMPEZAR.step1.name.en}>{EMPEZAR.step1.name.es} *</span>
+            <input type="text" name="name" required />
+          </label>
+          <label class="pform__field">
+            <span data-en={EMPEZAR.step1.email.en}>{EMPEZAR.step1.email.es} *</span>
+            <input type="email" name="email" required />
+          </label>
+          <label class="pform__field">
+            <span data-en={EMPEZAR.step1.phone.en}>{EMPEZAR.step1.phone.es}</span>
+            <input type="tel" name="phone" />
+          </label>
+        </div>
+      </section>
+
+      <!-- 02 — el negocio -->
+      <section class="pform__step">
+        <div class="pform__step-head">
+          <span class="pform__num">{EMPEZAR.step2.num}</span>
+          <h2 class="pform__title" data-en={EMPEZAR.step2.title.en}>{EMPEZAR.step2.title.es}</h2>
+        </div>
+        <div class="pform__grid">
+          <label class="pform__field">
+            <span data-en={EMPEZAR.step2.business.en}>{EMPEZAR.step2.business.es} *</span>
+            <input type="text" name="business" required />
+          </label>
+          <label class="pform__field pform__field--wide">
+            <span data-en={EMPEZAR.step2.about.en}>{EMPEZAR.step2.about.es} *</span>
+            <textarea name="about" rows="3" required></textarea>
+          </label>
+          <fieldset class="pform__field">
+            <legend data-en={EMPEZAR.step2.hasSite.en}>{EMPEZAR.step2.hasSite.es}</legend>
+            <div class="pform__radio-row">
+              <label class="pform__radio">
+                <input type="radio" name="hasSite" value="si" />
+                <span data-en={EMPEZAR.step2.hasSiteYes.en}>{EMPEZAR.step2.hasSiteYes.es}</span>
+              </label>
+              <label class="pform__radio">
+                <input type="radio" name="hasSite" value="no" checked />
+                <span data-en={EMPEZAR.step2.hasSiteNo.en}>{EMPEZAR.step2.hasSiteNo.es}</span>
+              </label>
+            </div>
+          </fieldset>
+          <label class="pform__field">
+            <span data-en={EMPEZAR.step2.currentUrl.en}>{EMPEZAR.step2.currentUrl.es}</span>
+            <input type="text" name="currentUrl" />
+          </label>
+        </div>
+      </section>
+
+      <!-- 03 — qué plan -->
+      <section class="pform__step">
+        <div class="pform__step-head">
+          <span class="pform__num">{EMPEZAR.step3.num}</span>
+          <h2 class="pform__title" data-en={EMPEZAR.step3.title.en}>{EMPEZAR.step3.title.es}</h2>
+        </div>
+        <p class="pform__hint" data-en={EMPEZAR.step3.hint.en}>{EMPEZAR.step3.hint.es}</p>
+        <div class="pform__plans">
+          {
+            plans.map((pl) => (
+              <label class="pform__plan">
+                <input type="radio" name="plan" value={pl.slug} />
+                <span class="pform__plan-name" data-en={pl.name.en}>
+                  {pl.name.es}
+                </span>
+                <span class="pform__plan-price">{pl.price}€/mes</span>
+              </label>
+            ))
+          }
+          <label class="pform__plan pform__plan--unsure">
+            <input type="radio" name="plan" value="unsure" checked />
+            <span class="pform__plan-name" data-en={EMPEZAR.step3.unsure.en}>
+              {EMPEZAR.step3.unsure.es}
+            </span>
+          </label>
+        </div>
+      </section>
+
+      <!-- 04 — estilo visual -->
+      <section class="pform__step">
+        <div class="pform__step-head">
+          <span class="pform__num">{EMPEZAR.stepStyle.num}</span>
+          <h2 class="pform__title" data-en={EMPEZAR.stepStyle.title.en}>{EMPEZAR.stepStyle.title.es}</h2>
+        </div>
+        <p class="pform__hint" data-en={EMPEZAR.stepStyle.hint.en}>{EMPEZAR.stepStyle.hint.es}</p>
+        <div class="pform__styles">
+          {
+            EMPEZAR.styles.map((s) => (
+              <label class="pform__style">
+                <input type="radio" name="style" value={s.slug} />
+                <span class="pform__style-media">
+                  <img src={s.image} alt={s.label.es} class="pform__style-img" loading="lazy" />
+                </span>
+                <span class="pform__style-label" data-en={s.label.en}>
+                  {s.label.es}
+                </span>
+              </label>
+            ))
+          }
+          <label class="pform__style pform__style--unsure">
+            <input type="radio" name="style" value="unsure" checked />
+            <span class="pform__style-label" data-en={EMPEZAR.stepStyle.unsure.en}>
+              {EMPEZAR.stepStyle.unsure.es}
+            </span>
+          </label>
+        </div>
+      </section>
+
+      <!-- 05 — notas -->
+      <section class="pform__step">
+        <div class="pform__step-head">
+          <span class="pform__num">{EMPEZAR.step4.num}</span>
+          <h2 class="pform__title" data-en={EMPEZAR.step4.title.en}>{EMPEZAR.step4.title.es}</h2>
+        </div>
+        <label class="pform__field pform__field--wide">
+          <span data-en={EMPEZAR.step4.notes.en}>{EMPEZAR.step4.notes.es}</span>
+          <textarea name="notes" rows="3"></textarea>
+        </label>
+      </section>
+
+      <div class="pform__footer">
+        <span class="pform__required" data-en={EMPEZAR.required.en}>
+          {EMPEZAR.required.es}
+        </span>
+        <button type="submit" class="btn btn--blue pform__submit" data-en={EMPEZAR.submit.en}>
+          {EMPEZAR.submit.es}
+        </button>
+      </div>
+
+      <p id="pform-error" class="pform__error" hidden>
+        <span data-en={EMPEZAR.error.en}>{EMPEZAR.error.es}</span>{' '}
+        <a id="pform-error-fallback" href="#" class="pform__error-link">
+          <span data-en={EMPEZAR.errorCta.en}>{EMPEZAR.errorCta.es}</span>
+        </a>
+      </p>
+    </form>
+
+    <!-- panel final: plan concreto elegido -->
+    <div id="pform-done-plan" class="pdone" hidden data-reveal>
+      <h2 class="pdone__title" data-en={EMPEZAR.donePlan.title.en}>
+        {EMPEZAR.donePlan.title.es}
+      </h2>
+      <p class="pdone__body" data-en={EMPEZAR.donePlan.body.en}>
+        {EMPEZAR.donePlan.body.es}
+      </p>
+      <a id="pform-stripe-link" href="#" target="_blank" rel="noopener noreferrer" class="btn btn--blue pdone__cta">
+        <span data-en={EMPEZAR.donePlan.cta.en}>{EMPEZAR.donePlan.cta.es}</span>
+      </a>
+      <p class="pdone__note" data-en={EMPEZAR.donePlan.note.en}>
+        {EMPEZAR.donePlan.note.es}
+      </p>
+    </div>
+
+    <!-- panel final: "no lo tengo claro" -->
+    <div id="pform-done-unsure" class="pdone" hidden data-reveal>
+      <h2 class="pdone__title" data-en={EMPEZAR.doneUnsure.title.en}>
+        {EMPEZAR.doneUnsure.title.es}
+      </h2>
+      <p class="pdone__body" data-en={EMPEZAR.doneUnsure.body.en}>
+        {EMPEZAR.doneUnsure.body.es}
+      </p>
+    </div>
+  </main>
+
+  <footer class="efoot">
+    <span data-en={FOOTER.copyright.en}>{FOOTER.copyright.es}</span>
+  </footer>
+</Base>
+
+<script>
+  import { initProjectForm } from '../scripts/empezar-form.ts';
+  initProjectForm();
+</script>
+
+<style>
+  .ehead {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    background: var(--paper);
+    border-bottom: var(--line-primary);
+  }
+
+  .ehead__brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 26px;
+    text-decoration: none;
+    color: var(--ink);
+    border-right: var(--line-primary);
+  }
+
+  .ehead__logo {
+    border-radius: 8px;
+  }
+
+  .ehead__wordmark {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 19px;
+    letter-spacing: -0.01em;
+  }
+
+  .ehead__actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-right: 26px;
+  }
+
+  .ehead__lang {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 700;
+    background: var(--paper);
+    border: var(--line-primary);
+    color: var(--ink);
+    padding: 6px 11px;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .ehead__lang:hover,
+  .ehead__lang:focus-visible {
+    background: var(--ink);
+    color: #fff;
+  }
+
+  .ehead__back {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .ehead__back:hover,
+  .ehead__back:focus-visible {
+    color: var(--blue);
+  }
+
+  /* --- cuerpo --- */
+  .empezar {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+    border-left: var(--line-primary);
+    border-right: var(--line-primary);
+  }
+
+  .empezar__head {
+    padding: 54px 0 40px;
+  }
+
+  .empezar__label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--blue);
+    margin-bottom: 18px;
+  }
+
+  .empezar__h1 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(32px, 5vw, 54px);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+  }
+
+  .empezar__para {
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--grey-body);
+    margin-top: 16px;
+    max-width: 520px;
+  }
+
+  /* --- formulario --- */
+  .pform__step {
+    padding: 36px 0;
+    border-top: var(--line-primary);
+  }
+
+  .pform__step-head {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+
+  .pform__num {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--blue);
+    letter-spacing: 0.06em;
+  }
+
+  .pform__title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 22px;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+  }
+
+  .pform__hint {
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--grey-body);
+    margin-bottom: 22px;
+  }
+
+  .pform__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .pform__field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.03em;
+    color: var(--grey-muted);
+  }
+
+  .pform__field--wide {
+    grid-column: 1 / -1;
+  }
+
+  .pform__field input,
+  .pform__field textarea {
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--ink);
+    border: var(--line-primary);
+    padding: 12px 14px;
+    background: var(--paper);
+    resize: vertical;
+  }
+
+  .pform__field input:focus-visible,
+  .pform__field textarea:focus-visible {
+    outline: 2.5px solid var(--blue);
+    outline-offset: -1px;
+  }
+
+  fieldset.pform__field {
+    border: none;
+    padding: 0;
+  }
+
+  fieldset.pform__field legend {
+    padding: 0;
+    margin-bottom: 8px;
+  }
+
+  .pform__radio-row {
+    display: flex;
+    gap: 16px;
+    padding-top: 4px;
+  }
+
+  .pform__radio {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--ink);
+    cursor: pointer;
+  }
+
+  /* --- selector de planes --- */
+  .pform__plans {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .pform__plan {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border: var(--line-primary);
+    padding: 16px 18px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    position: relative;
+  }
+
+  .pform__plan input {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+  }
+
+  .pform__plan:has(input:checked) {
+    background: var(--blue);
+    color: #fff;
+  }
+
+  .pform__plan-name {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 16px;
+    text-transform: uppercase;
+    padding-right: 24px;
+  }
+
+  .pform__plan-price {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    opacity: 0.8;
+  }
+
+  .pform__plan--unsure {
+    grid-column: 1 / -1;
+  }
+
+  /* --- selector de estilo --- */
+  .pform__styles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+
+  .pform__style {
+    display: flex;
+    flex-direction: column;
+    border: var(--line-primary);
+    cursor: pointer;
+    position: relative;
+  }
+
+  .pform__style input {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
+  }
+
+  .pform__style-media {
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: var(--ink);
+    border-bottom: var(--line-primary);
+  }
+
+  .pform__style-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .pform__style-label {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    font-weight: 700;
+    padding: 12px 14px;
+  }
+
+  .pform__style:has(input:checked) {
+    outline: 2.5px solid var(--blue);
+    outline-offset: -2px;
+  }
+
+  .pform__style--unsure {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    align-items: center;
+    padding: 14px 18px;
+  }
+
+  .pform__style--unsure input {
+    position: static;
+    margin-right: 10px;
+  }
+
+  .pform__style--unsure:has(input:checked) {
+    background: var(--blue);
+    color: #fff;
+  }
+
+  /* --- envío --- */
+  .pform__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 30px 0 60px;
+  }
+
+  .pform__required {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--grey-muted);
+  }
+
+  .pform__submit {
+    text-decoration: none;
+    border: var(--line-primary);
+    cursor: pointer;
+  }
+
+  .pform__submit:disabled {
+    opacity: 0.6;
+    cursor: wait;
+  }
+
+  .pform__error {
+    width: 100%;
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--ink);
+    background: var(--paper);
+    border: var(--line-primary);
+    border-left: 3px solid var(--blue);
+    padding: 14px 16px;
+  }
+
+  .pform__error-link {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--blue);
+    white-space: nowrap;
+  }
+
+  /* --- paneles finales --- */
+  .pdone {
+    padding: 40px 0 72px;
+    border-top: var(--line-primary);
+  }
+
+  .pdone__title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(26px, 4vw, 38px);
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+  }
+
+  .pdone__body {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--grey-body);
+    margin-top: 16px;
+    max-width: 560px;
+  }
+
+  .pdone__cta {
+    display: inline-block;
+    text-decoration: none;
+    margin-top: 26px;
+    border: var(--line-primary);
+  }
+
+  .pdone__note {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--grey-muted);
+    margin-top: 14px;
+  }
+
+  /* --- pie --- */
+  .efoot {
+    display: flex;
+    justify-content: center;
+    padding: 24px var(--gutter);
+    border-top: var(--line-primary);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--grey-muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* --- responsive --- */
+  @media (max-width: 700px) {
+    .empezar {
+      padding: 0 20px;
+      border-left: none;
+      border-right: none;
+    }
+    .pform__grid,
+    .pform__plans,
+    .pform__styles {
+      grid-template-columns: 1fr;
+    }
+    .ehead__brand {
+      padding: 14px 18px;
+    }
+    .ehead__actions {
+      gap: 12px;
+      padding-right: 18px;
+    }
+    .ehead__back {
+      display: none;
+    }
+  }
+</style>

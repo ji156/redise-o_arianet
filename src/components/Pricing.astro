@@ -69,7 +69,7 @@ import { TARIFAS_INTRO, plans } from '../data/copy.ts';
             </span>
             <span data-en={pl.changes.en}>{pl.changes.es}</span>
           </div>
-          <a href="#contacto" class="plan__cta">
+          <a href={`/empezar?plan=${pl.slug}`} class="plan__cta">
             <span class="plan__cta-inner" data-en={TARIFAS_INTRO.cta.en}>{TARIFAS_INTRO.cta.es}</span>
           </a>
         </div>
