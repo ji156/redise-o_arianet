@@ -13,14 +13,13 @@ import type { Bi } from './copy.ts';
 import { BRAND, CONTACT } from './copy.ts';
 
 /**
- * Datos identificativos del titular. Operando como autónomo (NIF personal)
- * bajo el nombre comercial `BRAND` mientras se constituye la sociedad; el
- * CIF de la sociedad, cuando esté disponible, sustituirá a `nif`.
+ * Datos identificativos del titular. La sociedad está en proceso de
+ * constitución; el CIF definitivo sustituirá a `nif` en cuanto se disponga.
  */
 export const LEGAL = {
   marca: BRAND,
-  titular: 'Jonathan Izquierdo (Arianet WebStudio)',
-  nif: '44558564C',
+  titular: 'Arianet WebStudio SL',
+  nif: { es: 'en trámite', en: 'pending' },
   domicilio: 'C/ María Juncal Labandibar n.º 9, 1.º derecha, 20305 Irún (Guipúzcoa), España',
   email: CONTACT.email,
   web: 'arianet.studio',
@@ -59,8 +58,8 @@ export const legalDocs: LegalDoc[] = [
         heading: { es: '1. Datos identificativos', en: '1. Identifying details' },
         paragraphs: [
           {
-            es: `En cumplimiento de la normativa vigente, se informa de que este sitio web es titularidad de ${LEGAL.titular}, con NIF ${LEGAL.nif} y domicilio en ${LEGAL.domicilio}.`,
-            en: `In accordance with applicable law, this website is owned by ${LEGAL.titular}, tax ID ${LEGAL.nif}, with registered address at ${LEGAL.domicilio}.`,
+            es: `En cumplimiento de la normativa vigente, se informa de que este sitio web es titularidad de ${LEGAL.titular}, con NIF ${LEGAL.nif.es} y domicilio en ${LEGAL.domicilio}.`,
+            en: `In accordance with applicable law, this website is owned by ${LEGAL.titular}, tax ID ${LEGAL.nif.en}, with registered address at ${LEGAL.domicilio}.`,
           },
           {
             es: `Correo electrónico de contacto: ${LEGAL.email}. En adelante, "${BRAND}" o "el titular".`,
@@ -128,8 +127,8 @@ export const legalDocs: LegalDoc[] = [
         heading: { es: '1. Responsable del tratamiento', en: '1. Data controller' },
         paragraphs: [
           {
-            es: `El responsable del tratamiento de tus datos es ${LEGAL.titular}, con NIF ${LEGAL.nif}, domicilio en ${LEGAL.domicilio} y correo de contacto ${LEGAL.email}.`,
-            en: `The controller of your data is ${LEGAL.titular}, tax ID ${LEGAL.nif}, address ${LEGAL.domicilio}, contact email ${LEGAL.email}.`,
+            es: `El responsable del tratamiento de tus datos es ${LEGAL.titular}, con NIF ${LEGAL.nif.es}, domicilio en ${LEGAL.domicilio} y correo de contacto ${LEGAL.email}.`,
+            en: `The controller of your data is ${LEGAL.titular}, tax ID ${LEGAL.nif.en}, address ${LEGAL.domicilio}, contact email ${LEGAL.email}.`,
           },
         ],
       },
