@@ -20,7 +20,7 @@ import { WORK_INTRO, work } from '../data/copy.ts';
       work.map((w) => (
         <a href={w.url} target="_blank" rel="noopener noreferrer" class="tile" data-reveal>
           <div class="tile__media">
-            <img src={w.image} alt={w.title} class="tile__img" loading="lazy" />
+            <img src={w.image} alt={w.title} width="1200" height="675" class="tile__img" loading="lazy" />
           </div>
           <div class="tile__body">
             <span class="tile__tag" data-en={w.tag.en}>
