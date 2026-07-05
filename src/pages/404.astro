@@ -9,8 +9,7 @@ const title = `${NOT_FOUND.title.es} — ${BRAND}`;
 <Base title={title} description={NOT_FOUND.message.es}>
   <header class="nf-head">
     <a href="/" class="nf-head__brand" aria-label={`${BRAND} — inicio`}>
-      <img src="/logo-app.png" alt={BRAND} width="28" height="28" class="nf-head__logo" />
-      <span class="nf-head__wordmark">{BRAND}</span>
+      <img src="/logo-wordmark-compact.png" alt={BRAND} width="1180" height="240" class="nf-head__logo" />
     </a>
     <button type="button" class="nf-head__lang" data-lang-toggle aria-label="Switch to English">EN</button>
   </header>
@@ -55,14 +54,8 @@ const title = `${NOT_FOUND.title.es} — ${BRAND}`;
   }
 
   .nf-head__logo {
-    border-radius: 8px;
-  }
-
-  .nf-head__wordmark {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: 19px;
-    letter-spacing: -0.01em;
+    width: auto;
+    height: 22px;
   }
 
   .nf-head__lang {

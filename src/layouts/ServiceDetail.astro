@@ -14,8 +14,7 @@ const title = `${service.title.es} — ${BRAND}`;
 <Base title={title} description={service.desc.es}>
   <header class="shead">
     <a href="/" class="shead__brand" aria-label={`${BRAND} — inicio`}>
-      <img src="/logo-app.png" alt={BRAND} width="28" height="28" class="shead__logo" />
-      <span class="shead__wordmark">{BRAND}</span>
+      <img src="/logo-wordmark-compact.png" alt={BRAND} width="1180" height="240" class="shead__logo" />
     </a>
     <div class="shead__actions">
       <button type="button" class="shead__lang" data-lang-toggle aria-label="Switch to English">EN</button>
@@ -140,14 +139,8 @@ const title = `${service.title.es} — ${BRAND}`;
   }
 
   .shead__logo {
-    border-radius: 8px;
-  }
-
-  .shead__wordmark {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: 19px;
-    letter-spacing: -0.01em;
+    width: auto;
+    height: 22px;
   }
 
   .shead__actions {

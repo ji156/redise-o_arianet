@@ -8,8 +8,7 @@ const title = `${EMPEZAR.h2.es} — ${BRAND}`;
 <Base title={title} description={EMPEZAR.para.es}>
   <header class="ehead">
     <a href="/" class="ehead__brand" aria-label={`${BRAND} — inicio`}>
-      <img src="/logo-app.png" alt={BRAND} width="28" height="28" class="ehead__logo" />
-      <span class="ehead__wordmark">{BRAND}</span>
+      <img src="/logo-wordmark-compact.png" alt={BRAND} width="1180" height="240" class="ehead__logo" />
     </a>
     <div class="ehead__actions">
       <button type="button" class="ehead__lang" data-lang-toggle aria-label="Switch to English">EN</button>
@@ -229,14 +228,8 @@ const title = `${EMPEZAR.h2.es} — ${BRAND}`;
   }
 
   .ehead__logo {
-    border-radius: 8px;
-  }
-
-  .ehead__wordmark {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: 19px;
-    letter-spacing: -0.01em;
+    width: auto;
+    height: 22px;
   }
 
   .ehead__actions {

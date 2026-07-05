@@ -52,7 +52,7 @@ export const STRIPE_LINKS: Record<string, string> = {
 
 /** Barra meta del hero. */
 export const META = {
-  studio: { es: `${BRAND}™ ESTUDIO`, en: `${BRAND}™ STUDIO` },
+  studio: { es: 'SOLUCIONES DIGITALES', en: 'DIGITAL SOLUTIONS' },
   tagline: { es: 'DISEÑO + DESARROLLO WEB', en: 'WEB DESIGN + DEVELOPMENT' },
   est: { es: 'EST. 2026', en: 'EST. 2026' },
 };

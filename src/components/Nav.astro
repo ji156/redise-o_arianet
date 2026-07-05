@@ -4,8 +4,7 @@ import { BRAND, NAV } from '../data/copy.ts';
 
 <nav class="nav">
   <a href="#top" class="nav__brand" aria-label={`${BRAND} — inicio`}>
-    <img src="/logo-app.png" alt={BRAND} width="30" height="30" class="nav__logo" />
-    <span class="nav__wordmark">{BRAND}</span>
+    <img src="/logo-wordmark-compact.png" alt={BRAND} width="1180" height="240" class="nav__logo" />
   </a>
 
   <div class="nav__links">
@@ -81,16 +80,8 @@ import { BRAND, NAV } from '../data/copy.ts';
   }
 
   .nav__logo {
-    width: 30px;
-    height: 30px;
-    border-radius: 8px; /* única esquina redondeada de toda la página */
-  }
-
-  .nav__wordmark {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: 20px;
-    letter-spacing: -0.01em;
+    width: auto;
+    height: 26px;
   }
 
   .nav__links {
@@ -381,8 +372,8 @@ import { BRAND, NAV } from '../data/copy.ts';
       padding: 14px 16px;
       gap: 9px;
     }
-    .nav__wordmark {
-      font-size: 18px;
+    .nav__logo {
+      height: 22px;
     }
     .nav__toggle {
       font-size: 12px;

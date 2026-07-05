@@ -14,8 +14,7 @@ const title = `${doc.title.es} — ${BRAND}`;
 <Base title={title} description={doc.intro.es}>
   <header class="lhead">
     <a href="/" class="lhead__brand" aria-label={`${BRAND} — inicio`}>
-      <img src="/logo-app.png" alt={BRAND} width="28" height="28" class="lhead__logo" />
-      <span class="lhead__wordmark">{BRAND}</span>
+      <img src="/logo-wordmark-compact.png" alt={BRAND} width="1180" height="240" class="lhead__logo" />
     </a>
     <div class="lhead__actions">
       <button type="button" class="lhead__lang" data-lang-toggle aria-label="Switch to English">EN</button>
@@ -99,14 +98,8 @@ const title = `${doc.title.es} — ${BRAND}`;
   }
 
   .lhead__logo {
-    border-radius: 8px;
-  }
-
-  .lhead__wordmark {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: 19px;
-    letter-spacing: -0.01em;
+    width: auto;
+    height: 22px;
   }
 
   .lhead__actions {
