@@ -71,6 +71,20 @@ const ogImage = new URL('/og-image.png', Astro.site).href;
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
+
+    {
+      /* Umami (analítica sin cookies, instancia propia). Solo en producción
+         y limitado al dominio real para no ensuciar datos desde previews. */
+      import.meta.env.PROD && (
+        <script
+          is:inline
+          defer
+          src="https://stats.arianet.eu/script.js"
+          data-website-id="82922f02-669c-4189-80c4-9c4da7829af7"
+          data-domains="arianet.eu,www.arianet.eu"
+        />
+      )
+    }
   </head>
   <body>
     <slot />
