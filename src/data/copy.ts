@@ -60,11 +60,11 @@ export const META = {
 /** Navegación. */
 export const NAV = {
   links: [
-    { href: '#trabajo', label: { es: 'TRABAJO', en: 'WORK' } },
     { href: '#servicios', label: { es: 'SERVICIOS', en: 'SERVICES' } },
     { href: '#proyectos', label: { es: 'QUÉ INCLUYE', en: 'WHAT YOU GET' } },
-    { href: '#tarifas', label: { es: 'TARIFAS', en: 'PRICING' } },
     { href: '#proceso', label: { es: 'PROCESO', en: 'PROCESS' } },
+    { href: '#trabajo', label: { es: 'TRABAJO', en: 'WORK' } },
+    { href: '#tarifas', label: { es: 'TARIFAS', en: 'PRICING' } },
     { href: '#faq', label: { es: 'FAQ', en: 'FAQ' } },
   ],
   cta: { es: 'HABLEMOS →', en: "LET'S TALK →" },
@@ -117,7 +117,7 @@ export const marquee: Bi[] = [
 
 /** Trabajo realizado. */
 export const WORK_INTRO = {
-  label: '(TRABAJO / 01)',
+  label: '(TRABAJO / 04)',
   h2: { es: 'ALGUNOS PROYECTOS', en: 'SOME PROJECTS' },
   para: {
     es: 'Proyectos reales, no maquetas. Muy pronto habrá más.',
@@ -163,11 +163,21 @@ export const work: {
     url: 'https://mejorespurificadores.com',
     image: '/work/mejores-purificadores.jpg',
   },
+  {
+    tag: { es: 'PROYECTO PROPIO · MEDIO DIGITAL', en: 'OWN PROJECT · DIGITAL MEDIA' },
+    title: 'Semavor',
+    desc: {
+      es: 'La economía mundial, cada día: informes de mercado, noticias y newsletter.',
+      en: 'The global economy, every day: market reports, news and a newsletter.',
+    },
+    url: 'https://semavor.com',
+    image: '/work/semavor.jpg',
+  },
 ];
 
 /** Servicios. */
 export const SERVICIOS_INTRO = {
-  label: '(SERVICIOS / 02)',
+  label: '(SERVICIOS / 01)',
   h2: { es: 'LO QUE HACEMOS', en: 'WHAT WE DO' },
   para: {
     es: 'Un solo equipo, de principio a fin — del primer boceto al día del lanzamiento.',
@@ -514,7 +524,7 @@ export const SERVICE_PAGE = {
 
 /** Qué te llevas / deliverables. */
 export const PROYECTOS_INTRO = {
-  label: '(QUÉ INCLUYE / 03)',
+  label: '(QUÉ INCLUYE / 02)',
   h2: { es: 'QUÉ TE LLEVAS', en: 'WHAT YOU GET' },
   para: {
     es: 'Entregables claros, cero sorpresas — justo lo que acaba en tus manos.',
@@ -611,7 +621,7 @@ export const commitments: { title: Bi; sub: Bi }[] = [
 
 /** Proceso. */
 export const PROCESO_INTRO = {
-  label: '(PROCESO / 04)',
+  label: '(PROCESO / 03)',
   h2: { es: 'CÓMO TRABAJAMOS', en: 'HOW WE WORK' },
 };
 
@@ -972,10 +982,10 @@ export const FOOTER = {
   studioCol: {
     heading: { es: 'ESTUDIO', en: 'STUDIO' },
     links: [
-      { href: '#trabajo', label: { es: 'Trabajo', en: 'Work' } },
       { href: '#servicios', label: { es: 'Servicios', en: 'Services' } },
       { href: '#proyectos', label: { es: 'Qué incluye', en: 'What you get' } },
       { href: '#proceso', label: { es: 'Proceso', en: 'Process' } },
+      { href: '#trabajo', label: { es: 'Trabajo', en: 'Work' } },
       { href: '#tarifas', label: { es: 'Tarifas', en: 'Pricing' } },
       { href: '#faq', label: { es: 'FAQ', en: 'FAQ' } },
     ],
