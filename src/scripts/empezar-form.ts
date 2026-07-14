@@ -68,6 +68,9 @@ export function initProjectForm(): void {
       if (!res.ok) throw new Error(`API respondió ${res.status}`);
 
       form.hidden = true;
+      // Oculta también la cabecera ("Cuéntanos de tu proyecto" + intro) para
+      // que tras enviar solo quede el panel de agradecimiento.
+      document.querySelector<HTMLElement>('.empezar__head')?.setAttribute('hidden', '');
 
       if (planSlug !== 'unsure') {
         const donePlan = document.querySelector<HTMLElement>('#pform-done-plan');
