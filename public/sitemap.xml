@@ -1,67 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://arianet.studio/</loc>
+    <loc>https://arianet.eu/</loc>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://arianet.studio/empezar</loc>
+    <loc>https://arianet.eu/empezar</loc>
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://arianet.studio/servicios/branding</loc>
+    <loc>https://arianet.eu/servicios/branding</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://arianet.studio/servicios/diseno-web</loc>
+    <loc>https://arianet.eu/servicios/diseno-web</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://arianet.studio/servicios/tiendas-online</loc>
+    <loc>https://arianet.eu/servicios/tiendas-online</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://arianet.studio/servicios/landing-pages</loc>
+    <loc>https://arianet.eu/servicios/landing-pages</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://arianet.studio/servicios/ux-ui</loc>
+    <loc>https://arianet.eu/servicios/ux-ui</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://arianet.studio/servicios/seo</loc>
+    <loc>https://arianet.eu/servicios/seo</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://arianet.studio/servicios/mantenimiento</loc>
+    <loc>https://arianet.eu/servicios/mantenimiento</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://arianet.studio/aviso-legal</loc>
+    <loc>https://arianet.eu/aviso-legal</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://arianet.studio/privacidad</loc>
+    <loc>https://arianet.eu/privacidad</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://arianet.studio/cookies</loc>
+    <loc>https://arianet.eu/cookies</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://arianet.studio/terminos</loc>
+    <loc>https://arianet.eu/terminos</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>

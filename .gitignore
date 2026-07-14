@@ -1,5 +1,7 @@
 # build output
 dist/
+# caché de npm del build en el VPS (ver ../deploy.sh)
+.npm-cache/
 # dependencies
 node_modules/
 # astro

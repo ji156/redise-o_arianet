@@ -73,9 +73,13 @@ const title = `${service.title.es} — ${BRAND}`;
         }
       </div>
 
-      <h2 class="svc__h2" data-en={SERVICE_PAGE.example.en}>
-        {SERVICE_PAGE.example.es}
-      </h2>
+      {
+        detail.example && (
+          <h2 class="svc__h2" data-en={SERVICE_PAGE.example.en}>
+            {SERVICE_PAGE.example.es}
+          </h2>
+        )
+      }
       {
         detail.example ? (
           <a href={detail.example.url} target="_blank" rel="noopener noreferrer" class="svc__example">

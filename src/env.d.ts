@@ -3,7 +3,7 @@
 
 interface ImportMetaEnv {
   // URL base de la API de arianet-crm (ver ../arianet-crm). En dev apunta al
-  // servidor Go local; en producción, al subdominio api.arianet.studio.
+  // servidor Go local; en producción, al subdominio api.arianet.eu.
   readonly PUBLIC_API_URL: string;
 }
 

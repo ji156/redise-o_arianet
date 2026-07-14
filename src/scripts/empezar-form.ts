@@ -1,4 +1,4 @@
-import { CONTACT, STRIPE_LINKS, plans, EMPEZAR } from '../data/copy.ts';
+import { CONTACT, plans, EMPEZAR } from '../data/copy.ts';
 
 /**
  * Formulario "Empezar proyecto". Envía el pedido a la API de arianet-crm
@@ -25,6 +25,11 @@ export function initProjectForm(): void {
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    // El <form> lleva `novalidate` para controlar el flujo desde aquí, así que
+    // la validación nativa (required, type=email) hay que dispararla a mano.
+    if (!form.reportValidity()) return;
+
     const data = new FormData(form);
     const planSlug = String(data.get('plan') ?? 'unsure');
     const planName = plans.find((p) => p.slug === planSlug)?.name.es ?? 'Sin decidir / aconsejadme';
@@ -50,7 +55,12 @@ export function initProjectForm(): void {
     }
 
     try {
-      const res = await fetch(`${import.meta.env.PUBLIC_API_URL}/api/submissions`, {
+      // Horneada en build: si el build se hizo sin PUBLIC_API_URL, no hay
+      // endpoint válido al que enviar — mejor ir directos al fallback mailto.
+      const apiUrl = import.meta.env.PUBLIC_API_URL;
+      if (!apiUrl) throw new Error('PUBLIC_API_URL no definida en el build');
+
+      const res = await fetch(`${apiUrl}/api/submissions`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -61,8 +71,6 @@ export function initProjectForm(): void {
 
       if (planSlug !== 'unsure') {
         const donePlan = document.querySelector<HTMLElement>('#pform-done-plan');
-        const stripeLink = document.querySelector<HTMLAnchorElement>('#pform-stripe-link');
-        if (stripeLink) stripeLink.href = STRIPE_LINKS[planSlug] ?? '#';
         if (donePlan) donePlan.hidden = false;
       } else {
         const doneUnsure = document.querySelector<HTMLElement>('#pform-done-unsure');

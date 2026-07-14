@@ -12,18 +12,15 @@
 import type { Bi } from './copy.ts';
 import { BRAND, CONTACT } from './copy.ts';
 
-/**
- * Datos identificativos del titular. La sociedad está en proceso de
- * constitución; el CIF definitivo sustituirá a `nif` en cuanto se disponga.
- */
+/** Datos identificativos del titular. */
 export const LEGAL = {
   marca: BRAND,
   titular: 'Arianet WebStudio SL',
-  nif: { es: 'en trámite', en: 'pending' },
+  nif: { es: 'B93796357', en: 'B93796357' },
   domicilio: 'C/ María Juncal Labandibar n.º 9, 1.º derecha, 20305 Irún (Guipúzcoa), España',
   email: CONTACT.email,
-  web: 'arianet.studio',
-  updated: { es: 'Última actualización: junio de 2026', en: 'Last updated: June 2026' },
+  web: 'arianet.eu',
+  updated: { es: 'Última actualización: julio de 2026', en: 'Last updated: July 2026' },
   back: { es: '← Volver al inicio', en: '← Back to home' },
   index: { es: 'Documentos legales', en: 'Legal documents' },
 };
@@ -32,8 +29,8 @@ export const LEGAL = {
 export const COOKIES = {
   title: { es: 'Usamos cookies', en: 'We use cookies' },
   text: {
-    es: 'Solo utilizamos cookies técnicas propias, necesarias para el funcionamiento del sitio y para recordar tus preferencias (como el idioma). No usamos cookies de seguimiento ni compartimos datos con terceros. Puedes leer más en nuestra política de cookies.',
-    en: 'We only use our own technical cookies, needed for the site to work and to remember your preferences (such as language). We don’t use tracking cookies or share data with third parties. You can read more in our cookie policy.',
+    es: 'Solo utilizamos cookies técnicas propias, necesarias para el funcionamiento del sitio y para recordar tus preferencias (como el idioma). No usamos cookies de seguimiento; medimos visitas con analítica propia sin cookies y sin compartir datos con terceros. Puedes leer más en nuestra política de cookies.',
+    en: 'We only use our own technical cookies, needed for the site to work and to remember your preferences (such as language). We don’t use tracking cookies; we measure visits with our own cookieless analytics and share no data with third parties. You can read more in our cookie policy.',
   },
   accept: { es: 'Aceptar', en: 'Accept' },
   reject: { es: 'Rechazar', en: 'Reject' },
@@ -136,8 +133,8 @@ export const legalDocs: LegalDoc[] = [
         heading: { es: '2. Datos que tratamos y finalidad', en: '2. Data we process and purpose' },
         paragraphs: [
           {
-            es: 'Tratamos los datos que nos facilitas voluntariamente al contactarnos por correo electrónico (nombre, email y la información que incluyas en tu mensaje), con la finalidad de atender tu consulta y, en su caso, prestarte nuestros servicios.',
-            en: 'We process the data you voluntarily provide when contacting us by email (name, email and any information you include in your message), in order to respond to your enquiry and, where applicable, provide our services.',
+            es: 'Tratamos los datos que nos facilitas voluntariamente a través del formulario "Empezar proyecto" o al contactarnos por correo electrónico (nombre, email, teléfono si lo indicas, datos de tu negocio y la información que incluyas en tu mensaje), con la finalidad de atender tu solicitud, elaborar una propuesta y, en su caso, prestarte nuestros servicios. Los envíos del formulario se almacenan en nuestros propios sistemas y generan un correo de confirmación automático.',
+            en: 'We process the data you voluntarily provide through the "Start a project" form or when contacting us by email (name, email, phone if given, details about your business and any information you include in your message), in order to handle your request, prepare a proposal and, where applicable, provide our services. Form submissions are stored on our own systems and trigger an automatic confirmation email.',
           },
         ],
       },
@@ -214,8 +211,8 @@ export const legalDocs: LegalDoc[] = [
             en: 'Necessary technical cookies: essential for the site to work and to remember your preferences (such as language or your cookie choice). They do not require consent.',
           },
           {
-            es: 'No utilizamos cookies de terceros, de seguimiento ni de análisis. Todos los recursos del sitio, incluidas las fuentes tipográficas, se sirven desde nuestro propio dominio, por lo que no se comparte ningún dato con servicios externos.',
-            en: 'We do not use third-party, tracking or analytics cookies. All site resources, including the typefaces, are served from our own domain, so no data is shared with external services.',
+            es: 'No utilizamos cookies de terceros ni de seguimiento. Para medir las visitas usamos Umami, una herramienta de analítica autoalojada en nuestros propios servidores que no usa cookies, no identifica a los visitantes y no comparte datos con terceros. El resto de recursos del sitio, incluidas las fuentes tipográficas, también se sirven desde nuestros propios dominios.',
+            en: 'We do not use third-party or tracking cookies. To measure visits we use Umami, an analytics tool self-hosted on our own servers that sets no cookies, does not identify visitors and shares no data with third parties. All other site resources, including the typefaces, are also served from our own domains.',
           },
         ],
       },

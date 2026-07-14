@@ -9,7 +9,7 @@
  *  - BRAND ............ nombre del estudio
  *  - CONTACT.email .... email de contacto (mailto)
  *  - CONTACT.social ... redes
- *  - plans[].price .... tarifas de ejemplo (29 / 59 / 99 / 199 €)
+ *  - plans[].price .... tarifas vigentes (29 / 59 / 99 / 199 €)
  *  - STRIPE_LINKS ..... Payment Links de Stripe, uno por plan (ver comentario junto al objeto)
  */
 
@@ -21,9 +21,9 @@ export const BRAND = 'arianet';
 /** Año (estático en build). Para una landing estática es suficiente. */
 export const YEAR = 2026;
 
-/** Contacto y redes (placeholders provisionales). */
+/** Contacto y redes (las redes aún no se renderizan en el Footer). */
 export const CONTACT = {
-  email: 'hola@arianet.studio',
+  email: 'hola@arianet.eu',
   social: {
     instagram: '#',
     linkedin: '#',
@@ -32,6 +32,11 @@ export const CONTACT = {
 
 /**
  * Payment Links de Stripe — PLACEHOLDERS, sustituir por los reales.
+ *
+ * AHORA MISMO NO SE USA: el botón de suscripción del panel post-envío de
+ * /empezar se retiró temporalmente (la contratación se cierra por email tras
+ * recibir el formulario). Cuando existan los Payment Links reales, volver a
+ * enlazarlo en `empezar.astro` (#pform-stripe-link) y `empezar-form.ts`.
  *
  * Para cada plan, crea en el panel de Stripe (Payment Links → Crear) un enlace
  * de pago para el precio recurrente correspondiente, con:
@@ -599,8 +604,8 @@ export const MANIFIESTO = {
 
 export const commitments: { title: Bi; sub: Bi }[] = [
   {
-    title: { es: 'Revisiones sin límite', en: 'Unlimited revisions' },
-    sub: { es: 'Hasta que estés 100% contento.', en: "Until you're 100% happy." },
+    title: { es: 'Revisiones sin límite en el diseño', en: 'Unlimited design revisions' },
+    sub: { es: 'Hasta que estés 100% contento con tu web.', en: "Until you're 100% happy with your site." },
   },
   {
     title: { es: 'Entrega rápida', en: 'Fast delivery' },
@@ -665,8 +670,8 @@ export const TARIFAS_INTRO = {
   label: '(TARIFAS / 05)',
   h2: { es: 'TARIFAS PLANAS', en: 'FLAT-RATE PLANS' },
   para: {
-    es: 'Una cuota fija al mes. Hosting, SSL, dominio y mantenimiento — todo dentro. Sin facturas raras.',
-    en: 'One fixed fee a month. Hosting, SSL, domain and maintenance — all in. No weird invoices.',
+    es: 'Una cuota fija al mes. Hosting, SSL y mantenimiento — todo dentro. Sin facturas raras.',
+    en: 'One fixed fee a month. Hosting, SSL and maintenance — all in. No weird invoices.',
   },
   from: { es: 'DESDE', en: 'FROM' },
   perMonth: { es: '/mes', en: '/mo' },
@@ -676,8 +681,8 @@ export const TARIFAS_INTRO = {
   cta: { es: 'EMPEZAR →', en: 'GET STARTED →' },
   swipe: { es: 'DESLIZA PARA VER LOS PLANES →', en: 'SWIPE TO SEE THE PLANS →' },
   footnote: {
-    es: '* Dominio sujeto a disponibilidad y precio, pago único aparte. Cada plan incluye una alta única de puesta en marcha (ver cada tarjeta). En Tienda online y Premium, gestionar tu catálogo desde tu propio panel no cuenta como cambio; las comisiones de la pasarela de pago las cobra directamente tu proveedor de pago. Sin permanencia — cancela cuando quieras.',
-    en: "* Domain subject to availability and price, one-time payment. Each plan includes a one-time setup fee (see each card). On Online store and Premium, managing your catalogue from your own panel doesn't count as a change; payment gateway fees are charged directly by your payment provider. No lock-in — cancel whenever you want.",
+    es: '* Precios sin IVA. Dominio sujeto a disponibilidad y precio, pago único aparte. Cada plan incluye una alta única de puesta en marcha (ver cada tarjeta). En Tienda online y Premium, gestionar tu catálogo desde tu propio panel no cuenta como cambio; las comisiones de la pasarela de pago las cobra directamente tu proveedor de pago. Sin permanencia — cancela cuando quieras.',
+    en: "* Prices exclude VAT. Domain subject to availability and price, one-time payment. Each plan includes a one-time setup fee (see each card). On Online store and Premium, managing your catalogue from your own panel doesn't count as a change; payment gateway fees are charged directly by your payment provider. No lock-in — cancel whenever you want.",
   },
 };
 
@@ -849,8 +854,8 @@ export const EMPEZAR = {
   label: '(EMPEZAR PROYECTO)',
   h2: { es: 'CUÉNTANOS DE TU PROYECTO', en: 'TELL US ABOUT YOUR PROJECT' },
   para: {
-    es: 'Unas pocas preguntas para entender qué necesitas. Sin ningún compromiso hasta el último paso.',
-    en: "A few questions so we understand what you need. No commitment until the very last step.",
+    es: 'Unas pocas preguntas para entender qué necesitas. Sin ningún compromiso: te respondemos en menos de 24 horas.',
+    en: 'A few questions so we understand what you need. No commitment at all: we reply within 24 hours.',
   },
   back: { es: '← Volver al inicio', en: '← Back to home' },
 
@@ -933,15 +938,10 @@ export const EMPEZAR = {
 
   /** Panel final tras enviar (rama con plan elegido). */
   donePlan: {
-    title: { es: '¡Gracias! Un último paso.', en: 'Thanks! One last step.' },
+    title: { es: '¡Gracias! Pedido recibido.', en: 'Thanks! Order received.' },
     body: {
-      es: 'Hemos recibido tu pedido — en breve te llegará un email de confirmación. Para reservar tu plaza, suscríbete abajo: no se te cobrará nada hasta que tu web esté en producción.',
-      en: "We've received your order — a confirmation email is on its way. To reserve your spot, subscribe below: you won't be charged anything until your website is live.",
-    },
-    cta: { es: 'SUSCRIBIRME →', en: 'SUBSCRIBE →' },
-    note: {
-      es: 'No se te cobrará hasta que tu web esté en producción.',
-      en: "You won't be charged until your website is live.",
+      es: 'Hemos recibido tu pedido — en breve te llegará un email de confirmación. Te escribiremos en menos de 24 horas para poner en marcha tu web y acordar la forma de pago. No pagas nada por adelantado.',
+      en: "We've received your order — a confirmation email is on its way. We'll write to you within 24 hours to get your website started and arrange payment. You don't pay anything upfront.",
     },
   },
 
