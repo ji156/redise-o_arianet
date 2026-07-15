@@ -35,6 +35,10 @@ export function initProjectForm(): void {
     const planName = plans.find((p) => p.slug === planSlug)?.name.es ?? 'Sin decidir / aconsejadme';
     const styleSlug = String(data.get('style') ?? 'unsure');
 
+    // Token de Cloudflare Turnstile: el widget inyecta un input oculto
+    // `cf-turnstile-response` dentro del form. Sin token, la API lo rechaza.
+    const turnstileToken = String(data.get('cf-turnstile-response') ?? '');
+
     const payload = {
       name: String(data.get('name') ?? ''),
       email: String(data.get('email') ?? ''),
@@ -46,6 +50,7 @@ export function initProjectForm(): void {
       plan: planSlug,
       style: styleSlug,
       notes: String(data.get('notes') ?? ''),
+      turnstileToken,
     };
 
     if (errorBox) errorBox.hidden = true;
@@ -81,6 +86,9 @@ export function initProjectForm(): void {
       }
     } catch (err) {
       console.error('empezar-form: error enviando el pedido', err);
+      // El token de Turnstile es de un solo uso: al reintentar hace falta uno
+      // nuevo, así que reseteamos el widget si está presente.
+      (window as unknown as { turnstile?: { reset: () => void } }).turnstile?.reset();
       if (submitBtn) {
         submitBtn.disabled = false;
         submitBtn.textContent = EMPEZAR.submit.es;

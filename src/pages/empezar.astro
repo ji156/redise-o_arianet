@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import { BRAND, EMPEZAR, FOOTER, plans } from '../data/copy.ts';
 
 const title = `${EMPEZAR.h2.es} — ${BRAND}`;
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 ---
 
 <Base title={title} description={EMPEZAR.para.es}>
@@ -151,6 +152,14 @@ const title = `${EMPEZAR.h2.es} — ${BRAND}`;
         </label>
       </section>
 
+      {
+        turnstileSiteKey && (
+          <div class="pform__turnstile">
+            <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-theme="auto" />
+          </div>
+        )
+      }
+
       <div class="pform__footer">
         <span class="pform__required" data-en={EMPEZAR.required.en}>
           {EMPEZAR.required.es}
@@ -193,6 +202,14 @@ const title = `${EMPEZAR.h2.es} — ${BRAND}`;
     <span data-en={FOOTER.copyright.en}>{FOOTER.copyright.es}</span>
   </footer>
 </Base>
+
+{
+  /* Widget anti-spam de Cloudflare. Externo, pero es primera parte (Cloudflare
+     ya es tu proxy). Al enforce de la CSP habrá que permitir challenges.cloudflare.com. */
+  turnstileSiteKey && (
+    <script is:inline async defer src="https://challenges.cloudflare.com/turnstile/v0/api.js" />
+  )
+}
 
 <script>
   import { initProjectForm } from '../scripts/empezar-form.ts';
@@ -512,6 +529,11 @@ const title = `${EMPEZAR.h2.es} — ${BRAND}`;
   .pform__style--unsure:has(input:checked) {
     background: var(--blue);
     color: #fff;
+  }
+
+  /* --- anti-spam --- */
+  .pform__turnstile {
+    padding: 24px 0 0;
   }
 
   /* --- envío --- */

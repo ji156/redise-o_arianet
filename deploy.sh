@@ -23,6 +23,7 @@ docker run --rm -u "$(id -u):$(id -g)" \
   -v "$PWD":/src -w /src \
   -e npm_config_cache=/src/.npm-cache \
   -e PUBLIC_API_URL=https://api.arianet.eu \
+  -e PUBLIC_TURNSTILE_SITE_KEY=0x4AAAAAAD2E6gDJUuOCOmbm \
   node:22 sh -c 'npm ci && npm run build'
 
 rsync -a --delete dist/ /var/www/arianet.eu/
