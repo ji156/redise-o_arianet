@@ -31,6 +31,19 @@ import { BRAND, META, FOOTER, CONTACT } from '../data/copy.ts';
     </div>
 
     <div class="footer__col">
+      <span class="footer__heading" data-en={FOOTER.areaCol.heading.en}>
+        {FOOTER.areaCol.heading.es}
+      </span>
+      {
+        FOOTER.areaCol.links.map((l) => (
+          <a href={l.href} class="footer__link" data-en={l.label.en}>
+            {l.label.es}
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="footer__col">
       <span class="footer__heading" data-en={FOOTER.contactCol.heading.en}>
         {FOOTER.contactCol.heading.es}
       </span>
@@ -61,7 +74,7 @@ import { BRAND, META, FOOTER, CONTACT } from '../data/copy.ts';
 
   .footer__nav {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 30px;
     padding-bottom: 40px;
     border-bottom: var(--line-primary);
@@ -142,6 +155,13 @@ import { BRAND, META, FOOTER, CONTACT } from '../data/copy.ts';
   }
 
   /* --- responsive --- */
+  @media (max-width: 900px) {
+    .footer__nav {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+  }
+
   @media (max-width: 600px) {
     .footer {
       padding: 32px 20px;

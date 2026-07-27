@@ -1,0 +1,10 @@
+---
+// Landing local. Página estática y no dinámica a propósito: una segunda ruta
+// `[slug]` en la raíz chocaría con `[legal].astro`.
+import LocalLanding from '../layouts/LocalLanding.astro';
+import { localPages } from '../data/copy.ts';
+
+const page = localPages.find((p) => p.slug === 'diseno-web-irun')!;
+---
+
+<LocalLanding page={page} />

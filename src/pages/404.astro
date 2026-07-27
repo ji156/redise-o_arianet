@@ -4,9 +4,10 @@ import { BRAND, FOOTER, NOT_FOUND } from '../data/copy.ts';
 import { legalDocs } from '../data/legal.ts';
 
 const title = `${NOT_FOUND.title.es} — ${BRAND}`;
+// noindex: una 404 indexada sólo gasta presupuesto de rastreo.
 ---
 
-<Base title={title} description={NOT_FOUND.message.es}>
+<Base title={title} description={NOT_FOUND.message.es} noindex>
   <header class="nf-head">
     <a href="/" class="nf-head__brand" aria-label={`${BRAND} — inicio`}>
       <img src="/logo-wordmark-compact.png" alt={BRAND} width="1180" height="240" class="nf-head__logo" />

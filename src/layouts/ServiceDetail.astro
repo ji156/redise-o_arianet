@@ -1,6 +1,7 @@
 ---
 import Base from './Base.astro';
 import { BRAND, FOOTER, SERVICE_PAGE, services, type ServiceDetail } from '../data/copy.ts';
+import { breadcrumbSchema, serviceSchema } from '../data/schema.ts';
 
 interface Props {
   service: (typeof services)[number];
@@ -8,10 +9,25 @@ interface Props {
 }
 
 const { service, detail } = Astro.props;
-const title = `${service.title.es} — ${BRAND}`;
+const path = `/servicios/${service.slug}`;
+
+// El título ya no es "<nombre del servicio> — arianet": ese formato describe el
+// servicio, no la búsqueda. `service.seo` lo redacta como lo teclea el cliente
+// ("diseño de páginas web en Irún") y añade la ubicación.
+const schema = [
+  serviceSchema({
+    name: service.title.es,
+    description: service.seo.description,
+    path,
+  }),
+  breadcrumbSchema([
+    { name: 'Inicio', path: '/' },
+    { name: service.title.es, path },
+  ]),
+];
 ---
 
-<Base title={title} description={service.desc.es}>
+<Base title={service.seo.title} description={service.seo.description} schema={schema}>
   <header class="shead">
     <a href="/" class="shead__brand" aria-label={`${BRAND} — inicio`}>
       <img src="/logo-wordmark-compact.png" alt={BRAND} width="1180" height="240" class="shead__logo" />

@@ -10,11 +10,21 @@ import Manifesto from '../components/Manifesto.astro';
 import Process from '../components/Process.astro';
 import Pricing from '../components/Pricing.astro';
 import Faq from '../components/Faq.astro';
+import Areas from '../components/Areas.astro';
 import CTA from '../components/CTA.astro';
 import Footer from '../components/Footer.astro';
+import { faqSchema } from '../data/schema.ts';
+
+// El FAQPage se genera desde el mismo array que pinta la sección FAQ: si las
+// preguntas del schema no están visibles en la página, Google lo ignora.
+const schema = [faqSchema()];
 ---
 
-<Base>
+<Base
+  title="Diseño de páginas web en Irún y Gipuzkoa | arianet"
+  description="Diseño y programación de páginas web en Irún. Webs a medida, tiendas online y SEO local para negocios de Irún, San Sebastián y Gipuzkoa. Desde 29 €/mes."
+  schema={schema}
+>
   <Nav />
   <Hero />
   <Marquee />
@@ -25,6 +35,7 @@ import Footer from '../components/Footer.astro';
   <Work />
   <Pricing />
   <Faq />
+  <Areas />
   <CTA />
   <Footer />
 </Base>

@@ -18,6 +18,13 @@ export type Bi = { es: string; en: string };
 /** Marca — único sitio donde vive el nombre del estudio. */
 export const BRAND = 'arianet';
 
+/**
+ * Dominio canónico, sin barra final. Debe coincidir con `site` en
+ * astro.config.mjs: de ahí salen las URL absolutas del JSON-LD y del sitemap.
+ * (arianet.es hace 301 aquí; el dominio a efectos de Google es éste.)
+ */
+export const SITE_URL = 'https://arianet.eu';
+
 /** Año (estático en build). Para una landing estática es suficiente. */
 export const YEAR = 2026;
 
@@ -29,6 +36,98 @@ export const CONTACT = {
     linkedin: '#',
   },
 };
+
+/**
+ * NAP (Name / Address / Phone) — mismos datos que el aviso legal.
+ *
+ * Alimenta el JSON-LD `ProfessionalService` y el footer. Google cruza este NAP
+ * con el del perfil de empresa y con el de cualquier directorio donde aparezcas:
+ * si no coinciden EXACTAMENTE (abreviaturas incluidas), resta en el pack local.
+ * Por eso vive en un único sitio y se renderiza desde aquí en todas partes.
+ *
+ * `telephone` queda vacío a propósito: no hay teléfono público. En cuanto lo
+ * haya, ponerlo aquí en formato E.164 (+34…) — es uno de los campos con más
+ * peso para el SEO local.
+ */
+export const BUSINESS = {
+  legalName: 'Arianet WebStudio SL',
+  vatId: 'B93796357',
+  street: 'C/ María Juncal Labandibar 9, 1.º dcha',
+  postalCode: '20305',
+  city: 'Irún',
+  region: 'Gipuzkoa',
+  country: 'ES',
+  telephone: '',
+  founded: '2026',
+  /* Centro del municipio: precisión suficiente para el emparejado geográfico
+     (la ubicación fina la aporta el perfil de empresa, no el schema). */
+  geo: { lat: 43.3376, lng: -1.7889 },
+};
+
+/**
+ * Zonas donde trabajamos — enlazadas desde la sección "Dónde trabajamos".
+ *
+ * Sólo las tres primeras tienen landing propia (`href`): son las búsquedas con
+ * volumen real. El resto son municipios de la comarca que aparecen como texto
+ * para cubrir long-tail sin inflar el sitio con páginas casi vacías, que Google
+ * penaliza como doorway pages.
+ */
+export const AREAS_INTRO = {
+  label: '(ZONA / 07)',
+  h2: { es: 'DÓNDE TRABAJAMOS', en: 'WHERE WE WORK' },
+  para: {
+    es: 'Somos un estudio de Irún. Nos movemos por Gipuzkoa y trabajamos en remoto con el resto de España.',
+    en: 'We are a studio based in Irún. We cover Gipuzkoa and work remotely with the rest of Spain.',
+  },
+};
+
+export const areas: { num: string; name: string; href: string | null; desc: Bi }[] = [
+  {
+    num: '01',
+    name: 'Irún',
+    href: '/diseno-web-irun',
+    desc: {
+      es: 'Nuestra base. Comercios, hostelería y pymes del Bidasoa — nos podemos ver en persona.',
+      en: 'Our home base. Shops, restaurants and small businesses in the Bidasoa area — we can meet in person.',
+    },
+  },
+  {
+    num: '02',
+    name: 'Donostia · San Sebastián',
+    href: '/diseno-web-san-sebastian',
+    desc: {
+      es: 'A 20 minutos por la A-8. Negocios locales, estudios y profesionales de Donostia.',
+      en: '20 minutes down the A-8. Local businesses, studios and professionals in Donostia.',
+    },
+  },
+  {
+    num: '03',
+    name: 'Gipuzkoa',
+    href: '/paginas-web-gipuzkoa',
+    desc: {
+      es: 'Toda la provincia: Errenteria, Oiartzun, Pasaia, Lezo, Hernani, Tolosa, Eibar.',
+      en: 'The whole province: Errenteria, Oiartzun, Pasaia, Lezo, Hernani, Tolosa, Eibar.',
+    },
+  },
+  {
+    num: '04',
+    name: 'Hondarribia y Bidasoa',
+    href: null,
+    desc: {
+      es: 'Hondarribia, Lezo, Pasaia y alrededores — la comarca de siempre.',
+      en: 'Hondarribia, Lezo, Pasaia and around — our own county.',
+    },
+  },
+  {
+    num: '05',
+    name: 'Resto de España',
+    href: null,
+    desc: {
+      es: 'En remoto, con videollamada. La distancia no cambia cómo trabajamos.',
+      en: 'Remotely, over video call. Distance changes nothing in how we work.',
+    },
+  },
+];
 
 /**
  * Payment Links de Stripe — PLACEHOLDERS, sustituir por los reales.
@@ -57,8 +156,8 @@ export const STRIPE_LINKS: Record<string, string> = {
 
 /** Barra meta del hero. */
 export const META = {
-  studio: { es: 'SOLUCIONES DIGITALES', en: 'DIGITAL SOLUTIONS' },
-  tagline: { es: 'DISEÑO + DESARROLLO WEB', en: 'WEB DESIGN + DEVELOPMENT' },
+  studio: { es: 'DISEÑO Y PROGRAMACIÓN WEB', en: 'WEB DESIGN & DEVELOPMENT' },
+  tagline: { es: 'IRÚN · GIPUZKOA', en: 'IRÚN · GIPUZKOA / SPAIN' },
   est: { es: 'EST. 2026', en: 'EST. 2026' },
 };
 
@@ -86,15 +185,22 @@ export const NAV = {
 export const HERO = {
   status: { es: 'DISPONIBLES PARA PROYECTOS', en: 'OPEN FOR NEW PROJECTS' },
   whatWeDo: { es: 'QUÉ HACEMOS ↓', en: 'WHAT WE DO ↓' },
-  // El H1 cambia el ORDEN de palabras entre idiomas.
-  // Línea 1 sólida, línea 2 outline.
+  // El H1 lleva el término por el que queremos que nos encuentren + la ciudad:
+  // es la señal on-page con más peso de toda la home. Línea 1 sólida, línea 2
+  // outline (el contraste tipográfico del prototipo se mantiene).
   h1: {
-    line1: { es: 'ESTUDIO', en: 'DIGITAL' },
-    line2: { es: 'DIGITAL', en: 'STUDIO' },
+    line1: { es: 'DISEÑO WEB', en: 'WEB DESIGN' },
+    line2: { es: 'EN IRÚN', en: 'IN IRÚN' },
+  },
+  // Subtítulo bajo el H1: mete los sinónimos reales de búsqueda ("páginas web",
+  // "programación", "tiendas online") y las localidades sin recargar el H1.
+  subtitle: {
+    es: 'Diseño y programación de páginas web para negocios de Irún, Donostia-San Sebastián y toda Gipuzkoa.',
+    en: 'Web design and development for businesses in Irún, Donostia-San Sebastián and across Gipuzkoa.',
   },
   paragraph: {
-    es: 'Construimos las webs que tu competencia va a querer copiar. Branding, web y tiendas online, diseñadas desde cero.',
-    en: 'We build the websites your competitors will wish they had. Branding, web and online stores, designed from scratch.',
+    es: 'Construimos las webs que tu competencia va a querer copiar. Branding, páginas web y tiendas online, diseñadas desde cero. Tarifa plana desde 29 €/mes, sin permanencia.',
+    en: 'We build the websites your competitors will wish they had. Branding, websites and online stores, designed from scratch. Flat rate from €29/mo, no lock-in.',
   },
   ctaStart: { es: 'EMPEZAR PROYECTO →', en: 'START A PROJECT →' },
   ctaWork: { es: 'VER TRABAJO', en: 'SEE WORK' },
@@ -190,7 +296,22 @@ export const SERVICIOS_INTRO = {
   },
 };
 
-export const services: { num: string; slug: string; title: Bi; desc: Bi }[] = [
+/**
+ * `seo` es lo que va al <title> y la <meta description> de cada
+ * /servicios/[slug]; `title`/`desc` son el texto visible de la tarjeta.
+ *
+ * Se separan a propósito: el title debe leerse como la búsqueda que hace el
+ * cliente ("diseño de páginas web en Irún"), no como el nombre interno del
+ * servicio. Objetivo: title ≤ 60 caracteres y description 140-160, que es lo
+ * que Google muestra sin recortar.
+ */
+export const services: {
+  num: string;
+  slug: string;
+  title: Bi;
+  desc: Bi;
+  seo: { title: string; description: string };
+}[] = [
   {
     num: '01',
     slug: 'branding',
@@ -198,6 +319,11 @@ export const services: { num: string; slug: string; title: Bi; desc: Bi }[] = [
     desc: {
       es: 'Logo, paleta y un sistema visual que hace que te recuerden.',
       en: 'Logo, palette and a visual system that makes you memorable.',
+    },
+    seo: {
+      title: 'Diseño de logos y branding en Irún, Gipuzkoa',
+      description:
+        'Diseño de logotipos e identidad de marca para negocios de Irún, San Sebastián y Gipuzkoa. Logo, paleta, tipografías y guía de marca. Presupuesto sin compromiso.',
     },
   },
   {
@@ -208,6 +334,14 @@ export const services: { num: string; slug: string; title: Bi; desc: Bi }[] = [
       es: 'Diseños a medida pensados para tu negocio, nunca plantillas.',
       en: 'Custom designs built for your business — never templates.',
     },
+    /* Sin ciudad en el title, a diferencia de la home: esta página explica el
+       servicio ("a medida, sin plantillas") y la home se queda la consulta
+       local. Dos páginas casi idénticas se restan la una a la otra. */
+    seo: {
+      title: 'Diseño de páginas web a medida, sin plantillas',
+      description:
+        'Diseñamos y programamos tu web desde cero, adaptada a tu negocio: responsive, rápida y con SEO técnico desde el primer día. Estudio en Irún, Gipuzkoa.',
+    },
   },
   {
     num: '03',
@@ -216,6 +350,11 @@ export const services: { num: string; slug: string; title: Bi; desc: Bi }[] = [
     desc: {
       es: 'E-commerce rápido y fácil de gestionar que convierte.',
       en: 'Fast, easy-to-manage e-commerce that converts.',
+    },
+    seo: {
+      title: 'Crear tienda online en Irún y Gipuzkoa | E-commerce',
+      description:
+        'Creamos tu tienda online: catálogo, carrito, pagos seguros y panel para gestionarla tú. Para comercios de Irún, San Sebastián y toda Gipuzkoa. Desde 99 €/mes.',
     },
   },
   {
@@ -226,6 +365,11 @@ export const services: { num: string; slug: string; title: Bi; desc: Bi }[] = [
       es: 'Páginas de campaña con un único objetivo: convertir.',
       en: 'Campaign pages with one single goal: converting.',
     },
+    seo: {
+      title: 'Landing pages para campañas | Irún, Gipuzkoa',
+      description:
+        'Páginas de campaña con un único objetivo: que te contacten. Copy persuasivo, analítica y listas en días. Para negocios de Irún, Donostia y Gipuzkoa.',
+    },
   },
   {
     num: '05',
@@ -234,6 +378,11 @@ export const services: { num: string; slug: string; title: Bi; desc: Bi }[] = [
     desc: {
       es: 'Interfaces claras para aplicaciones web y móviles.',
       en: 'Clear interfaces for web and mobile apps.',
+    },
+    seo: {
+      title: 'Diseño UX/UI de apps y aplicaciones web | arianet',
+      description:
+        'Diseño de interfaces para aplicaciones web y móviles: flujos, sistema de diseño y prototipos navegables antes de programar. Estudio en Irún, Gipuzkoa.',
     },
   },
   {
@@ -244,6 +393,11 @@ export const services: { num: string; slug: string; title: Bi; desc: Bi }[] = [
       es: 'Optimización técnica y de contenido para que te encuentren.',
       en: 'Technical and content optimization so people find you.',
     },
+    seo: {
+      title: 'Posicionamiento SEO en Irún y San Sebastián',
+      description:
+        'SEO técnico y de contenido para salir en Google cuando tu cliente te busca. Posicionamiento local para negocios de Irún, Donostia-San Sebastián y Gipuzkoa.',
+    },
   },
   {
     num: '07',
@@ -252,6 +406,11 @@ export const services: { num: string; slug: string; title: Bi; desc: Bi }[] = [
     desc: {
       es: 'Actualizaciones, seguridad y soporte continuo.',
       en: 'Updates, security and ongoing support.',
+    },
+    seo: {
+      title: 'Mantenimiento de páginas web | Irún, Gipuzkoa',
+      description:
+        'Mantenimiento web mensual: actualizaciones, seguridad, copias de seguridad y soporte real. Incluido en la tarifa plana, sin permanencia. Estudio en Irún.',
     },
   },
 ];
@@ -847,6 +1006,29 @@ export const faqs: { q: Bi; a: Bi }[] = [
       en: "Great. We build on what you already have: redesign, migrate or extend — no starting from scratch unless you want to.",
     },
   },
+  /* Las dos siguientes responden búsquedas locales reales ("cuánto cuesta una
+     página web en Irún", "diseñador web cerca de mí") y alimentan el JSON-LD
+     FAQPage, que es lo que Google puede desplegar bajo el resultado. */
+  {
+    q: {
+      es: '¿Cuánto cuesta una página web en Irún o San Sebastián?',
+      en: 'How much does a website cost in Irún or San Sebastián?',
+    },
+    a: {
+      es: 'Con nosotros no pagas 1.500 € de golpe: trabajamos con tarifa plana desde 29 €/mes más un alta única desde 49 €, y ahí dentro va el diseño, el alojamiento, el SSL y el mantenimiento. Una web de comercio o restaurante suele encajar en el plan Esencial o Profesional; una tienda online, en el de 99 €/mes.',
+      en: "You don't pay €1,500 upfront: we work on a flat rate from €29/mo plus a one-time setup from €49, and that covers design, hosting, SSL and maintenance. A shop or restaurant site usually fits the Essential or Professional plan; an online store, the €99/mo one.",
+    },
+  },
+  {
+    q: {
+      es: '¿Trabajáis solo con negocios de Irún?',
+      en: 'Do you only work with businesses from Irún?',
+    },
+    a: {
+      es: 'Estamos en Irún y es donde más cerca tenemos a nuestros clientes —podemos vernos en persona—, pero trabajamos con toda Gipuzkoa: Donostia-San Sebastián, Hondarribia, Errenteria, Oiartzun, Pasaia, Lezo, Hernani. Y con el resto de España en remoto, por videollamada.',
+      en: "We're based in Irún and that's where our clients are closest —we can meet in person— but we work across Gipuzkoa: Donostia-San Sebastián, Hondarribia, Errenteria, Oiartzun, Pasaia, Lezo, Hernani. And with the rest of Spain remotely, over video call.",
+    },
+  },
 ];
 
 /** Formulario "Empezar proyecto" (/empezar). */
@@ -957,13 +1139,287 @@ export const EMPEZAR = {
 
 /** CTA final. */
 export const CTA = {
-  label: '(CONTACTO / 07)',
+  label: '(CONTACTO / 08)',
   h2: { es: '¿HABLAMOS?', en: "LET'S TALK?" },
   para: {
     es: 'Cuéntanos dónde estás y a dónde quieres llegar. Te respondemos en menos de 24 horas.',
     en: 'Tell us where you are and where you want to go. We reply within 24 hours.',
   },
   ctaStart: { es: 'EMPEZAR PROYECTO →', en: 'START A PROJECT →' },
+};
+
+/**
+ * Landings locales (/diseno-web-irun, /diseno-web-san-sebastian,
+ * /paginas-web-gipuzkoa).
+ *
+ * Cada una responde a una búsqueda distinta y tiene texto PROPIO: si fueran la
+ * misma página con la ciudad cambiada, Google las trata como doorway pages y
+ * las descarta (o penaliza). De ahí que cada bloque hable de cosas diferentes —
+ * cercanía en Irún, precio y turismo en Donostia, cobertura en Gipuzkoa.
+ */
+export type LocalPage = {
+  slug: string;
+  /** Nombre del municipio/zona tal cual va al `areaServed` del JSON-LD. */
+  area: string;
+  seo: { title: string; description: string };
+  h1: { line1: Bi; line2: Bi };
+  intro: Bi;
+  blocks: { num: string; title: Bi; body: Bi }[];
+  nearbyLabel: Bi;
+  nearby: string[];
+  faqs: { q: Bi; a: Bi }[];
+};
+
+export const localPages: LocalPage[] = [
+  {
+    slug: 'diseno-web-irun',
+    area: 'Irún',
+    /* Ojo con la canibalización: la home ya ataca "diseño web Irún". Esta
+       landing apunta a la otra consulta grande de la zona —"páginas web Irún" y
+       "cuánto cuesta una web en Irún"— con ángulo de precio y comercio local.
+       Si las dos llevaran el mismo H1 competirían entre sí y Google elegiría
+       una, normalmente la que no te interesa. */
+    seo: {
+      title: 'Páginas web para negocios de Irún | Desde 29 €/mes',
+      description:
+        'Creamos páginas web y tiendas online para comercios, hostelería y pymes de Irún. Estudio local en el Bidasoa, tarifa plana desde 29 €/mes y sin permanencia.',
+    },
+    h1: {
+      line1: { es: 'PÁGINAS WEB', en: 'WEBSITES' },
+      line2: { es: 'EN IRÚN', en: 'IN IRÚN' },
+    },
+    intro: {
+      es: 'Estamos en la calle María Juncal Labandibar, en Irún. No somos una agencia de Madrid con una dirección de paso: si tu negocio está aquí, nos tomamos un café y hablamos de tu web en persona.',
+      en: "We're on calle María Juncal Labandibar, in Irún. We're not a Madrid agency with a mailbox address here: if your business is in town, we grab a coffee and talk about your website face to face.",
+    },
+    blocks: [
+      {
+        num: '01',
+        title: { es: 'Un estudio de aquí', en: 'A studio from here' },
+        body: {
+          es: 'Conocemos Irún: sabemos la diferencia entre un comercio del centro y uno de Anaka, y que en verano el cliente que entra por tu puerta puede venir de Hendaya. Eso cambia cómo se plantea una web — qué idiomas, qué horarios, qué se enseña primero.',
+          en: "We know Irún: we know the difference between a shop downtown and one in Anaka, and that in summer the customer walking in may be coming from Hendaye. That changes how you plan a website — which languages, which opening hours, what you show first.",
+        },
+      },
+      {
+        num: '02',
+        title: { es: 'Para el comercio del Bidasoa', en: 'For Bidasoa businesses' },
+        body: {
+          es: 'Tiendas, bares y restaurantes, talleres, clínicas, autónomos y pymes. Si vendes en local, tu web tiene que llevar gente a la puerta; si vendes online, tiene que cobrar sin fricción. Montamos una cosa o la otra, no un folleto bonito que no hace nada.',
+          en: 'Shops, bars and restaurants, workshops, clinics, freelancers and small businesses. If you sell locally, your site has to bring people through the door; if you sell online, it has to take payment without friction. We build one or the other — not a pretty brochure that does nothing.',
+        },
+      },
+      {
+        num: '03',
+        title: { es: 'Que te encuentren los de aquí', en: 'So local people find you' },
+        body: {
+          es: 'De poco sirve salir en Google en Sevilla si tu cliente está a tres calles. Trabajamos el posicionamiento local: ficha de empresa en Google, datos coherentes, contenido escrito para lo que la gente busca de verdad en Irún.',
+          en: "Ranking in Seville is no use if your customer is three streets away. We work on local search: your Google business profile, consistent data, and content written for what people actually search for in Irún.",
+        },
+      },
+      {
+        num: '04',
+        title: { es: 'Una cuota y ya está', en: 'One fee and done' },
+        body: {
+          es: 'Nada de 1.500 € de golpe y luego arréglatelas. Una cuota fija desde 29 €/mes con el alojamiento, el certificado, el mantenimiento y los cambios dentro. Si un día no te interesa, te vas: no hay permanencia.',
+          en: "No €1,500 upfront and then you're on your own. A fixed fee from €29/mo with hosting, certificate, maintenance and changes included. If one day it stops making sense, you leave: there's no lock-in.",
+        },
+      },
+    ],
+    nearbyLabel: { es: 'También trabajamos en', en: 'We also work in' },
+    /* Sin Hendaya: es Francia y declarar cobertura allí sería afirmar algo que
+       no está confirmado. Se menciona en el bloque 01 como origen de clientes
+       que cruzan, que sí es cierto. */
+    nearby: ['Hondarribia', 'Lezo', 'Pasaia', 'Errenteria', 'Oiartzun', 'Behobia'],
+    faqs: [
+      {
+        q: { es: '¿Podemos vernos en persona?', en: 'Can we meet in person?' },
+        a: {
+          es: 'Sí. Estamos en Irún y para proyectos de la zona preferimos la primera reunión cara a cara — se entiende mucho mejor un negocio viéndolo. Escríbenos a hola@arianet.eu y quedamos.',
+          en: 'Yes. We are based in Irún and for local projects we prefer the first meeting face to face — you understand a business far better by seeing it. Write to hola@arianet.eu and we will arrange it.',
+        },
+      },
+      {
+        q: {
+          es: '¿Trabajáis con comercios pequeños o solo con empresas grandes?',
+          en: 'Do you work with small shops or only with large companies?',
+        },
+        a: {
+          es: 'Sobre todo con negocios pequeños y autónomos. El plan Esencial (29 €/mes) está pensado exactamente para eso: un comercio o un profesional que necesita una web decente y no puede soltar mil euros de entrada.',
+          en: 'Mostly with small businesses and freelancers. The Essential plan (€29/mo) is designed exactly for that: a shop or a professional who needs a decent website and cannot drop a thousand euros upfront.',
+        },
+      },
+    ],
+  },
+  {
+    slug: 'diseno-web-san-sebastian',
+    area: 'Donostia-San Sebastián',
+    seo: {
+      title: 'Diseño de páginas web en San Sebastián (Donostia)',
+      description:
+        'Diseño y programación de páginas web para negocios de Donostia-San Sebastián. Estudio en Irún, a 20 minutos. Tarifa plana desde 29 €/mes, sin permanencia.',
+    },
+    h1: {
+      line1: { es: 'DISEÑO WEB', en: 'WEB DESIGN' },
+      line2: { es: 'EN DONOSTIA', en: 'IN DONOSTIA' },
+    },
+    intro: {
+      es: 'Nuestro estudio está en Irún, a veinte minutos de Donostia por la A-8. Lo decimos claro porque preferimos que sepas dónde estamos: trabajamos con negocios donostiarras a diario y nos acercamos siempre que hace falta.',
+      en: 'Our studio is in Irún, twenty minutes from Donostia along the A-8. We say it plainly because we would rather you knew where we are: we work with San Sebastián businesses every day and we come over whenever it is needed.',
+    },
+    blocks: [
+      {
+        num: '01',
+        title: { es: 'Sin precios de la Parte Vieja', en: 'Without old-town prices' },
+        body: {
+          es: 'Una web de agencia en Donostia empieza en cuatro cifras y sigue con una factura de mantenimiento aparte. Nosotros trabajamos con tarifa plana: desde 29 €/mes con todo dentro. Mismo resultado, sin el sobrecoste de tener oficina en la Avenida.',
+          en: 'An agency website in Donostia starts in four figures and then adds a separate maintenance invoice. We work on a flat rate: from €29/mo with everything included. Same outcome, without the overhead of an office on the Avenida.',
+        },
+      },
+      {
+        num: '02',
+        title: { es: 'Hostelería y comercio', en: 'Hospitality and retail' },
+        body: {
+          es: 'Bares, restaurantes, pensiones, tiendas. En Donostia tu web compite con las plataformas de reservas y con TripAdvisor: si no tienes una página propia rápida, con la carta actualizada y un botón de reserva claro, el cliente acaba reservando en otro sitio y pagando comisión.',
+          en: 'Bars, restaurants, guesthouses, shops. In Donostia your website competes with booking platforms and TripAdvisor: without a fast site of your own, an up-to-date menu and a clear booking button, the customer ends up booking elsewhere and paying commission.',
+        },
+      },
+      {
+        num: '03',
+        title: { es: 'En los idiomas que necesitas', en: 'In the languages you need' },
+        body: {
+          es: 'Aquí entra gente que busca en castellano, en euskera, en francés y en inglés. Montamos la web multiidioma desde el principio, que es mucho más barato que añadirlo después. El contenido lo escribes tú o lo preparamos juntos.',
+          en: 'People here search in Spanish, Basque, French and English. We build the site multilingual from the start, which is far cheaper than bolting it on later. You write the content or we prepare it together.',
+        },
+      },
+      {
+        num: '04',
+        title: { es: 'Que salga en el mapa', en: 'So you show on the map' },
+        body: {
+          es: 'La mitad de las búsquedas de un negocio donostiarra acaban en el mapa de Google, no en la lista de resultados. Dejamos tu ficha, tus datos y tu web coherentes entre sí para que el mapa te tenga en cuenta.',
+          en: 'Half the searches for a San Sebastián business end up on the Google map, not in the results list. We keep your profile, your data and your website consistent with each other so the map takes you into account.',
+        },
+      },
+    ],
+    nearbyLabel: { es: 'También trabajamos en', en: 'We also work in' },
+    nearby: ['Errenteria', 'Pasaia', 'Lasarte-Oria', 'Hernani', 'Usurbil', 'Astigarraga'],
+    faqs: [
+      {
+        q: { es: '¿Tenéis oficina en San Sebastián?', en: 'Do you have an office in San Sebastián?' },
+        a: {
+          es: 'No, nuestra oficina está en Irún. Nos movemos a Donostia para las reuniones que hagan falta, y el resto lo llevamos por email y videollamada como cualquier estudio moderno. Preferimos decírtelo antes que fingir una dirección.',
+          en: 'No, our office is in Irún. We travel to Donostia for whatever meetings are needed, and handle the rest by email and video call like any modern studio. We would rather tell you upfront than fake an address.',
+        },
+      },
+      {
+        q: { es: '¿Hacéis webs en euskera?', en: 'Do you build websites in Basque?' },
+        a: {
+          es: 'Sí, montamos la web en tantos idiomas como necesites — euskera, castellano, francés, inglés. La parte técnica la ponemos nosotros; los textos en euskera los aportas tú o los encargamos a un traductor.',
+          en: 'Yes, we build the site in as many languages as you need — Basque, Spanish, French, English. We handle the technical side; the Basque copy either comes from you or we commission a translator.',
+        },
+      },
+    ],
+  },
+  {
+    slug: 'paginas-web-gipuzkoa',
+    area: 'Gipuzkoa',
+    seo: {
+      title: 'Páginas web en Gipuzkoa | Diseño y programación',
+      description:
+        'Diseño y programación de páginas web y tiendas online en Gipuzkoa. De Irún a Eibar, con tarifa plana desde 29 €/mes y sin permanencia. Estudio en Irún.',
+    },
+    h1: {
+      line1: { es: 'PÁGINAS WEB', en: 'WEBSITES' },
+      line2: { es: 'EN GIPUZKOA', en: 'IN GIPUZKOA' },
+    },
+    intro: {
+      es: 'Diseñamos y programamos páginas web para negocios de toda Gipuzkoa. Estamos en Irún, en la punta del mapa, pero la provincia se cruza en una hora y buena parte del trabajo se hace igual de bien por videollamada.',
+      en: 'We design and build websites for businesses across Gipuzkoa. We are in Irún, at the tip of the map, but the province is an hour end to end and much of the work goes just as well over video call.',
+    },
+    blocks: [
+      {
+        num: '01',
+        title: { es: 'De Irún a Eibar', en: 'From Irún to Eibar' },
+        body: {
+          es: 'Trabajamos con negocios de la costa, del Bidasoa, de Donostialdea, del Goierri y del Alto Deba. La primera reunión la hacemos donde te venga mejor: en tu local, en el nuestro o por videollamada.',
+          en: 'We work with businesses on the coast, in the Bidasoa, Donostialdea, Goierri and Alto Deba. We hold the first meeting wherever suits you: your place, ours or over video.',
+        },
+      },
+      {
+        num: '02',
+        title: { es: 'Industria, comercio y servicios', en: 'Industry, retail and services' },
+        body: {
+          es: 'En Gipuzkoa hay mucho taller, mucha empresa industrial y mucho proveedor que factura fuera y sigue con una web de hace quince años. Ese perfil es el que más gana con un rediseño: no necesitas vender online, necesitas que quien te busque por el nombre no piense que has cerrado.',
+          en: 'Gipuzkoa is full of workshops, industrial firms and suppliers who invoice abroad and still run a fifteen-year-old website. That profile gains the most from a redesign: you do not need to sell online, you need whoever searches your name not to assume you have shut down.',
+        },
+      },
+      {
+        num: '03',
+        title: { es: 'Todo desde aquí', en: 'All from here' },
+        body: {
+          es: 'Diseño, programación, alojamiento y mantenimiento los llevamos nosotros, sin subcontratar. Tu web se aloja en servidores propios en Europa, no en una plantilla alquilada que se rompe cuando el proveedor cambia de opinión.',
+          en: 'Design, development, hosting and maintenance are all ours, nothing subcontracted. Your site runs on our own servers in Europe, not on a rented template that breaks when the provider changes its mind.',
+        },
+      },
+      {
+        num: '04',
+        title: { es: 'Precio cerrado', en: 'A closed price' },
+        body: {
+          es: 'Desde 29 €/mes más un alta única desde 49 €. Tienda online completa, 99 €/mes. Todo con alojamiento, SSL, mantenimiento y un número de cambios al mes incluidos. Sin permanencia y sin letra pequeña.',
+          en: 'From €29/mo plus a one-time setup from €49. A full online store, €99/mo. All with hosting, SSL, maintenance and a number of monthly changes included. No lock-in and no fine print.',
+        },
+      },
+    ],
+    nearbyLabel: { es: 'Algunos municipios donde trabajamos', en: 'Some of the towns we work in' },
+    nearby: [
+      'Irún',
+      'Donostia-San Sebastián',
+      'Errenteria',
+      'Hondarribia',
+      'Hernani',
+      'Tolosa',
+      'Zarautz',
+      'Eibar',
+      'Arrasate',
+      'Beasain',
+    ],
+    faqs: [
+      {
+        q: {
+          es: '¿Os desplazáis a los pueblos de Gipuzkoa?',
+          en: 'Do you travel to towns across Gipuzkoa?',
+        },
+        a: {
+          es: 'Sí, para la reunión inicial y para el lanzamiento nos desplazamos por toda la provincia sin coste. El día a día del proyecto lo llevamos por email y videollamada, que es más ágil para los dos.',
+          en: 'Yes, we travel anywhere in the province at no cost for the initial meeting and for launch. The day-to-day of the project runs over email and video call, which is quicker for both sides.',
+        },
+      },
+      {
+        q: {
+          es: '¿Y si mi negocio está fuera de Gipuzkoa?',
+          en: 'What if my business is outside Gipuzkoa?',
+        },
+        a: {
+          es: 'También trabajamos con el resto de España en remoto. Cambia que no nos vemos en persona; no cambia el precio, el proceso ni el resultado.',
+          en: 'We work remotely with the rest of Spain too. What changes is that we do not meet face to face; the price, the process and the result stay the same.',
+        },
+      },
+    ],
+  },
+];
+
+/** Textos de interfaz compartidos por las landings locales. */
+export const LOCAL_PAGE = {
+  back: { es: '← Volver al inicio', en: '← Back to home' },
+  servicesTitle: { es: 'Qué hacemos', en: 'What we do' },
+  faqTitle: { es: 'Preguntas frecuentes', en: 'Frequently asked' },
+  pricingTitle: { es: 'Cuánto cuesta', en: 'What it costs' },
+  pricingCta: { es: 'VER TODAS LAS TARIFAS →', en: 'SEE ALL PLANS →' },
+  cta: { es: 'EMPEZAR PROYECTO →', en: 'START A PROJECT →' },
+  ctaNote: {
+    es: 'Cuéntanos qué necesitas. Te respondemos en menos de 24 horas, sin compromiso.',
+    en: 'Tell us what you need. We reply within 24 hours, no strings attached.',
+  },
 };
 
 /** Página 404. */
@@ -994,6 +1450,23 @@ export const FOOTER = {
     heading: { es: 'CONTACTO', en: 'CONTACT' },
     note: { es: 'Respondemos en <24h', en: 'We reply within 24h' },
   },
+  /* Columna de zona: repite el NAP en todas las páginas (señal local constante)
+     y reparte enlaces internos hacia las landings de ciudad desde cualquier
+     punto del sitio, no sólo desde la home. */
+  areaCol: {
+    heading: { es: 'ZONA', en: 'AREA' },
+    links: [
+      { href: '/diseno-web-irun', label: { es: 'Diseño web en Irún', en: 'Web design in Irún' } },
+      {
+        href: '/diseno-web-san-sebastian',
+        label: { es: 'Diseño web en San Sebastián', en: 'Web design in San Sebastián' },
+      },
+      {
+        href: '/paginas-web-gipuzkoa',
+        label: { es: 'Páginas web en Gipuzkoa', en: 'Websites in Gipuzkoa' },
+      },
+    ],
+  },
   legalCol: {
     heading: { es: 'LEGAL', en: 'LEGAL' },
     links: [
@@ -1004,5 +1477,11 @@ export const FOOTER = {
     ],
   },
   copyright: { es: `© ${YEAR} ${BRAND} ESTUDIO`, en: `© ${YEAR} ${BRAND} STUDIO` },
-  location: { es: 'IRÚN, ESPAÑA', en: 'IRÚN, SPAIN' },
+  /* Dirección completa y visible: el NAP en texto plano del footer es una de
+     las señales locales que más se comprueban, y debe coincidir carácter a
+     carácter con el del aviso legal y el perfil de empresa. */
+  location: {
+    es: `${BUSINESS.street} · ${BUSINESS.postalCode} ${BUSINESS.city} (${BUSINESS.region})`,
+    en: `${BUSINESS.street} · ${BUSINESS.postalCode} ${BUSINESS.city} (${BUSINESS.region}), Spain`,
+  },
 };

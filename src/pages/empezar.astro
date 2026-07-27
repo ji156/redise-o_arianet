@@ -2,11 +2,17 @@
 import Base from '../layouts/Base.astro';
 import { BRAND, EMPEZAR, FOOTER, plans } from '../data/copy.ts';
 
-const title = `${EMPEZAR.h2.es} — ${BRAND}`;
+// El title no reutiliza el H2 de la página ("CUÉNTANOS DE TU PROYECTO"): en los
+// resultados de Google se leería como un grito y no contiene ninguna palabra
+// que alguien busque. Ésta es la página de conversión — el title y la
+// descripción se escriben para quien está pidiendo presupuesto.
+const title = 'Pide presupuesto para tu web | arianet, Irún';
+const description =
+  'Cuéntanos qué necesitas y te enviamos presupuesto en menos de 24 horas, sin compromiso. Páginas web y tiendas online en Irún, San Sebastián y Gipuzkoa.';
 const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 ---
 
-<Base title={title} description={EMPEZAR.para.es}>
+<Base title={title} description={description}>
   <header class="ehead">
     <a href="/" class="ehead__brand" aria-label={`${BRAND} — inicio`}>
       <img src="/logo-wordmark-compact.png" alt={BRAND} width="1180" height="240" class="ehead__logo" />

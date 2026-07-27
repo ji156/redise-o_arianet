@@ -47,6 +47,8 @@ import { META, HERO, heroIndex } from '../data/copy.ts';
 
       <div class="hero__rule"></div>
 
+      <p class="hero__subtitle" data-en={HERO.subtitle.en}>{HERO.subtitle.es}</p>
+
       <p class="hero__para" data-en={HERO.paragraph.en}>{HERO.paragraph.es}</p>
 
       <div class="hero__btns">
@@ -168,13 +170,17 @@ import { META, HERO, heroIndex } from '../data/copy.ts';
     margin: 0;
   }
 
+  /* El clamp baja respecto al prototipo (11vw/168px) porque el H1 pasó de
+     7 caracteres por línea ("ESTUDIO") a 10 ("DISEÑO WEB"): con el tamaño
+     anterior desbordaba la columna en pantallas medias. */
   .hero__line {
     display: block;
     font-family: var(--font-display);
     font-weight: 900;
-    font-size: clamp(64px, 11vw, 168px);
+    font-size: clamp(56px, 9.4vw, 148px);
     letter-spacing: -0.045em;
     text-transform: uppercase;
+    text-wrap: balance;
   }
 
   .hero__line--solid {
@@ -203,13 +209,24 @@ import { META, HERO, heroIndex } from '../data/copy.ts';
     margin-top: 26px;
   }
 
+  .hero__subtitle {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    max-width: 620px;
+    margin-top: 26px;
+  }
+
   .hero__para {
     font-family: var(--font-body);
     font-weight: 500;
-    font-size: 21px;
-    line-height: 1.4;
+    font-size: 19px;
+    line-height: 1.45;
     max-width: 520px;
-    margin-top: 30px;
+    margin-top: 18px;
+    color: var(--grey-body);
   }
 
   .hero__btns {
@@ -284,10 +301,13 @@ import { META, HERO, heroIndex } from '../data/copy.ts';
     }
     /* baja el mínimo del clamp para no desbordar en móviles estrechos (~320px) */
     .hero__line {
-      font-size: clamp(48px, 13.5vw, 92px);
+      font-size: clamp(40px, 11.5vw, 84px);
+    }
+    .hero__subtitle {
+      font-size: 20px;
     }
     .hero__para {
-      font-size: 18px;
+      font-size: 17px;
     }
     .hero__btns {
       flex-direction: column;

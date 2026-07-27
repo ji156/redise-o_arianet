@@ -1,0 +1,169 @@
+---
+/**
+ * "Dónde trabajamos" — la sección que faltaba.
+ *
+ * Antes de esto, "Irún" aparecía una sola vez en toda la home (el footer) y
+ * "Gipuzkoa" o "San Sebastián" ninguna: no había nada que Google pudiera ligar
+ * a una búsqueda local. Aquí las localidades entran en el texto visible y, de
+ * paso, reparte enlaces internos hacia las tres landings de ciudad.
+ */
+import { AREAS_INTRO, areas } from '../data/copy.ts';
+---
+
+<section id="zona" class="section">
+  <div class="head" data-reveal>
+    <div>
+      <div class="head__label">{AREAS_INTRO.label}</div>
+      <h2 class="head__h2" data-en={AREAS_INTRO.h2.en}>{AREAS_INTRO.h2.es}</h2>
+    </div>
+    <p class="head__para" data-en={AREAS_INTRO.para.en}>{AREAS_INTRO.para.es}</p>
+  </div>
+
+  <div class="areas">
+    {
+      areas.map((a) => {
+        const Tag = a.href ? 'a' : 'div';
+        return (
+          <Tag
+            href={a.href ?? undefined}
+            class:list={['area', { 'area--link': a.href }]}
+            data-reveal
+          >
+            <span class="area__num">{a.num}</span>
+            <h3 class="area__name">{a.name}</h3>
+            <p class="area__desc" data-en={a.desc.en}>
+              {a.desc.es}
+            </p>
+            {a.href && (
+              <span class="area__arrow" aria-hidden="true">
+                →
+              </span>
+            )}
+          </Tag>
+        );
+      })
+    }
+  </div>
+</section>
+
+<style>
+  .section {
+    border-bottom: var(--line-primary);
+  }
+
+  .head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 54px var(--gutter) 40px;
+    gap: 30px;
+    flex-wrap: wrap;
+  }
+
+  .head__label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--blue);
+    margin-bottom: 18px;
+  }
+
+  .head__h2 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(40px, 6vw, 78px);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+  }
+
+  .head__para {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.5;
+    max-width: 300px;
+    color: var(--grey-body);
+  }
+
+  /* --- listado de zonas: misma retícula que la tabla de servicios --- */
+  .areas {
+    border-top: var(--line-primary);
+  }
+
+  .area {
+    display: grid;
+    grid-template-columns: 90px 1.1fr 1.5fr 60px;
+    align-items: center;
+    gap: 24px;
+    padding: 26px var(--gutter);
+    border-bottom: 1px solid var(--hairline);
+    color: var(--ink);
+    text-decoration: none;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  /* Sólo las zonas con landing propia se comportan como fila clicable. */
+  .area--link:hover,
+  .area--link:focus-visible {
+    background: var(--blue);
+    color: #fff;
+  }
+
+  .area__num {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: inherit;
+    opacity: 0.6;
+  }
+
+  .area__name {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(20px, 2.1vw, 30px);
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: inherit;
+  }
+
+  .area__desc {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.45;
+    color: inherit;
+  }
+
+  .area__arrow {
+    font-family: var(--font-mono);
+    font-size: 22px;
+    text-align: right;
+    color: inherit;
+  }
+
+  /* --- responsive --- */
+  @media (max-width: 900px) {
+    .area {
+      grid-template-columns: 60px 1fr 40px;
+      gap: 16px 20px;
+    }
+    .area__desc {
+      grid-column: 2 / 3;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .head {
+      padding: 40px 20px 28px;
+    }
+    .area {
+      grid-template-columns: 44px 1fr;
+      gap: 8px 14px;
+      padding: 22px 20px;
+    }
+    .area__desc {
+      grid-column: 2 / 3;
+    }
+    .area__arrow {
+      display: none;
+    }
+  }
+</style>

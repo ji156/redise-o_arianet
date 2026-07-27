@@ -1,0 +1,619 @@
+---
+/**
+ * Landing local (/diseno-web-irun, /diseno-web-san-sebastian,
+ * /paginas-web-gipuzkoa).
+ *
+ * Página completa con contenido propio por zona, no una plantilla con la ciudad
+ * sustituida: el texto de cada bloque, las FAQ y los municipios cercanos vienen
+ * de `localPages` y hablan de cosas distintas en cada una.
+ *
+ * Reutiliza la cabecera y el pie ligeros de las páginas de servicio (shead /
+ * sfoot) en lugar del Nav de la home, cuyos enlaces son anclas que aquí no
+ * existirían.
+ */
+import Base from './Base.astro';
+import {
+  BRAND,
+  LOCAL_PAGE,
+  FOOTER,
+  TARIFAS_INTRO,
+  localPages,
+  plans,
+  services,
+  type LocalPage,
+} from '../data/copy.ts';
+import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema.ts';
+
+interface Props {
+  page: LocalPage;
+}
+
+const { page } = Astro.props;
+const path = `/${page.slug}`;
+const heading = `${page.h1.line1.es} ${page.h1.line2.es}`;
+
+const schema = [
+  serviceSchema({
+    name: heading,
+    description: page.seo.description,
+    path,
+    area: page.area,
+  }),
+  breadcrumbSchema([
+    { name: 'Inicio', path: '/' },
+    { name: heading, path },
+  ]),
+  faqSchema(page.faqs),
+];
+
+// Las otras dos zonas, para enlazarlas desde el pie: enlazado lateral entre
+// landings hermanas en vez de dejarlas colgando sólo de la home.
+const siblings = localPages.filter((p) => p.slug !== page.slug);
+---
+
+<Base title={page.seo.title} description={page.seo.description} schema={schema}>
+  <header class="shead">
+    <a href="/" class="shead__brand" aria-label={`${BRAND} — inicio`}>
+      <img
+        src="/logo-wordmark-compact.png"
+        alt={BRAND}
+        width="1180"
+        height="240"
+        class="shead__logo"
+      />
+    </a>
+    <div class="shead__actions">
+      <button type="button" class="shead__lang" data-lang-toggle aria-label="Switch to English">
+        EN
+      </button>
+      <a href="/" class="shead__back" data-en={LOCAL_PAGE.back.en}>{LOCAL_PAGE.back.es}</a>
+    </div>
+  </header>
+
+  <main class="loc">
+    <nav class="loc__crumbs" aria-label="Migas de pan">
+      <a href="/">{BRAND}</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">{heading}</span>
+    </nav>
+
+    <section class="loc__hero">
+      <h1 class="loc__h1">
+        <span class="loc__line loc__line--solid" data-en={page.h1.line1.en}>
+          {page.h1.line1.es}
+        </span>
+        <span class="loc__line loc__line--outline" data-en={page.h1.line2.en}>
+          {page.h1.line2.es}
+        </span>
+      </h1>
+
+      <div class="loc__rule"></div>
+
+      <p class="loc__intro" data-en={page.intro.en}>{page.intro.es}</p>
+
+      <a href="/empezar" class="btn btn--blue loc__cta" data-en={LOCAL_PAGE.cta.en}>
+        {LOCAL_PAGE.cta.es}
+      </a>
+    </section>
+
+    <section class="loc__blocks">
+      {
+        page.blocks.map((b) => (
+          <article class="loc__block" data-reveal>
+            <span class="loc__block-num">{b.num}</span>
+            <div>
+              <h2 class="loc__block-title" data-en={b.title.en}>
+                {b.title.es}
+              </h2>
+              <p class="loc__block-body" data-en={b.body.en}>
+                {b.body.es}
+              </p>
+            </div>
+          </article>
+        ))
+      }
+    </section>
+
+    <section class="loc__section" data-reveal>
+      <h2 class="loc__h2" data-en={LOCAL_PAGE.servicesTitle.en}>{LOCAL_PAGE.servicesTitle.es}</h2>
+      <div class="loc__services">
+        {
+          services.map((s) => (
+            <a href={`/servicios/${s.slug}`} class="loc__service" data-en={s.title.en}>
+              {s.title.es}
+            </a>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="loc__section" data-reveal>
+      <h2 class="loc__h2" data-en={page.nearbyLabel.en}>{page.nearbyLabel.es}</h2>
+      <ul class="loc__nearby">
+        {page.nearby.map((n) => <li class="loc__chip">{n}</li>)}
+      </ul>
+    </section>
+
+    <section class="loc__section" data-reveal>
+      <h2 class="loc__h2" data-en={LOCAL_PAGE.pricingTitle.en}>{LOCAL_PAGE.pricingTitle.es}</h2>
+      <div class="loc__plans">
+        {
+          plans.map((p) => (
+            <div class="loc__plan">
+              <span class="loc__plan-name" data-en={p.name.en}>
+                {p.name.es}
+              </span>
+              <span class="loc__plan-price">
+                {p.price} €<span class="loc__plan-mo" data-en={TARIFAS_INTRO.perMonth.en}>
+                  {TARIFAS_INTRO.perMonth.es}
+                </span>
+              </span>
+              <span class="loc__plan-line" data-en={p.line.en}>
+                {p.line.es}
+              </span>
+            </div>
+          ))
+        }
+      </div>
+      <a href="/#tarifas" class="loc__link" data-en={LOCAL_PAGE.pricingCta.en}>
+        {LOCAL_PAGE.pricingCta.es}
+      </a>
+    </section>
+
+    <section class="loc__section" data-reveal>
+      <h2 class="loc__h2" data-en={LOCAL_PAGE.faqTitle.en}>{LOCAL_PAGE.faqTitle.es}</h2>
+      <div class="loc__faqs">
+        {
+          page.faqs.map((f) => (
+            <div class="loc__faq">
+              <h3 class="loc__faq-q" data-en={f.q.en}>
+                {f.q.es}
+              </h3>
+              <p class="loc__faq-a" data-en={f.a.en}>
+                {f.a.es}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="loc__final" data-reveal>
+      <p class="loc__final-note" data-en={LOCAL_PAGE.ctaNote.en}>{LOCAL_PAGE.ctaNote.es}</p>
+      <a href="/empezar" class="btn btn--blue" data-en={LOCAL_PAGE.cta.en}>{LOCAL_PAGE.cta.es}</a>
+    </section>
+  </main>
+
+  <footer class="sfoot">
+    <div class="sfoot__links">
+      {
+        siblings.map((s) => (
+          <a href={`/${s.slug}`} class="sfoot__link">
+            {`${s.h1.line1.es} ${s.h1.line2.es}`}
+          </a>
+        ))
+      }
+      <a href="/#tarifas" class="sfoot__link" data-en="Pricing">Tarifas</a>
+      <a href="/empezar" class="sfoot__link" data-en="Start a project">Empezar proyecto</a>
+    </div>
+    <span class="sfoot__copy" data-en={FOOTER.location.en}>{FOOTER.location.es}</span>
+  </footer>
+</Base>
+
+<style>
+  /* --- cabecera (mismo patrón que las páginas de servicio) --- */
+  .shead {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    background: var(--paper);
+    border-bottom: var(--line-primary);
+  }
+
+  .shead__brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 26px;
+    text-decoration: none;
+    color: var(--ink);
+    border-right: var(--line-primary);
+  }
+
+  .shead__logo {
+    width: auto;
+    height: 22px;
+  }
+
+  .shead__actions {
+    display: flex;
+    align-items: stretch;
+  }
+
+  .shead__lang,
+  .shead__back {
+    display: flex;
+    align-items: center;
+    padding: 0 22px;
+    background: none;
+    border: none;
+    border-left: var(--line-primary);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .shead__lang:hover,
+  .shead__back:hover,
+  .shead__lang:focus-visible,
+  .shead__back:focus-visible {
+    background: var(--ink);
+    color: #fff;
+  }
+
+  /* --- cuerpo --- */
+  .loc {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+
+  .loc__crumbs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 26px 0 0;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--grey-muted);
+    text-transform: uppercase;
+  }
+
+  .loc__crumbs a {
+    color: var(--grey-muted);
+    text-decoration: none;
+  }
+
+  .loc__crumbs a:hover,
+  .loc__crumbs a:focus-visible {
+    color: var(--blue);
+  }
+
+  .loc__hero {
+    padding: 40px 0 56px;
+    border-bottom: var(--line-primary);
+  }
+
+  .loc__h1 {
+    margin: 0;
+  }
+
+  .loc__line {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(46px, 8.4vw, 116px);
+    letter-spacing: -0.045em;
+    text-transform: uppercase;
+  }
+
+  .loc__line--solid {
+    line-height: 0.84;
+    color: var(--ink);
+  }
+
+  .loc__line--outline {
+    line-height: 0.86;
+    color: transparent;
+    -webkit-text-stroke: 2px var(--ink);
+  }
+
+  @supports not (-webkit-text-stroke: 2px #000) {
+    .loc__line--outline {
+      color: var(--ink);
+    }
+  }
+
+  .loc__rule {
+    width: 220px;
+    max-width: 100%;
+    height: 12px;
+    background: var(--blue);
+    margin-top: 26px;
+  }
+
+  .loc__intro {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 21px;
+    line-height: 1.45;
+    max-width: 640px;
+    margin-top: 28px;
+  }
+
+  .loc__cta {
+    margin-top: 32px;
+    background: var(--blue);
+    color: #fff;
+    border: var(--line-primary);
+  }
+
+  .loc__cta:hover,
+  .loc__cta:focus-visible {
+    background: var(--ink);
+  }
+
+  /* --- bloques de contenido --- */
+  .loc__blocks {
+    border-bottom: var(--line-primary);
+  }
+
+  .loc__block {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 24px;
+    padding: 34px 0;
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  .loc__block:last-child {
+    border-bottom: none;
+  }
+
+  .loc__block-num {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--grey-muted);
+  }
+
+  .loc__block-title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(22px, 2.6vw, 32px);
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+
+  .loc__block-body {
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--grey-body);
+    max-width: 620px;
+    margin-top: 12px;
+  }
+
+  /* --- secciones secundarias --- */
+  .loc__section {
+    padding: 44px 0;
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  .loc__h2 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(26px, 3.4vw, 42px);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .loc__services {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .loc__service {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    padding: 11px 16px;
+    border: var(--line-primary);
+    text-decoration: none;
+    color: var(--ink);
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .loc__service:hover,
+  .loc__service:focus-visible {
+    background: var(--blue);
+    color: #fff;
+  }
+
+  .loc__nearby {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    list-style: none;
+  }
+
+  .loc__chip {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    padding: 11px 16px;
+    background: var(--surface-hover);
+    border: 1px solid var(--hairline);
+  }
+
+  .loc__plans {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 0;
+    border: var(--line-primary);
+  }
+
+  .loc__plan {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 22px 20px;
+    border-right: 1px solid var(--hairline);
+  }
+
+  .loc__plan:last-child {
+    border-right: none;
+  }
+
+  .loc__plan-name {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--grey-muted);
+  }
+
+  .loc__plan-price {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 34px;
+    letter-spacing: -0.03em;
+  }
+
+  .loc__plan-mo {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0;
+    color: var(--grey-muted);
+  }
+
+  .loc__plan-line {
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--grey-body);
+  }
+
+  .loc__link {
+    display: inline-block;
+    margin-top: 20px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    color: var(--blue);
+    text-decoration: none;
+  }
+
+  .loc__link:hover,
+  .loc__link:focus-visible {
+    text-decoration: underline;
+  }
+
+  .loc__faqs {
+    display: grid;
+    gap: 26px;
+  }
+
+  .loc__faq-q {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 19px;
+    letter-spacing: -0.01em;
+  }
+
+  .loc__faq-a {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--grey-body);
+    max-width: 660px;
+    margin-top: 8px;
+  }
+
+  .loc__final {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 22px;
+    padding: 48px 0 56px;
+  }
+
+  .loc__final-note {
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.5;
+    max-width: 420px;
+  }
+
+  .loc__final .btn {
+    background: var(--blue);
+    color: #fff;
+    border: var(--line-primary);
+  }
+
+  .loc__final .btn:hover,
+  .loc__final .btn:focus-visible {
+    background: var(--ink);
+  }
+
+  /* --- pie --- */
+  .sfoot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 18px;
+    padding: 24px var(--gutter);
+    border-top: var(--line-primary);
+  }
+
+  .sfoot__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+  }
+
+  .sfoot__link {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .sfoot__link:hover,
+  .sfoot__link:focus-visible {
+    color: var(--blue);
+  }
+
+  .sfoot__copy {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--grey-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  /* --- responsive --- */
+  @media (max-width: 600px) {
+    .loc {
+      padding: 0 20px;
+    }
+    .loc__line {
+      font-size: clamp(38px, 11vw, 76px);
+    }
+    .loc__intro {
+      font-size: 18px;
+    }
+    .loc__block {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    .loc__cta,
+    .loc__final .btn {
+      width: 100%;
+    }
+    .sfoot {
+      padding: 22px 20px;
+    }
+  }
+</style>

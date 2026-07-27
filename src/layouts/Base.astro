@@ -16,22 +16,36 @@ import '@fontsource/space-mono/latin-700.css';
 
 import '../styles/global.css';
 import { BRAND } from '../data/copy.ts';
+import { businessSchema, webSiteSchema } from '../data/schema.ts';
 import CookieBanner from '../components/CookieBanner.astro';
 
 interface Props {
   title?: string;
   description?: string;
+  /** Bloques JSON-LD de la página. El de negocio + sitio se añaden siempre. */
+  schema?: Record<string, unknown>[];
+  /** Excluye la página del índice (404, gracias, etc.). */
+  noindex?: boolean;
 }
 
 const {
-  title = `${BRAND} — Estudio digital · Diseño + Desarrollo web`,
-  description = 'Estudio de diseño y desarrollo web. Branding, web y tiendas online diseñadas desde cero. Tarifas planas, sin permanencias.',
+  // Título y descripción por defecto = los de la home. Llevan la ciudad delante
+  // a propósito: es la primera línea que lee Google y la que ve el usuario en
+  // los resultados, y sin ella no competimos por ninguna búsqueda local.
+  title = 'Diseño de páginas web en Irún y Gipuzkoa | arianet',
+  description = 'Diseño y programación de páginas web en Irún. Webs a medida, tiendas online y SEO local para negocios de Irún, San Sebastián y Gipuzkoa. Desde 29 €/mes.',
+  schema = [],
+  noindex = false,
 } = Astro.props;
 
 // URLs absolutas para canonical y Open Graph (requeridas por redes sociales).
 // `Astro.site` viene de astro.config.mjs (https://arianet.eu).
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const ogImage = new URL('/og-image.png', Astro.site).href;
+
+// El negocio y el sitio se declaran en TODAS las páginas: cada una refuerza la
+// misma entidad local en lugar de dejarla sólo en la home.
+const jsonLd = [businessSchema(), webSiteSchema(), ...schema];
 ---
 
 <!doctype html>
@@ -45,6 +59,23 @@ const ogImage = new URL('/og-image.png', Astro.site).href;
     <meta name="description" content={description} />
     <meta name="theme-color" content="#0A0A0A" />
     <link rel="canonical" href={canonical} />
+    {
+      /* max-snippet/max-image-preview: sin esto Google recorta el fragmento y
+         usa miniatura pequeña; con esto puede mostrar descripción larga e
+         imagen grande, que ocupa más espacio en los resultados. */
+    }
+    <meta
+      name="robots"
+      content={noindex
+        ? 'noindex, follow'
+        : 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1'}
+    />
+    <meta name="author" content={BRAND} />
+    {/* Cobertura geográfica: la leen Bing y varios agregadores locales. */}
+    <meta name="geo.region" content="ES-SS" />
+    <meta name="geo.placename" content="Irún, Gipuzkoa" />
+    <meta name="geo.position" content="43.3376;-1.7889" />
+    <meta name="ICBM" content="43.3376, -1.7889" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -72,6 +103,14 @@ const ogImage = new URL('/og-image.png', Astro.site).href;
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
+
+    {
+      /* Datos estructurados. `set:html` con JSON.stringify evita que Astro
+         escape las comillas del JSON (romperían el parseo del bot). */
+      jsonLd.map((block) => (
+        <script type="application/ld+json" is:inline set:html={JSON.stringify(block)} />
+      ))
+    }
 
     {
       /* Umami (analítica sin cookies, instancia propia). Solo en producción
