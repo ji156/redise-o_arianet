@@ -1,0 +1,8 @@
+---
+import LocalLanding from '../layouts/LocalLanding.astro';
+import { localPages } from '../data/copy.ts';
+
+const page = localPages.find((p) => p.slug === 'diseno-web-hondarribia')!;
+---
+
+<LocalLanding page={page} />

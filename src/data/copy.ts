@@ -113,11 +113,11 @@ export const areas: { num: string; name: string; href: string | null; desc: Bi }
   },
   {
     num: '04',
-    name: 'Hondarribia y Bidasoa',
-    href: null,
+    name: 'Hondarribia',
+    href: '/diseno-web-hondarribia',
     desc: {
-      es: 'Hondarribia, Lezo, Pasaia y alrededores — la comarca de siempre.',
-      en: 'Hondarribia, Lezo, Pasaia and around — our own county.',
+      es: 'Restaurantes, hoteles y comercio del casco histórico y la Marina.',
+      en: 'Restaurants, hotels and shops in the old town and the Marina.',
     },
   },
   {
@@ -1377,6 +1377,84 @@ export const localPages: LocalPage[] = [
     ],
   },
   {
+    slug: 'diseno-web-hondarribia',
+    area: 'Hondarribia',
+    /* Enfoque deliberadamente distinto al de Irún: allí el cliente tipo es el
+       comercio de barrio; aquí, hostelería y turismo. Si fueran el mismo texto
+       con otro topónimo, Google las trataría como doorway pages. */
+    seo: {
+      title: 'Diseño de páginas web en Hondarribia | arianet',
+      description:
+        'Páginas web para restaurantes, hoteles y comercios de Hondarribia. Reservas, carta y multiidioma para el visitante. Estudio en Irún, desde 29 €/mes.',
+    },
+    h1: {
+      line1: { es: 'DISEÑO WEB', en: 'WEB DESIGN' },
+      line2: { es: 'HONDARRIBIA', en: 'HONDARRIBIA' },
+    },
+    intro: {
+      es: 'Hondarribia vive del que viene de fuera, y el que viene de fuera te busca en el móvil antes de decidir dónde come o dónde duerme. Si a esa hora tu web no carga o no tiene la carta actualizada, ya has perdido la mesa.',
+      en: 'Hondarribia lives off visitors, and visitors look you up on their phone before deciding where to eat or sleep. If at that moment your site is slow or your menu is out of date, the table is already lost.',
+    },
+    blocks: [
+      {
+        num: '01',
+        title: { es: 'Hostelería que se reserva sola', en: 'Hospitality that books itself' },
+        body: {
+          es: 'Restaurantes, sidrerías, pensiones y casas rurales. Carta actualizable por ti, botón de reserva visible y fotos que abran el apetito — sin depender de una plataforma que te cobra comisión por cada cliente que ya era tuyo.',
+          en: 'Restaurants, cider houses, guesthouses and rural lodgings. A menu you update yourself, a visible booking button and photos that whet the appetite — without depending on a platform charging commission on customers who were already yours.',
+        },
+      },
+      {
+        num: '02',
+        title: { es: 'En el idioma del visitante', en: "In the visitor's language" },
+        body: {
+          es: 'Aquí entra francés de Hendaya, turista de crucero y visitante del interior. Montamos la web en castellano, euskera, francés e inglés desde el principio, que sale mucho más barato que añadirlo cuando ya está hecha.',
+          en: 'Here you get French visitors from Hendaye, cruise tourists and travellers from inland. We build the site in Spanish, Basque, French and English from the start — far cheaper than bolting it on afterwards.',
+        },
+      },
+      {
+        num: '03',
+        title: { es: 'Que te encuentren en el mapa', en: 'So they find you on the map' },
+        body: {
+          es: 'Casi nadie busca tu nombre: buscan "dónde comer en Hondarribia" con el móvil en la mano y a doscientos metros de tu puerta. Trabajamos tu ficha de Google y tu web para que aparezcas en ese momento exacto.',
+          en: 'Almost nobody searches your name: they search "where to eat in Hondarribia" with their phone in hand, two hundred metres from your door. We work on your Google profile and your site so you show up at that exact moment.',
+        },
+      },
+      {
+        num: '04',
+        title: { es: 'Una cuota, no una inversión', en: 'A fee, not an investment' },
+        body: {
+          es: 'Un negocio con temporada alta y baja no debería soltar mil euros de golpe por una web. Desde 29 €/mes con alojamiento, certificado y mantenimiento dentro, y sin permanencia si un invierno decides parar.',
+          en: 'A business with high and low seasons should not drop a thousand euros at once on a website. From €29/mo with hosting, certificate and maintenance included, and no lock-in if one winter you decide to stop.',
+        },
+      },
+    ],
+    nearbyLabel: { es: 'También trabajamos en', en: 'We also work in' },
+    nearby: ['Irún', 'Lezo', 'Pasaia', 'Errenteria', 'Oiartzun', 'Donostia'],
+    faqs: [
+      {
+        q: {
+          es: '¿Podéis poner la carta del restaurante para que la cambie yo?',
+          en: 'Can you set up the menu so I can change it myself?',
+        },
+        a: {
+          es: 'Sí, y es de lo primero que montamos. Cambias platos y precios desde el móvil sin escribirnos ni esperar a nadie — algo esencial cuando la carta se mueve con la temporada o con lo que haya en la lonja.',
+          en: 'Yes, and it is one of the first things we set up. You change dishes and prices from your phone without writing to us or waiting for anyone — essential when the menu shifts with the season or with the day’s catch.',
+        },
+      },
+      {
+        q: {
+          es: '¿Merece la pena una web si ya salgo en las plataformas de reservas?',
+          en: 'Is a website worth it if I am already on the booking platforms?',
+        },
+        a: {
+          es: 'Precisamente por eso. En esas plataformas compites en una lista con todos tus vecinos y pagas comisión por cada reserva. Con web propia, quien te busca por tu nombre reserva directamente contigo y esa comisión te la quedas tú.',
+          en: 'That is exactly why. On those platforms you compete in a list against all your neighbours and pay commission on every booking. With your own site, whoever searches your name books directly with you and that commission stays with you.',
+        },
+      },
+    ],
+  },
+  {
     slug: 'paginas-web-gipuzkoa',
     area: 'Gipuzkoa',
     seo: {
@@ -1516,6 +1594,10 @@ export const FOOTER = {
       {
         href: '/diseno-web-san-sebastian',
         label: { es: 'Diseño web en San Sebastián', en: 'Web design in San Sebastián' },
+      },
+      {
+        href: '/diseno-web-hondarribia',
+        label: { es: 'Diseño web en Hondarribia', en: 'Web design in Hondarribia' },
       },
       {
         href: '/paginas-web-gipuzkoa',
