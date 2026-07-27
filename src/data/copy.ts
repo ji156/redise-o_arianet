@@ -78,8 +78,8 @@ export const AREAS_INTRO = {
   label: '(ZONA / 07)',
   h2: { es: 'DÓNDE TRABAJAMOS', en: 'WHERE WE WORK' },
   para: {
-    es: 'Somos un estudio de Irún. Nos movemos por Gipuzkoa y trabajamos en remoto con el resto de España.',
-    en: 'We are a studio based in Irún. We cover Gipuzkoa and work remotely with the rest of Spain.',
+    es: 'Somos un estudio de Irún y trabajamos en remoto: con Gipuzkoa, que es nuestra casa, y con toda España.',
+    en: 'We are a studio from Irún and we work remotely: with Gipuzkoa, which is home, and with the whole of Spain.',
   },
 };
 
@@ -89,8 +89,8 @@ export const areas: { num: string; name: string; href: string | null; desc: Bi }
     name: 'Irún',
     href: '/diseno-web-irun',
     desc: {
-      es: 'Nuestra base. Comercios, hostelería y pymes del Bidasoa — nos podemos ver en persona.',
-      en: 'Our home base. Shops, restaurants and small businesses in the Bidasoa area — we can meet in person.',
+      es: 'Nuestra base. Comercios, hostelería y pymes del Bidasoa, la zona que mejor conocemos.',
+      en: 'Our home base. Shops, restaurants and small businesses in the Bidasoa area — the ground we know best.',
     },
   },
   {
@@ -98,8 +98,8 @@ export const areas: { num: string; name: string; href: string | null; desc: Bi }
     name: 'Donostia · San Sebastián',
     href: '/diseno-web-san-sebastian',
     desc: {
-      es: 'A 20 minutos por la A-8. Negocios locales, estudios y profesionales de Donostia.',
-      en: '20 minutes down the A-8. Local businesses, studios and professionals in Donostia.',
+      es: 'Comercio, hostelería, estudios y profesionales de Donostia y su comarca.',
+      en: 'Shops, restaurants, studios and professionals in Donostia and its surroundings.',
     },
   },
   {
@@ -125,8 +125,8 @@ export const areas: { num: string; name: string; href: string | null; desc: Bi }
     name: 'Resto de España',
     href: null,
     desc: {
-      es: 'En remoto, con videollamada. La distancia no cambia cómo trabajamos.',
-      en: 'Remotely, over video call. Distance changes nothing in how we work.',
+      es: 'Trabajamos igual estés donde estés: todo por videollamada, email y WhatsApp.',
+      en: 'We work the same wherever you are: all over video call, email and WhatsApp.',
     },
   },
 ];
@@ -197,8 +197,8 @@ export const HERO = {
   // Subtítulo bajo el H1: mete los sinónimos reales de búsqueda ("páginas web",
   // "programación", "tiendas online") y las localidades sin recargar el H1.
   subtitle: {
-    es: 'Diseño y programación de páginas web para negocios de Irún, Donostia-San Sebastián y toda Gipuzkoa.',
-    en: 'Web design and development for businesses in Irún, Donostia-San Sebastián and across Gipuzkoa.',
+    es: 'Diseño y programación de páginas web para negocios de Irún, Donostia-San Sebastián y toda Gipuzkoa. En remoto, también para el resto de España.',
+    en: 'Web design and development for businesses in Irún, Donostia-San Sebastián and across Gipuzkoa. Remotely, for the rest of Spain too.',
   },
   paragraph: {
     es: 'Construimos las webs que tu competencia va a querer copiar. Branding, páginas web y tiendas online, diseñadas desde cero. Tarifa plana desde 29 €/mes, sin permanencia.',
@@ -1081,8 +1081,8 @@ export const faqs: { q: Bi; a: Bi }[] = [
       en: 'Do you only work with businesses from Irún?',
     },
     a: {
-      es: 'Estamos en Irún y es donde más cerca tenemos a nuestros clientes —podemos vernos en persona—, pero trabajamos con toda Gipuzkoa: Donostia-San Sebastián, Hondarribia, Errenteria, Oiartzun, Pasaia, Lezo, Hernani. Y con el resto de España en remoto, por videollamada.',
-      en: "We're based in Irún and that's where our clients are closest —we can meet in person— but we work across Gipuzkoa: Donostia-San Sebastián, Hondarribia, Errenteria, Oiartzun, Pasaia, Lezo, Hernani. And with the rest of Spain remotely, over video call.",
+      es: 'No. Somos de Irún y de ahí viene buena parte de nuestros clientes, pero trabajamos en remoto: con toda Gipuzkoa —Donostia-San Sebastián, Hondarribia, Errenteria, Oiartzun, Pasaia, Lezo, Hernani— y con cualquier punto de España. Todo se lleva por videollamada, email y WhatsApp, sin que tengas que desplazarte a ningún sitio.',
+      en: 'No. We are from Irún and a good share of our clients are from here, but we work remotely: across Gipuzkoa —Donostia-San Sebastián, Hondarribia, Errenteria, Oiartzun, Pasaia, Lezo, Hernani— and anywhere in Spain. Everything runs over video call, email and WhatsApp, with no need for you to travel anywhere.',
     },
   },
 ];
@@ -1245,16 +1245,16 @@ export const localPages: LocalPage[] = [
       line2: { es: 'EN IRÚN', en: 'IN IRÚN' },
     },
     intro: {
-      es: 'Estamos en la calle María Juncal Labandibar, en Irún. No somos una agencia de Madrid con una dirección de paso: si tu negocio está aquí, nos tomamos un café y hablamos de tu web en persona.',
-      en: "We're on calle María Juncal Labandibar, in Irún. We're not a Madrid agency with a mailbox address here: if your business is in town, we grab a coffee and talk about your website face to face.",
+      es: 'Somos de Irún y trabajamos en remoto, sin oficina de cara al público. Eso no nos aleja de ti: significa que no pagas metros cuadrados vacíos y que puedes contratar tu web sin salir de tu negocio.',
+      en: 'We are from Irún and we work remotely, with no walk-in office. That does not put distance between us: it means you are not paying for empty square metres, and you can commission your website without leaving your business.',
     },
     blocks: [
       {
         num: '01',
         title: { es: 'Un estudio de aquí', en: 'A studio from here' },
         body: {
-          es: 'Conocemos Irún: sabemos la diferencia entre un comercio del centro y uno de Anaka, y que en verano el cliente que entra por tu puerta puede venir de Hendaya. Eso cambia cómo se plantea una web — qué idiomas, qué horarios, qué se enseña primero.',
-          en: "We know Irún: we know the difference between a shop downtown and one in Anaka, and that in summer the customer walking in may be coming from Hendaye. That changes how you plan a website — which languages, which opening hours, what you show first.",
+          es: 'Conocemos Irún: sabemos la diferencia entre un comercio del centro y uno de Anaka, y que en verano el cliente que entra por tu puerta puede venir de Hendaya. Eso cambia cómo se plantea una web — qué idiomas, qué horarios, qué se enseña primero. No hace falta vernos para que eso se note.',
+          en: "We know Irún: we know the difference between a shop downtown and one in Anaka, and that in summer the customer walking in may be coming from Hendaye. That changes how you plan a website — which languages, which opening hours, what you show first. We don't need to meet for that to show.",
         },
       },
       {
@@ -1289,10 +1289,10 @@ export const localPages: LocalPage[] = [
     nearby: ['Hondarribia', 'Lezo', 'Pasaia', 'Errenteria', 'Oiartzun', 'Behobia'],
     faqs: [
       {
-        q: { es: '¿Podemos vernos en persona?', en: 'Can we meet in person?' },
+        q: { es: '¿Hace falta que nos veamos?', en: 'Do we need to meet?' },
         a: {
-          es: 'Sí. Estamos en Irún y para proyectos de la zona preferimos la primera reunión cara a cara — se entiende mucho mejor un negocio viéndolo. Escríbenos a hola@arianet.eu y quedamos.',
-          en: 'Yes. We are based in Irún and for local projects we prefer the first meeting face to face — you understand a business far better by seeing it. Write to hola@arianet.eu and we will arrange it.',
+          es: 'No. Trabajamos en remoto de principio a fin: la primera toma de contacto por videollamada, y el resto por email o WhatsApp. Suele salir más ágil para los dos, porque no hay que cuadrar agendas ni cerrar el negocio media hora para una reunión.',
+          en: 'No. We work remotely from start to finish: a first video call, and the rest over email or WhatsApp. It usually turns out quicker for both sides — no diaries to align and no closing your shop for half an hour.',
         },
       },
       {
@@ -1320,8 +1320,8 @@ export const localPages: LocalPage[] = [
       line2: { es: 'EN DONOSTIA', en: 'IN DONOSTIA' },
     },
     intro: {
-      es: 'Nuestro estudio está en Irún, a veinte minutos de Donostia por la A-8. Lo decimos claro porque preferimos que sepas dónde estamos: trabajamos con negocios donostiarras a diario y nos acercamos siempre que hace falta.',
-      en: 'Our studio is in Irún, twenty minutes from Donostia along the A-8. We say it plainly because we would rather you knew where we are: we work with San Sebastián businesses every day and we come over whenever it is needed.',
+      es: 'Somos un estudio de Irún que trabaja con negocios de Donostia en remoto. Lo decimos claro desde el principio: no tenemos oficina en la ciudad ni te vamos a cobrar el sobreprecio de tenerla.',
+      en: 'We are a studio from Irún working remotely with businesses in Donostia. We say it upfront: we have no office in the city, and we are not charging you the premium of keeping one.',
     },
     blocks: [
       {
@@ -1363,8 +1363,8 @@ export const localPages: LocalPage[] = [
       {
         q: { es: '¿Tenéis oficina en San Sebastián?', en: 'Do you have an office in San Sebastián?' },
         a: {
-          es: 'No, nuestra oficina está en Irún. Nos movemos a Donostia para las reuniones que hagan falta, y el resto lo llevamos por email y videollamada como cualquier estudio moderno. Preferimos decírtelo antes que fingir una dirección.',
-          en: 'No, our office is in Irún. We travel to Donostia for whatever meetings are needed, and handle the rest by email and video call like any modern studio. We would rather tell you upfront than fake an address.',
+          es: 'No tenemos oficina en Donostia ni en ningún sitio: somos un estudio de Irún que trabaja en remoto. Preferimos decírtelo antes que fingir una dirección en el centro, como hacen algunos. Todo el proyecto se lleva por videollamada, email y WhatsApp, y eso es parte de por qué la cuota es la que es.',
+          en: 'We have no office in Donostia or anywhere else: we are a studio from Irún working remotely. We would rather tell you than fake a city-centre address, as some do. The whole project runs over video call, email and WhatsApp — and that is part of why the fee is what it is.',
         },
       },
       {
@@ -1389,16 +1389,16 @@ export const localPages: LocalPage[] = [
       line2: { es: 'EN GIPUZKOA', en: 'IN GIPUZKOA' },
     },
     intro: {
-      es: 'Diseñamos y programamos páginas web para negocios de toda Gipuzkoa. Estamos en Irún, en la punta del mapa, pero la provincia se cruza en una hora y buena parte del trabajo se hace igual de bien por videollamada.',
-      en: 'We design and build websites for businesses across Gipuzkoa. We are in Irún, at the tip of the map, but the province is an hour end to end and much of the work goes just as well over video call.',
+      es: 'Diseñamos y programamos páginas web para negocios de toda Gipuzkoa. Somos de Irún y trabajamos en remoto, así que estés en Tolosa, en Eibar o en Zarautz, el proceso es exactamente el mismo.',
+      en: 'We design and build websites for businesses across Gipuzkoa. We are from Irún and we work remotely, so whether you are in Tolosa, Eibar or Zarautz, the process is exactly the same.',
     },
     blocks: [
       {
         num: '01',
         title: { es: 'De Irún a Eibar', en: 'From Irún to Eibar' },
         body: {
-          es: 'Trabajamos con negocios de la costa, del Bidasoa, de Donostialdea, del Goierri y del Alto Deba. La primera reunión la hacemos donde te venga mejor: en tu local, en el nuestro o por videollamada.',
-          en: 'We work with businesses on the coast, in the Bidasoa, Donostialdea, Goierri and Alto Deba. We hold the first meeting wherever suits you: your place, ours or over video.',
+          es: 'Trabajamos con negocios de la costa, del Bidasoa, de Donostialdea, del Goierri y del Alto Deba. Al ser todo en remoto, da igual que estés en Irún o en Eibar: el trato es el mismo y no hay desplazamientos que cuadrar.',
+          en: 'We work with businesses on the coast, in the Bidasoa, Donostialdea, Goierri and Alto Deba. Since everything is remote, it makes no difference whether you are in Irún or Eibar: same service, and no travel to schedule.',
         },
       },
       {
@@ -1442,12 +1442,12 @@ export const localPages: LocalPage[] = [
     faqs: [
       {
         q: {
-          es: '¿Os desplazáis a los pueblos de Gipuzkoa?',
-          en: 'Do you travel to towns across Gipuzkoa?',
+          es: '¿Trabajáis en remoto o hay que veros?',
+          en: 'Do you work remotely, or do we have to meet?',
         },
         a: {
-          es: 'Sí, para la reunión inicial y para el lanzamiento nos desplazamos por toda la provincia sin coste. El día a día del proyecto lo llevamos por email y videollamada, que es más ágil para los dos.',
-          en: 'Yes, we travel anywhere in the province at no cost for the initial meeting and for launch. The day-to-day of the project runs over email and video call, which is quicker for both sides.',
+          es: 'Todo en remoto, de principio a fin. Arrancamos con una videollamada para entender tu negocio y a partir de ahí vamos por email o WhatsApp, enseñándote avances reales. No hay que cuadrar visitas ni cerrar el negocio para atendernos.',
+          en: 'Everything remotely, start to finish. We open with a video call to understand your business and carry on over email or WhatsApp, showing you real progress. No visits to schedule and no closing your shop to receive us.',
         },
       },
       {
@@ -1456,8 +1456,8 @@ export const localPages: LocalPage[] = [
           en: 'What if my business is outside Gipuzkoa?',
         },
         a: {
-          es: 'También trabajamos con el resto de España en remoto. Cambia que no nos vemos en persona; no cambia el precio, el proceso ni el resultado.',
-          en: 'We work remotely with the rest of Spain too. What changes is that we do not meet face to face; the price, the process and the result stay the same.',
+          es: 'Ningún problema: trabajamos con toda España exactamente igual. Como todo es en remoto, que estés en Gipuzkoa o en Málaga no cambia el precio, el proceso ni el resultado.',
+          en: 'No problem at all: we work with the whole of Spain in exactly the same way. Since everything is remote, being in Gipuzkoa or in Málaga changes neither the price, the process nor the result.',
         },
       },
     ],
@@ -1533,11 +1533,12 @@ export const FOOTER = {
     ],
   },
   copyright: { es: `© ${YEAR} ${BRAND} ESTUDIO`, en: `© ${YEAR} ${BRAND} STUDIO` },
-  /* Dirección completa y visible: el NAP en texto plano del footer es una de
-     las señales locales que más se comprueban, y debe coincidir carácter a
-     carácter con el del aviso legal y el perfil de empresa. */
+  /* Ciudad y provincia, sin la calle: al no haber oficina de cara al público,
+     publicar el portal no aporta nada al cliente y expone un domicilio. La
+     señal local que Google necesita es el municipio, y ése sí se mantiene.
+     El domicilio completo sigue en el aviso legal, donde la LSSI lo exige. */
   location: {
-    es: `${BUSINESS.street} · ${BUSINESS.postalCode} ${BUSINESS.city} (${BUSINESS.region})`,
-    en: `${BUSINESS.street} · ${BUSINESS.postalCode} ${BUSINESS.city} (${BUSINESS.region}), Spain`,
+    es: `${BUSINESS.city} · ${BUSINESS.region} · España`,
+    en: `${BUSINESS.city} · ${BUSINESS.region} · Spain`,
   },
 };

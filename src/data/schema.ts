@@ -42,7 +42,11 @@ export function businessSchema() {
       'Estudio de diseño y programación de páginas web en Irún (Gipuzkoa). Páginas web a medida, tiendas online, branding y SEO local para negocios de Irún, Donostia-San Sebastián y toda Gipuzkoa.',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: BUSINESS.street,
+      // Sin `streetAddress` a propósito: no hay oficina de cara al público y el
+      // perfil de empresa está declarado como negocio de zona de servicio, con
+      // la dirección oculta. Publicarla aquí contradiría esa configuración. El
+      // municipio y la provincia sí van: son la señal que ancla el negocio a
+      // Irún, que es lo que Google necesita para el posicionamiento local.
       postalCode: BUSINESS.postalCode,
       addressLocality: BUSINESS.city,
       addressRegion: BUSINESS.region,
