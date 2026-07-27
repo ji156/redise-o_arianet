@@ -1,5 +1,5 @@
 ---
-import { BRAND, META, FOOTER, CONTACT } from '../data/copy.ts';
+import { BRAND, BUSINESS, META, FOOTER, CONTACT } from '../data/copy.ts';
 ---
 
 <footer class="footer">
@@ -48,6 +48,11 @@ import { BRAND, META, FOOTER, CONTACT } from '../data/copy.ts';
         {FOOTER.contactCol.heading.es}
       </span>
       <a href={`mailto:${CONTACT.email}`} class="footer__link">{CONTACT.email}</a>
+      {/* Teléfono clicable: desde el móvil se llama de un toque, y es el mismo
+          número que el del perfil de empresa de Google. */}
+      <a href={`tel:${BUSINESS.telephone}`} class="footer__link">
+        {BUSINESS.telephoneDisplay}
+      </a>
       <span class="footer__note" data-en={FOOTER.contactCol.note.en}>
         {FOOTER.contactCol.note.es}
       </span>

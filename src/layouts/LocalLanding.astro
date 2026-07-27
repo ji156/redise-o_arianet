@@ -14,6 +14,7 @@
 import Base from './Base.astro';
 import {
   BRAND,
+  BUSINESS,
   LOCAL_PAGE,
   FOOTER,
   TARIFAS_INTRO,
@@ -195,6 +196,7 @@ const siblings = localPages.filter((p) => p.slug !== page.slug);
       }
       <a href="/#tarifas" class="sfoot__link" data-en="Pricing">Tarifas</a>
       <a href="/empezar" class="sfoot__link" data-en="Start a project">Empezar proyecto</a>
+      <a href={`tel:${BUSINESS.telephone}`} class="sfoot__link">{BUSINESS.telephoneDisplay}</a>
     </div>
     <span class="sfoot__copy" data-en={FOOTER.location.en}>{FOOTER.location.es}</span>
   </footer>

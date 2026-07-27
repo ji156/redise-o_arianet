@@ -45,9 +45,10 @@ export const CONTACT = {
  * si no coinciden EXACTAMENTE (abreviaturas incluidas), resta en el pack local.
  * Por eso vive en un único sitio y se renderiza desde aquí en todas partes.
  *
- * `telephone` queda vacío a propósito: no hay teléfono público. En cuanto lo
- * haya, ponerlo aquí en formato E.164 (+34…) — es uno de los campos con más
- * peso para el SEO local.
+ * `telephone` va en E.164 (+34…) para el JSON-LD y los enlaces tel:, y
+ * `telephoneDisplay` es cómo se lee en pantalla. Tiene que ser EXACTAMENTE el
+ * mismo número que el del perfil de empresa de Google: es uno de los datos que
+ * se cruzan para confirmar que la web y la ficha son el mismo negocio.
  */
 export const BUSINESS = {
   legalName: 'Arianet WebStudio SL',
@@ -57,7 +58,8 @@ export const BUSINESS = {
   city: 'Irún',
   region: 'Gipuzkoa',
   country: 'ES',
-  telephone: '',
+  telephone: '+34689775689',
+  telephoneDisplay: '689 77 56 89',
   founded: '2026',
   /* Centro del municipio: precisión suficiente para el emparejado geográfico
      (la ubicación fina la aporta el perfil de empresa, no el schema). */
