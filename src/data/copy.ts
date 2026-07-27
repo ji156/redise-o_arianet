@@ -214,7 +214,8 @@ export const heroIndex: { num: string; slug: string; label: Bi }[] = [
   { num: '02', slug: 'diseno-web', label: { es: 'WEB', en: 'WEB' } },
   { num: '03', slug: 'tiendas-online', label: { es: 'E-COMMERCE', en: 'E-COMMERCE' } },
   { num: '04', slug: 'ux-ui', label: { es: 'UX / UI', en: 'UX / UI' } },
-  { num: '05', slug: 'seo', label: { es: 'SEO', en: 'SEO' } },
+  { num: '05', slug: 'apps-moviles', label: { es: 'MOBILE', en: 'MOBILE' } },
+  { num: '06', slug: 'seo', label: { es: 'SEO', en: 'SEO' } },
 ];
 
 /** Marquee. */
@@ -223,6 +224,7 @@ export const marquee: Bi[] = [
   { es: 'Diseño Web', en: 'Web Design' },
   { es: 'E-Commerce', en: 'E-Commerce' },
   { es: 'UX/UI', en: 'UX/UI' },
+  { es: 'Apps Móviles', en: 'Mobile Apps' },
   { es: 'SEO', en: 'SEO' },
   { es: 'Landing Pages', en: 'Landing Pages' },
   { es: 'Mantenimiento', en: 'Maintenance' },
@@ -389,6 +391,23 @@ export const services: {
   },
   {
     num: '06',
+    slug: 'apps-moviles',
+    title: { es: 'Aplicaciones móviles', en: 'Mobile apps' },
+    desc: {
+      es: 'Apps nativas para iOS y Android, del diseño a la publicación.',
+      en: 'Native iOS and Android apps, from design to release.',
+    },
+    /* Va justo detrás de UX/UI y con title distinto a propósito: aquel cubre
+       "diseño de interfaces de apps" y éste "desarrollo de apps nativas". Con
+       titles parecidos competirían entre sí por la misma búsqueda. */
+    seo: {
+      title: 'Desarrollo de apps para iOS y Android | arianet',
+      description:
+        'Desarrollo de aplicaciones móviles nativas para iOS y Android: diseño, programación y publicación en App Store y Google Play. Estudio en Irún, Gipuzkoa.',
+    },
+  },
+  {
+    num: '07',
     slug: 'seo',
     title: { es: 'SEO y posicionamiento', en: 'SEO' },
     desc: {
@@ -402,7 +421,7 @@ export const services: {
     },
   },
   {
-    num: '07',
+    num: '08',
     slug: 'mantenimiento',
     title: { es: 'Mantenimiento web', en: 'Maintenance' },
     desc: {
@@ -604,6 +623,41 @@ export const serviceDetails: ServiceDetail[] = [
       image: '/work/king-of-spain.jpg',
     },
     exampleNote: { es: '', en: '' },
+  },
+  {
+    slug: 'apps-moviles',
+    intro: {
+      es: 'Desarrollamos aplicaciones nativas para iOS y Android: el diseño, la programación y la publicación en App Store y Google Play. A diferencia del resto de servicios, una app no entra en la tarifa plana — cada proyecto se presupuesta aparte, porque no se parece en nada al anterior.',
+      en: 'We build native apps for iOS and Android: the design, the development and the release on the App Store and Google Play. Unlike our other services, an app does not fit the flat rate — each project is quoted separately, because no two are alike.',
+    },
+    bullets: [
+      {
+        title: { es: 'Nativas en las dos plataformas', en: 'Native on both platforms' },
+        desc: {
+          es: 'iOS y Android desarrolladas en su lenguaje propio, no una web metida dentro de una app.',
+          en: 'iOS and Android built in their own languages, not a website wrapped inside an app.',
+        },
+      },
+      {
+        title: { es: 'Del boceto a la tienda', en: 'From sketch to store' },
+        desc: {
+          es: 'Nos encargamos también de las fichas, capturas y del proceso de revisión de Apple y Google.',
+          en: 'We also handle store listings, screenshots and the Apple and Google review process.',
+        },
+      },
+      {
+        title: { es: 'Presupuesto cerrado antes de empezar', en: 'A closed quote before we start' },
+        desc: {
+          es: 'Analizamos qué necesita la app y te damos un precio y un plazo por escrito, sin sorpresas a mitad.',
+          en: 'We analyse what the app needs and give you a written price and timeline, with no surprises halfway.',
+        },
+      },
+    ],
+    example: null,
+    exampleNote: {
+      es: 'Todavía no tenemos una app publicada que enseñar. Preferimos decirlo antes que rellenar esto con capturas de otro.',
+      en: "We don't have a published app to show yet. We'd rather say so than fill this with someone else's screenshots.",
+    },
   },
   {
     slug: 'seo',
