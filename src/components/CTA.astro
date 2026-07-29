@@ -1,16 +1,19 @@
 ---
 import { CTA, CONTACT } from '../data/copy.ts';
+import { langOf, startPath, t } from '../data/i18n.ts';
+
+const lang = langOf(Astro.currentLocale);
 const mailto = `mailto:${CONTACT.email}`;
 ---
 
 <section id="contacto" class="cta surface-invert">
   <div data-reveal>
     <div class="cta__label">{CTA.label}</div>
-    <h2 class="cta__h2" data-en={CTA.h2.en}>{CTA.h2.es}</h2>
-    <p class="cta__para" data-en={CTA.para.en}>{CTA.para.es}</p>
+    <h2 class="cta__h2">{t(CTA.h2, lang)}</h2>
+    <p class="cta__para">{t(CTA.para, lang)}</p>
 
     <div class="cta__btns">
-      <a href="/empezar" class="btn btn--ink" data-en={CTA.ctaStart.en}>{CTA.ctaStart.es}</a>
+      <a href={startPath(lang)} class="btn btn--ink">{t(CTA.ctaStart, lang)}</a>
       <a href={mailto} class="btn btn--blue">{CONTACT.email.toUpperCase()}</a>
     </div>
   </div>

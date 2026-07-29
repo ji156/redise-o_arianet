@@ -1,74 +1,61 @@
 ---
-import { BRAND, BUSINESS, META, FOOTER, CONTACT } from '../data/copy.ts';
+import { NAV, BRAND, BUSINESS, META, FOOTER, CONTACT } from '../data/copy.ts';
+import { langOf, legalPath, t } from '../data/i18n.ts';
+
+const lang = langOf(Astro.currentLocale);
 ---
 
 <footer class="footer">
   <div class="footer__nav">
     <div class="footer__col">
-      <span class="footer__heading" data-en={FOOTER.studioCol.heading.en}>
-        {FOOTER.studioCol.heading.es}
-      </span>
+      <span class="footer__heading">{t(FOOTER.studioCol.heading, lang)}</span>
       {
         FOOTER.studioCol.links.map((l) => (
-          <a href={l.href} class="footer__link" data-en={l.label.en}>
-            {l.label.es}
-          </a>
+          <a href={l.href} class="footer__link">{t(l.label, lang)}</a>
         ))
       }
     </div>
 
     <div class="footer__col">
-      <span class="footer__heading" data-en={FOOTER.legalCol.heading.en}>
-        {FOOTER.legalCol.heading.es}
-      </span>
+      <span class="footer__heading">{t(FOOTER.legalCol.heading, lang)}</span>
       {
         FOOTER.legalCol.links.map((l) => (
-          <a href={l.href} class="footer__link" data-en={l.label.en}>
-            {l.label.es}
-          </a>
+          <a href={legalPath(l.slug, lang)} class="footer__link">{t(l.label, lang)}</a>
         ))
       }
     </div>
 
     <div class="footer__col">
-      <span class="footer__heading" data-en={FOOTER.areaCol.heading.en}>
-        {FOOTER.areaCol.heading.es}
-      </span>
+      <span class="footer__heading">{t(FOOTER.areaCol.heading, lang)}</span>
       {
         FOOTER.areaCol.links.map((l) => (
-          <a href={l.href} class="footer__link" data-en={l.label.en}>
-            {l.label.es}
-          </a>
+          <a href={l.href} class="footer__link">{t(l.label, lang)}</a>
         ))
       }
     </div>
 
     <div class="footer__col">
-      <span class="footer__heading" data-en={FOOTER.contactCol.heading.en}>
-        {FOOTER.contactCol.heading.es}
-      </span>
+      <span class="footer__heading">{t(FOOTER.contactCol.heading, lang)}</span>
       <a href={`mailto:${CONTACT.email}`} class="footer__link">{CONTACT.email}</a>
       {/* Teléfono clicable: desde el móvil se llama de un toque, y es el mismo
           número que el del perfil de empresa de Google. */}
       <a href={`tel:${BUSINESS.telephone}`} class="footer__link">
         {BUSINESS.telephoneDisplay}
       </a>
-      <span class="footer__note" data-en={FOOTER.contactCol.note.en}>
-        {FOOTER.contactCol.note.es}
-      </span>
+      <span class="footer__note">{t(FOOTER.contactCol.note, lang)}</span>
     </div>
   </div>
 
   <div class="footer__brand-row">
-    <a href="#top" class="footer__brand" aria-label={`${BRAND} — inicio`}>
+    <a href="#top" class="footer__brand" aria-label={`${BRAND} — ${t(NAV.home, lang)}`}>
       <img src="/logo-wordmark-compact.png" alt={BRAND} width="1180" height="240" class="footer__logo" />
     </a>
-    <span class="footer__tagline" data-en={META.tagline.en}>{META.tagline.es}</span>
+    <span class="footer__tagline">{t(META.tagline, lang)}</span>
   </div>
 
   <div class="footer__bottom">
-    <span data-en={FOOTER.copyright.en}>{FOOTER.copyright.es}</span>
-    <span data-en={FOOTER.location.en}>{FOOTER.location.es}</span>
+    <span>{t(FOOTER.copyright, lang)}</span>
+    <span>{t(FOOTER.location, lang)}</span>
   </div>
 </footer>
 

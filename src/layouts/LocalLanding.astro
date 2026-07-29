@@ -13,6 +13,7 @@
  */
 import Base from './Base.astro';
 import {
+  NAV,
   BRAND,
   BUSINESS,
   LOCAL_PAGE,
@@ -24,14 +25,31 @@ import {
   type LocalPage,
 } from '../data/copy.ts';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema.ts';
+import {
+  LANG_NAME,
+  LANG_SHORT,
+  homePath,
+  langOf,
+  localPath,
+  otherLangs,
+  servicePath,
+  startPath,
+  t,
+} from '../data/i18n.ts';
 
 interface Props {
   page: LocalPage;
 }
 
 const { page } = Astro.props;
-const path = `/${page.slug}`;
-const heading = `${page.h1.line1.es} ${page.h1.line2.es}`;
+const lang = langOf(Astro.currentLocale);
+
+// Estas landings existen sólo en castellano (son SEO local), así que no se pasa
+// `alternates` a Base: sin alternativas no se declara ningún hreflang, y el
+// selector de idioma del encabezado lleva a la portada del otro idioma.
+const langLinks = otherLangs(lang);
+const path = localPath(page.slug);
+const heading = `${t(page.h1.line1, lang)} ${t(page.h1.line2, lang)}`;
 
 const schema = [
   serviceSchema({
@@ -41,7 +59,7 @@ const schema = [
     area: page.area,
   }),
   breadcrumbSchema([
-    { name: 'Inicio', path: '/' },
+    { name: t(NAV.home, lang), path: homePath(lang) },
     { name: heading, path },
   ]),
   faqSchema(page.faqs),
@@ -54,7 +72,7 @@ const siblings = localPages.filter((p) => p.slug !== page.slug);
 
 <Base title={page.seo.title} description={page.seo.description} schema={schema}>
   <header class="shead">
-    <a href="/" class="shead__brand" aria-label={`${BRAND} — inicio`}>
+    <a href={homePath(lang)} class="shead__brand" aria-label={`${BRAND} — ${t(NAV.home, lang)}`}>
       <img
         src="/logo-wordmark-compact.png"
         alt={BRAND}
@@ -64,37 +82,41 @@ const siblings = localPages.filter((p) => p.slug !== page.slug);
       />
     </a>
     <div class="shead__actions">
-      <button type="button" class="shead__lang" data-lang-toggle aria-label="Switch to English">
-        EN
-      </button>
-      <a href="/" class="shead__back" data-en={LOCAL_PAGE.back.en}>{LOCAL_PAGE.back.es}</a>
+      {
+        langLinks.map((l) => (
+          <a
+            href={l.href}
+            class="shead__lang"
+            hreflang={l.code}
+            lang={l.code}
+            aria-label={LANG_NAME[l.code]}
+          >
+            {LANG_SHORT[l.code]}
+          </a>
+        ))
+      }
+      <a href={homePath(lang)} class="shead__back">{t(LOCAL_PAGE.back, lang)}</a>
     </div>
   </header>
 
   <main class="loc">
     <nav class="loc__crumbs" aria-label="Migas de pan">
-      <a href="/">{BRAND}</a>
+      <a href={homePath(lang)}>{BRAND}</a>
       <span aria-hidden="true">/</span>
       <span aria-current="page">{heading}</span>
     </nav>
 
     <section class="loc__hero">
       <h1 class="loc__h1">
-        <span class="loc__line loc__line--solid" data-en={page.h1.line1.en}>
-          {page.h1.line1.es}
-        </span>
-        <span class="loc__line loc__line--outline" data-en={page.h1.line2.en}>
-          {page.h1.line2.es}
-        </span>
+        <span class="loc__line loc__line--solid">{t(page.h1.line1, lang)}</span>
+        <span class="loc__line loc__line--outline">{t(page.h1.line2, lang)}</span>
       </h1>
 
       <div class="loc__rule"></div>
 
-      <p class="loc__intro" data-en={page.intro.en}>{page.intro.es}</p>
+      <p class="loc__intro">{t(page.intro, lang)}</p>
 
-      <a href="/empezar" class="btn btn--blue loc__cta" data-en={LOCAL_PAGE.cta.en}>
-        {LOCAL_PAGE.cta.es}
-      </a>
+      <a href={startPath(lang)} class="btn btn--blue loc__cta">{t(LOCAL_PAGE.cta, lang)}</a>
     </section>
 
     <section class="loc__blocks">
@@ -103,12 +125,8 @@ const siblings = localPages.filter((p) => p.slug !== page.slug);
           <article class="loc__block" data-reveal>
             <span class="loc__block-num">{b.num}</span>
             <div>
-              <h2 class="loc__block-title" data-en={b.title.en}>
-                {b.title.es}
-              </h2>
-              <p class="loc__block-body" data-en={b.body.en}>
-                {b.body.es}
-              </p>
+              <h2 class="loc__block-title">{t(b.title, lang)}</h2>
+              <p class="loc__block-body">{t(b.body, lang)}</p>
             </div>
           </article>
         ))
@@ -116,63 +134,49 @@ const siblings = localPages.filter((p) => p.slug !== page.slug);
     </section>
 
     <section class="loc__section" data-reveal>
-      <h2 class="loc__h2" data-en={LOCAL_PAGE.servicesTitle.en}>{LOCAL_PAGE.servicesTitle.es}</h2>
+      <h2 class="loc__h2">{t(LOCAL_PAGE.servicesTitle, lang)}</h2>
       <div class="loc__services">
         {
           services.map((s) => (
-            <a href={`/servicios/${s.slug}`} class="loc__service" data-en={s.title.en}>
-              {s.title.es}
-            </a>
+            <a href={servicePath(s.slug, lang)} class="loc__service">{t(s.title, lang)}</a>
           ))
         }
       </div>
     </section>
 
     <section class="loc__section" data-reveal>
-      <h2 class="loc__h2" data-en={page.nearbyLabel.en}>{page.nearbyLabel.es}</h2>
+      <h2 class="loc__h2">{t(page.nearbyLabel, lang)}</h2>
       <ul class="loc__nearby">
         {page.nearby.map((n) => <li class="loc__chip">{n}</li>)}
       </ul>
     </section>
 
     <section class="loc__section" data-reveal>
-      <h2 class="loc__h2" data-en={LOCAL_PAGE.pricingTitle.en}>{LOCAL_PAGE.pricingTitle.es}</h2>
+      <h2 class="loc__h2">{t(LOCAL_PAGE.pricingTitle, lang)}</h2>
       <div class="loc__plans">
         {
           plans.map((p) => (
             <div class="loc__plan">
-              <span class="loc__plan-name" data-en={p.name.en}>
-                {p.name.es}
-              </span>
+              <span class="loc__plan-name">{t(p.name, lang)}</span>
               <span class="loc__plan-price">
-                {p.price} €<span class="loc__plan-mo" data-en={TARIFAS_INTRO.perMonth.en}>
-                  {TARIFAS_INTRO.perMonth.es}
-                </span>
+                {p.price} €<span class="loc__plan-mo">{t(TARIFAS_INTRO.perMonth, lang)}</span>
               </span>
-              <span class="loc__plan-line" data-en={p.line.en}>
-                {p.line.es}
-              </span>
+              <span class="loc__plan-line">{t(p.line, lang)}</span>
             </div>
           ))
         }
       </div>
-      <a href="/#tarifas" class="loc__link" data-en={LOCAL_PAGE.pricingCta.en}>
-        {LOCAL_PAGE.pricingCta.es}
-      </a>
+      <a href={`${homePath(lang)}#tarifas`} class="loc__link">{t(LOCAL_PAGE.pricingCta, lang)}</a>
     </section>
 
     <section class="loc__section" data-reveal>
-      <h2 class="loc__h2" data-en={LOCAL_PAGE.faqTitle.en}>{LOCAL_PAGE.faqTitle.es}</h2>
+      <h2 class="loc__h2">{t(LOCAL_PAGE.faqTitle, lang)}</h2>
       <div class="loc__faqs">
         {
           page.faqs.map((f) => (
             <div class="loc__faq">
-              <h3 class="loc__faq-q" data-en={f.q.en}>
-                {f.q.es}
-              </h3>
-              <p class="loc__faq-a" data-en={f.a.en}>
-                {f.a.es}
-              </p>
+              <h3 class="loc__faq-q">{t(f.q, lang)}</h3>
+              <p class="loc__faq-a">{t(f.a, lang)}</p>
             </div>
           ))
         }
@@ -180,8 +184,8 @@ const siblings = localPages.filter((p) => p.slug !== page.slug);
     </section>
 
     <section class="loc__final" data-reveal>
-      <p class="loc__final-note" data-en={LOCAL_PAGE.ctaNote.en}>{LOCAL_PAGE.ctaNote.es}</p>
-      <a href="/empezar" class="btn btn--blue" data-en={LOCAL_PAGE.cta.en}>{LOCAL_PAGE.cta.es}</a>
+      <p class="loc__final-note">{t(LOCAL_PAGE.ctaNote, lang)}</p>
+      <a href={startPath(lang)} class="btn btn--blue">{t(LOCAL_PAGE.cta, lang)}</a>
     </section>
   </main>
 
@@ -189,16 +193,18 @@ const siblings = localPages.filter((p) => p.slug !== page.slug);
     <div class="sfoot__links">
       {
         siblings.map((s) => (
-          <a href={`/${s.slug}`} class="sfoot__link">
-            {`${s.h1.line1.es} ${s.h1.line2.es}`}
+          <a href={localPath(s.slug)} class="sfoot__link">
+            {`${t(s.h1.line1, lang)} ${t(s.h1.line2, lang)}`}
           </a>
         ))
       }
-      <a href="/#tarifas" class="sfoot__link" data-en="Pricing">Tarifas</a>
-      <a href="/empezar" class="sfoot__link" data-en="Start a project">Empezar proyecto</a>
+      <a href={`${homePath(lang)}#tarifas`} class="sfoot__link">
+        {t(LOCAL_PAGE.footerPricing, lang)}
+      </a>
+      <a href={startPath(lang)} class="sfoot__link">{t(LOCAL_PAGE.footerStart, lang)}</a>
       <a href={`tel:${BUSINESS.telephone}`} class="sfoot__link">{BUSINESS.telephoneDisplay}</a>
     </div>
-    <span class="sfoot__copy" data-en={FOOTER.location.en}>{FOOTER.location.es}</span>
+    <span class="sfoot__copy">{t(FOOTER.location, lang)}</span>
   </footer>
 </Base>
 

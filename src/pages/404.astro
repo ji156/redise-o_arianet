@@ -1,39 +1,63 @@
 ---
 import Base from '../layouts/Base.astro';
-import { BRAND, FOOTER, NOT_FOUND } from '../data/copy.ts';
+import { NAV, BRAND, FOOTER, NOT_FOUND } from '../data/copy.ts';
 import { legalDocs } from '../data/legal.ts';
+import {
+  LANG_NAME,
+  LANG_SHORT,
+  homePath,
+  langOf,
+  legalPath,
+  otherLangs,
+  t,
+} from '../data/i18n.ts';
 
-const title = `${NOT_FOUND.title.es} — ${BRAND}`;
-// noindex: una 404 indexada sólo gasta presupuesto de rastreo.
+// Astro genera un único 404.html para todo el sitio, así que esta página se
+// queda en castellano: es el respaldo que sirve nginx cuando la ruta no existe
+// y no tiene un idioma que deducir. El selector lleva a la portada.
+const lang = langOf(Astro.currentLocale);
+const langLinks = otherLangs(lang);
+const title = `${t(NOT_FOUND.title, lang)} — ${BRAND}`;
 ---
 
-<Base title={title} description={NOT_FOUND.message.es} noindex>
+{/* noindex: una 404 indexada sólo gasta presupuesto de rastreo. */}
+<Base title={title} description={t(NOT_FOUND.message, lang)} noindex>
   <header class="nf-head">
-    <a href="/" class="nf-head__brand" aria-label={`${BRAND} — inicio`}>
+    <a href={homePath(lang)} class="nf-head__brand" aria-label={`${BRAND} — ${t(NAV.home, lang)}`}>
       <img src="/logo-wordmark-compact.png" alt={BRAND} width="1180" height="240" class="nf-head__logo" />
     </a>
-    <button type="button" class="nf-head__lang" data-lang-toggle aria-label="Switch to English">EN</button>
+    {
+      langLinks.map((l) => (
+        <a
+          href={l.href}
+          class="nf-head__lang"
+          hreflang={l.code}
+          lang={l.code}
+          aria-label={LANG_NAME[l.code]}
+        >
+          {LANG_SHORT[l.code]}
+        </a>
+      ))
+    }
   </header>
 
   <main class="nf">
-    <span class="nf__eyebrow" data-en={NOT_FOUND.eyebrow.en}>{NOT_FOUND.eyebrow.es}</span>
+    <span class="nf__eyebrow">{t(NOT_FOUND.eyebrow, lang)}</span>
     <p class="nf__code" aria-hidden="true">404</p>
-    <h1 class="nf__title" data-en={NOT_FOUND.title.en}>{NOT_FOUND.title.es}</h1>
-    <p class="nf__message" data-en={NOT_FOUND.message.en}>{NOT_FOUND.message.es}</p>
-    <a href="/" class="btn btn--blue" data-en={NOT_FOUND.cta.en}>{NOT_FOUND.cta.es}</a>
+    <h1 class="nf__title">{t(NOT_FOUND.title, lang)}</h1>
+    <p class="nf__message">{t(NOT_FOUND.message, lang)}</p>
+    <a href={homePath(lang)} class="btn btn--blue">{t(NOT_FOUND.cta, lang)}</a>
   </main>
 
   <footer class="nf-foot">
     <div class="nf-foot__links">
       {
         legalDocs.map((d) => (
-          <a href={`/${d.slug}`} class="nf-foot__link" data-en={d.nav.en}>
-            {d.nav.es}
-          </a>
+          <a href={legalPath(d.slug, lang)} class="nf-foot__link">{t(d.nav, lang)}</a>
         ))
       }
     </div>
-    <span class="nf-foot__copy" data-en={FOOTER.copyright.en}>{FOOTER.copyright.es}</span>
+    <span class="nf-foot__copy">{t(FOOTER.copyright, lang)}</span>
   </footer>
 </Base>
 
@@ -67,7 +91,7 @@ const title = `${NOT_FOUND.title.es} — ${BRAND}`;
     border: var(--line-primary);
     color: var(--ink);
     padding: 6px 11px;
-    cursor: pointer;
+    text-decoration: none;
     letter-spacing: 0.04em;
     transition: background 0.15s, color 0.15s;
   }

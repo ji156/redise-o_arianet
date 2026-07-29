@@ -1,11 +1,14 @@
 ---
 import { PROCESO_INTRO, steps } from '../data/copy.ts';
+import { langOf, t } from '../data/i18n.ts';
+
+const lang = langOf(Astro.currentLocale);
 ---
 
 <section id="proceso" class="section">
   <div class="head" data-reveal>
     <div class="head__label">{PROCESO_INTRO.label}</div>
-    <h2 class="head__h2" data-en={PROCESO_INTRO.h2.en}>{PROCESO_INTRO.h2.es}</h2>
+    <h2 class="head__h2">{t(PROCESO_INTRO.h2, lang)}</h2>
   </div>
 
   <div class="grid">
@@ -15,12 +18,8 @@ import { PROCESO_INTRO, steps } from '../data/copy.ts';
           <div class="step__num" aria-hidden="true">
             {st.num}
           </div>
-          <h3 class="step__title" data-en={st.title.en}>
-            {st.title.es}
-          </h3>
-          <p class="step__desc" data-en={st.desc.en}>
-            {st.desc.es}
-          </p>
+          <h3 class="step__title">{t(st.title, lang)}</h3>
+          <p class="step__desc">{t(st.desc, lang)}</p>
         </div>
       ))
     }

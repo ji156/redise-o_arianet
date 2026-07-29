@@ -13,7 +13,18 @@
  * script ejecutable, así que no lo alcanza `script-src` y no hace falta
  * relajar la política.
  */
-import { BRAND, BUSINESS, CONTACT, SITE_URL, faqs, services, type Bi } from './copy.ts';
+import {
+  BRAND,
+  BUSINESS,
+  BUSINESS_DESCRIPTION,
+  CONTACT,
+  OFFER_CATALOG,
+  SITE_URL,
+  faqs,
+  services,
+  type Bi,
+} from './copy.ts';
+import { DEFAULT_LANG, OG_LOCALE, servicePath, t, type Lang } from './i18n.ts';
 
 /** `@id` estable del negocio: el resto de nodos lo referencian en vez de repetirlo. */
 export const BUSINESS_ID = `${SITE_URL}/#business`;
@@ -23,7 +34,7 @@ export const BUSINESS_ID = `${SITE_URL}/#business`;
  * describe un servicio profesional con sede física y zona de cobertura, que es
  * exactamente el caso.
  */
-export function businessSchema() {
+export function businessSchema(lang: Lang = DEFAULT_LANG) {
   return {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
@@ -38,8 +49,7 @@ export function businessSchema() {
     image: `${SITE_URL}/og-image.png`,
     logo: `${SITE_URL}/logo-wordmark.png`,
     foundingDate: BUSINESS.founded,
-    description:
-      'Estudio de diseño y programación de páginas web en Irún (Gipuzkoa). Páginas web a medida, tiendas online, branding y SEO local para negocios de Irún, Donostia-San Sebastián y toda Gipuzkoa.',
+    description: t(BUSINESS_DESCRIPTION, lang),
     address: {
       '@type': 'PostalAddress',
       // Sin `streetAddress` a propósito: no hay oficina de cara al público y el
@@ -73,14 +83,14 @@ export function businessSchema() {
     sameAs: [`${SITE_URL}/`],
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
-      name: 'Servicios de diseño y desarrollo web',
+      name: t(OFFER_CATALOG, lang),
       itemListElement: services.map((s) => ({
         '@type': 'Offer',
         itemOffered: {
           '@type': 'Service',
-          name: s.title.es,
-          description: s.desc.es,
-          url: `${SITE_URL}/servicios/${s.slug}`,
+          name: t(s.title, lang),
+          description: t(s.desc, lang),
+          url: `${SITE_URL}${servicePath(s.slug, lang)}`,
         },
       })),
     },
@@ -88,14 +98,15 @@ export function businessSchema() {
 }
 
 /** Nodo `WebSite` — asocia el dominio con la marca. */
-export function webSiteSchema() {
+export function webSiteSchema(lang: Lang = DEFAULT_LANG) {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     '@id': `${SITE_URL}/#website`,
     url: `${SITE_URL}/`,
     name: BRAND,
-    inLanguage: 'es-ES',
+    // `es_ES` → `es-ES`: schema.org usa etiquetas BCP-47, con guión.
+    inLanguage: OG_LOCALE[lang].replace('_', '-'),
     publisher: { '@id': BUSINESS_ID },
   };
 }
@@ -104,14 +115,14 @@ export function webSiteSchema() {
  * FAQ. Google exige que cada pregunta esté también VISIBLE en la página: por eso
  * se genera desde el mismo array que renderiza la sección, nunca a mano.
  */
-export function faqSchema(items: { q: Bi; a: Bi }[] = faqs) {
+export function faqSchema(items: { q: Bi; a: Bi }[] = faqs, lang: Lang = DEFAULT_LANG) {
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     mainEntity: items.map((f) => ({
       '@type': 'Question',
-      name: f.q.es,
-      acceptedAnswer: { '@type': 'Answer', text: f.a.es },
+      name: t(f.q, lang),
+      acceptedAnswer: { '@type': 'Answer', text: t(f.a, lang) },
     })),
   };
 }

@@ -1,55 +1,44 @@
 ---
 import { TARIFAS_INTRO, plans } from '../data/copy.ts';
+import { langOf, t, startPath } from '../data/i18n.ts';
+
+const lang = langOf(Astro.currentLocale);
 ---
 
 <section id="tarifas" class="section">
   <div class="head" data-reveal>
     <div>
       <div class="head__label">{TARIFAS_INTRO.label}</div>
-      <h2 class="head__h2" data-en={TARIFAS_INTRO.h2.en}>{TARIFAS_INTRO.h2.es}</h2>
+      <h2 class="head__h2">{t(TARIFAS_INTRO.h2, lang)}</h2>
     </div>
-    <p class="head__para" data-en={TARIFAS_INTRO.para.en}>{TARIFAS_INTRO.para.es}</p>
+    <p class="head__para">{t(TARIFAS_INTRO.para, lang)}</p>
   </div>
 
-  <div class="swipe-hint" aria-hidden="true" data-en={TARIFAS_INTRO.swipe.en}>
-    {TARIFAS_INTRO.swipe.es}
-  </div>
+  <div class="swipe-hint" aria-hidden="true">{t(TARIFAS_INTRO.swipe, lang)}</div>
 
   <div class="grid" tabindex="0" role="region" aria-label="Planes de tarifas">
     {
       plans.map((pl) => (
         <div class="plan" data-reveal>
           {pl.tag && (
-            <span class="plan__tag" data-en={pl.tag.en}>
-              {pl.tag.es}
-            </span>
+            <span class="plan__tag">{t(pl.tag, lang)}</span>
           )}
-          <h3 class="plan__name" data-en={pl.name.en}>
-            {pl.name.es}
-          </h3>
-          <p class="plan__line" data-en={pl.line.en}>
-            {pl.line.es}
-          </p>
+          <h3 class="plan__name">{t(pl.name, lang)}</h3>
+          <p class="plan__line">{t(pl.line, lang)}</p>
           <div class="plan__price-block">
-            <div class="plan__from" data-en={TARIFAS_INTRO.from.en}>
-              {TARIFAS_INTRO.from.es}
-            </div>
+            <div class="plan__from">{t(TARIFAS_INTRO.from, lang)}</div>
             <div class="plan__price-row">
               <span class="plan__price">{pl.price}€</span>
-              <span class="plan__per" data-en={TARIFAS_INTRO.perMonth.en}>
-                {TARIFAS_INTRO.perMonth.es}
-              </span>
+              <span class="plan__per">{t(TARIFAS_INTRO.perMonth, lang)}</span>
             </div>
             <div class="plan__alta">
               {pl.alta && (
                 <span>
-                  <span data-en={TARIFAS_INTRO.altaLabel.en}>{TARIFAS_INTRO.altaLabel.es}</span> {pl.alta}€
+                  <span>{t(TARIFAS_INTRO.altaLabel, lang)}</span> {pl.alta}€
                 </span>
               )}
               {!pl.alta && (
-                <span class="plan__alta--free" data-en={TARIFAS_INTRO.noAlta.en}>
-                  {TARIFAS_INTRO.noAlta.es}
-                </span>
+                <span class="plan__alta--free">{t(TARIFAS_INTRO.noAlta, lang)}</span>
               )}
             </div>
           </div>
@@ -59,27 +48,23 @@ import { TARIFAS_INTRO, plans } from '../data/copy.ts';
                 <span class="item__plus" aria-hidden="true">
                   +
                 </span>
-                <span data-en={it.en}>{it.es}</span>
+                <span>{t(it, lang)}</span>
               </div>
             ))}
           </div>
           <div class="plan__changes">
-            <span class="plan__changes-label" data-en={TARIFAS_INTRO.changesLabel.en}>
-              {TARIFAS_INTRO.changesLabel.es}
-            </span>
-            <span data-en={pl.changes.en}>{pl.changes.es}</span>
+            <span class="plan__changes-label">{t(TARIFAS_INTRO.changesLabel, lang)}</span>
+            <span>{t(pl.changes, lang)}</span>
           </div>
-          <a href={`/empezar?plan=${pl.slug}`} class="plan__cta">
-            <span class="plan__cta-inner" data-en={TARIFAS_INTRO.cta.en}>{TARIFAS_INTRO.cta.es}</span>
+          <a href={`${startPath(lang)}?plan=${pl.slug}`} class="plan__cta">
+            <span class="plan__cta-inner">{t(TARIFAS_INTRO.cta, lang)}</span>
           </a>
         </div>
       ))
     }
   </div>
 
-  <div class="footnote" data-reveal data-en={TARIFAS_INTRO.footnote.en}>
-    {TARIFAS_INTRO.footnote.es}
-  </div>
+  <div class="footnote" data-reveal>{t(TARIFAS_INTRO.footnote, lang)}</div>
 </section>
 
 <style>

@@ -1,5 +1,8 @@
 ---
 import { marquee } from '../data/copy.ts';
+import { langOf, t } from '../data/i18n.ts';
+
+const lang = langOf(Astro.currentLocale);
 ---
 
 <div class="marquee" aria-hidden="true">
@@ -8,9 +11,7 @@ import { marquee } from '../data/copy.ts';
       {
         marquee.map((w) => (
           <>
-            <span class="marquee__word" data-en={w.en}>
-              {w.es}
-            </span>
+            <span class="marquee__word">{t(w, lang)}</span>
             <span class="marquee__star">✦</span>
           </>
         ))
@@ -20,9 +21,7 @@ import { marquee } from '../data/copy.ts';
       {
         marquee.map((w) => (
           <>
-            <span class="marquee__word" data-en={w.en}>
-              {w.es}
-            </span>
+            <span class="marquee__word">{t(w, lang)}</span>
             <span class="marquee__star">✦</span>
           </>
         ))

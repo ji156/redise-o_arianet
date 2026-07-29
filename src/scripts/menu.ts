@@ -19,9 +19,9 @@ export function initMenu(): void {
     toggle.setAttribute('aria-expanded', String(open));
     panel.classList.toggle('is-open', open);
     document.body.classList.toggle('menu-open', open);
-    const lang = document.documentElement.lang === 'en' ? 'en' : 'es';
-    const attr = open ? `data-label-close-${lang}` : `data-label-open-${lang}`;
-    const label = toggle.getAttribute(attr);
+    // Las etiquetas vienen ya en el idioma de la página: cada idioma tiene su
+    // propio HTML, así que no hay que elegir variante en cliente.
+    const label = toggle.getAttribute(open ? 'data-label-close' : 'data-label-open');
     if (label) toggle.setAttribute('aria-label', label);
     if (open) getFocusable()[0]?.focus();
   };

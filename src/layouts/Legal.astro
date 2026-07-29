@@ -1,59 +1,86 @@
 ---
 import Base from './Base.astro';
-import { BRAND, FOOTER } from '../data/copy.ts';
+import { NAV, BRAND, FOOTER } from '../data/copy.ts';
 import { LEGAL, legalDocs, type LegalDoc } from '../data/legal.ts';
+import {
+  DEFAULT_LANG,
+  LANG_NAME,
+  LANG_SHORT,
+  homePath,
+  langOf,
+  legalAlternates,
+  legalPath,
+  otherLangs,
+  t,
+} from '../data/i18n.ts';
 
 interface Props {
   doc: LegalDoc;
 }
 
 const { doc } = Astro.props;
-const title = `${doc.title.es} — ${BRAND}`;
+const lang = langOf(Astro.currentLocale);
+
+const alternates = legalAlternates(doc.slug);
+const langLinks = otherLangs(lang, alternates);
+const title = `${t(doc.title, lang)} — ${BRAND}`;
 ---
 
-<Base title={title} description={doc.intro.es}>
+<Base title={title} description={t(doc.intro, lang)} alternates={alternates}>
   <header class="lhead">
-    <a href="/" class="lhead__brand" aria-label={`${BRAND} — inicio`}>
+    <a href={homePath(lang)} class="lhead__brand" aria-label={`${BRAND} — ${t(NAV.home, lang)}`}>
       <img src="/logo-wordmark-compact.png" alt={BRAND} width="1180" height="240" class="lhead__logo" />
     </a>
     <div class="lhead__actions">
-      <button type="button" class="lhead__lang" data-lang-toggle aria-label="Switch to English">EN</button>
-      <a href="/" class="lhead__back" data-en={LEGAL.back.en}>{LEGAL.back.es}</a>
+      {
+        langLinks.map((l) => (
+          <a
+            href={l.href}
+            class="lhead__lang"
+            hreflang={l.code}
+            lang={l.code}
+            aria-label={LANG_NAME[l.code]}
+          >
+            {LANG_SHORT[l.code]}
+          </a>
+        ))
+      }
+      <a href={homePath(lang)} class="lhead__back">{t(LEGAL.back, lang)}</a>
     </div>
   </header>
 
   <main class="legal">
-    <aside class="legal__nav" aria-label={LEGAL.index.es}>
-      <span class="legal__nav-title" data-en={LEGAL.index.en}>{LEGAL.index.es}</span>
+    <aside class="legal__nav" aria-label={t(LEGAL.index, lang)}>
+      <span class="legal__nav-title">{t(LEGAL.index, lang)}</span>
       {
         legalDocs.map((d) => (
           <a
-            href={`/${d.slug}`}
+            href={legalPath(d.slug, lang)}
             class="legal__nav-link"
-            aria-current={d.slug === doc.slug ? 'page' : undefined}
-            data-en={d.nav.en}
-          >
-            {d.nav.es}
-          </a>
+            aria-current={d.slug === doc.slug ? 'page' : undefined}>{t(d.nav, lang)}</a>
         ))
       }
     </aside>
 
     <article class="legal__doc">
-      <h1 class="legal__title" data-en={doc.title.en}>{doc.title.es}</h1>
-      <p class="legal__intro" data-en={doc.intro.en}>{doc.intro.es}</p>
-      <p class="legal__updated" data-en={LEGAL.updated.en}>{LEGAL.updated.es}</p>
+      <h1 class="legal__title">{t(doc.title, lang)}</h1>
+      <p class="legal__intro">{t(doc.intro, lang)}</p>
+      {
+        /* Fuera del castellano, avisa de que el original es el que vincula.
+           Va antes de `legal__updated`, que es quien cierra el bloque con su
+           línea inferior. */
+        lang !== DEFAULT_LANG && (
+          <p class="legal__translation-note">{t(LEGAL.translationNote, lang)}</p>
+        )
+      }
+      <p class="legal__updated">{t(LEGAL.updated, lang)}</p>
 
       {
         doc.sections.map((s) => (
           <section class="legal__section">
-            <h2 class="legal__h2" data-en={s.heading.en}>
-              {s.heading.es}
-            </h2>
+            <h2 class="legal__h2">{t(s.heading, lang)}</h2>
             {s.paragraphs.map((p) => (
-              <p class="legal__p" data-en={p.en}>
-                {p.es}
-              </p>
+              <p class="legal__p">{t(p, lang)}</p>
             ))}
           </section>
         ))
@@ -65,13 +92,11 @@ const title = `${doc.title.es} — ${BRAND}`;
     <div class="lfoot__links">
       {
         legalDocs.map((d) => (
-          <a href={`/${d.slug}`} class="lfoot__link" data-en={d.nav.en}>
-            {d.nav.es}
-          </a>
+          <a href={legalPath(d.slug, lang)} class="lfoot__link">{t(d.nav, lang)}</a>
         ))
       }
     </div>
-    <span class="lfoot__copy" data-en={FOOTER.copyright.en}>{FOOTER.copyright.es}</span>
+    <span class="lfoot__copy">{t(FOOTER.copyright, lang)}</span>
   </footer>
 </Base>
 
@@ -117,7 +142,7 @@ const title = `${doc.title.es} — ${BRAND}`;
     border: var(--line-primary);
     color: var(--ink);
     padding: 6px 11px;
-    cursor: pointer;
+    text-decoration: none;
     letter-spacing: 0.04em;
     transition: background 0.15s, color 0.15s;
   }
@@ -213,6 +238,17 @@ const title = `${doc.title.es} — ${BRAND}`;
     line-height: 1.55;
     color: var(--grey-body);
     margin-top: 20px;
+  }
+
+  .legal__translation-note {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    margin-top: 18px;
+    padding: 10px 14px;
+    border-left: 3px solid var(--blue);
+    background: var(--grey-soft, transparent);
   }
 
   .legal__updated {

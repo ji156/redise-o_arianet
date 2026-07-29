@@ -1,7 +1,17 @@
 ---
 import Base from './Base.astro';
-import { BRAND, FOOTER, SERVICE_PAGE, services, type ServiceDetail } from '../data/copy.ts';
+import { NAV, BRAND, FOOTER, SERVICE_PAGE, services, type ServiceDetail } from '../data/copy.ts';
 import { breadcrumbSchema, serviceSchema } from '../data/schema.ts';
+import {
+  LANG_NAME,
+  LANG_SHORT,
+  homePath,
+  langOf,
+  otherLangs,
+  serviceAlternates,
+  servicePath,
+  t,
+} from '../data/i18n.ts';
 
 interface Props {
   service: (typeof services)[number];
@@ -9,66 +19,75 @@ interface Props {
 }
 
 const { service, detail } = Astro.props;
-const path = `/servicios/${service.slug}`;
+const lang = langOf(Astro.currentLocale);
+
+const alternates = serviceAlternates(service.slug);
+const langLinks = otherLangs(lang, alternates);
+const path = servicePath(service.slug, lang);
 
 // El título ya no es "<nombre del servicio> — arianet": ese formato describe el
 // servicio, no la búsqueda. `service.seo` lo redacta como lo teclea el cliente
 // ("diseño de páginas web en Irún") y añade la ubicación.
 const schema = [
   serviceSchema({
-    name: service.title.es,
-    description: service.seo.description,
+    name: t(service.title, lang),
+    description: t(service.seo.description, lang),
     path,
   }),
   breadcrumbSchema([
-    { name: 'Inicio', path: '/' },
-    { name: service.title.es, path },
+    { name: t(NAV.home, lang), path: homePath(lang) },
+    { name: t(service.title, lang), path },
   ]),
 ];
 ---
 
-<Base title={service.seo.title} description={service.seo.description} schema={schema}>
+<Base
+  title={t(service.seo.title, lang)}
+  description={t(service.seo.description, lang)}
+  schema={schema}
+  alternates={alternates}
+>
   <header class="shead">
-    <a href="/" class="shead__brand" aria-label={`${BRAND} — inicio`}>
+    <a href={homePath(lang)} class="shead__brand" aria-label={`${BRAND} — ${t(NAV.home, lang)}`}>
       <img src="/logo-wordmark-compact.png" alt={BRAND} width="1180" height="240" class="shead__logo" />
     </a>
     <div class="shead__actions">
-      <button type="button" class="shead__lang" data-lang-toggle aria-label="Switch to English">EN</button>
-      <a href="/" class="shead__back" data-en={SERVICE_PAGE.back.en}>{SERVICE_PAGE.back.es}</a>
+      {
+        langLinks.map((l) => (
+          <a
+            href={l.href}
+            class="shead__lang"
+            hreflang={l.code}
+            lang={l.code}
+            aria-label={LANG_NAME[l.code]}
+          >
+            {LANG_SHORT[l.code]}
+          </a>
+        ))
+      }
+      <a href={homePath(lang)} class="shead__back">{t(SERVICE_PAGE.back, lang)}</a>
     </div>
   </header>
 
   <main class="svc">
-    <aside class="svc__nav" aria-label={SERVICE_PAGE.index.es}>
-      <span class="svc__nav-title" data-en={SERVICE_PAGE.index.en}>
-        {SERVICE_PAGE.index.es}
-      </span>
+    <aside class="svc__nav" aria-label={t(SERVICE_PAGE.index, lang)}>
+      <span class="svc__nav-title">{t(SERVICE_PAGE.index, lang)}</span>
       {
         services.map((s) => (
           <a
-            href={`/servicios/${s.slug}`}
+            href={servicePath(s.slug, lang)}
             class="svc__nav-link"
-            aria-current={s.slug === service.slug ? 'page' : undefined}
-            data-en={s.title.en}
-          >
-            {s.title.es}
-          </a>
+            aria-current={s.slug === service.slug ? 'page' : undefined}>{t(s.title, lang)}</a>
         ))
       }
     </aside>
 
     <article class="svc__doc">
       <span class="svc__num">{service.num}</span>
-      <h1 class="svc__title" data-en={service.title.en}>
-        {service.title.es}
-      </h1>
-      <p class="svc__intro" data-en={detail.intro.en}>
-        {detail.intro.es}
-      </p>
+      <h1 class="svc__title">{t(service.title, lang)}</h1>
+      <p class="svc__intro">{t(detail.intro, lang)}</p>
 
-      <h2 class="svc__h2" data-en={SERVICE_PAGE.includes.en}>
-        {SERVICE_PAGE.includes.es}
-      </h2>
+      <h2 class="svc__h2">{t(SERVICE_PAGE.includes, lang)}</h2>
       <div class="svc__bullets">
         {
           detail.bullets.map((b) => (
@@ -77,12 +96,8 @@ const schema = [
                 +
               </span>
               <div>
-                <h3 class="svc__bullet-title" data-en={b.title.en}>
-                  {b.title.es}
-                </h3>
-                <p class="svc__bullet-desc" data-en={b.desc.en}>
-                  {b.desc.es}
-                </p>
+                <h3 class="svc__bullet-title">{t(b.title, lang)}</h3>
+                <p class="svc__bullet-desc">{t(b.desc, lang)}</p>
               </div>
             </div>
           ))
@@ -91,9 +106,7 @@ const schema = [
 
       {
         detail.example && (
-          <h2 class="svc__h2" data-en={SERVICE_PAGE.example.en}>
-            {SERVICE_PAGE.example.es}
-          </h2>
+          <h2 class="svc__h2">{t(SERVICE_PAGE.example, lang)}</h2>
         )
       }
       {
@@ -104,21 +117,15 @@ const schema = [
             </div>
             <div class="svc__example-body">
               <span class="svc__example-name">{detail.example.name}</span>
-              <span class="svc__example-cta" data-en={SERVICE_PAGE.visitSite.en}>
-                {SERVICE_PAGE.visitSite.es}
-              </span>
+              <span class="svc__example-cta">{t(SERVICE_PAGE.visitSite, lang)}</span>
             </div>
           </a>
         ) : (
-          <p class="svc__no-example" data-en={detail.exampleNote.en}>
-            {detail.exampleNote.es}
-          </p>
+          <p class="svc__no-example">{t(detail.exampleNote, lang)}</p>
         )
       }
 
-      <a href="/#contacto" class="svc__cta" data-en={SERVICE_PAGE.cta.en}>
-        {SERVICE_PAGE.cta.es}
-      </a>
+      <a href={`${homePath(lang)}#contacto`} class="svc__cta">{t(SERVICE_PAGE.cta, lang)}</a>
     </article>
   </main>
 
@@ -126,13 +133,11 @@ const schema = [
     <div class="sfoot__links">
       {
         services.map((s) => (
-          <a href={`/servicios/${s.slug}`} class="sfoot__link" data-en={s.title.en}>
-            {s.title.es}
-          </a>
+          <a href={servicePath(s.slug, lang)} class="sfoot__link">{t(s.title, lang)}</a>
         ))
       }
     </div>
-    <span class="sfoot__copy" data-en={FOOTER.copyright.en}>{FOOTER.copyright.es}</span>
+    <span class="sfoot__copy">{t(FOOTER.copyright, lang)}</span>
   </footer>
 </Base>
 
@@ -178,7 +183,7 @@ const schema = [
     border: var(--line-primary);
     color: var(--ink);
     padding: 6px 11px;
-    cursor: pointer;
+    text-decoration: none;
     letter-spacing: 0.04em;
     transition: background 0.15s, color 0.15s;
   }

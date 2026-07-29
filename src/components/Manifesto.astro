@@ -1,15 +1,14 @@
 ---
 import { MANIFIESTO, commitments } from "../data/copy.ts";
+import { langOf, t } from '../data/i18n.ts';
+
+const lang = langOf(Astro.currentLocale);
 ---
 
 <section class="manifesto surface-invert">
   <div class="manifesto__lead" data-reveal>
-    <div class="manifesto__label" data-en={MANIFIESTO.label.en}>
-      {MANIFIESTO.label.es}
-    </div>
-    <p class="manifesto__statement" data-en={MANIFIESTO.statement.en}>
-      {MANIFIESTO.statement.es}
-    </p>
+    <div class="manifesto__label">{t(MANIFIESTO.label, lang)}</div>
+    <p class="manifesto__statement">{t(MANIFIESTO.statement, lang)}</p>
   </div>
 
   <div class="manifesto__grid" data-reveal>
@@ -19,12 +18,8 @@ import { MANIFIESTO, commitments } from "../data/copy.ts";
           <div class="commit__star" aria-hidden="true">
             ✦
           </div>
-          <div class="commit__title" data-en={c.title.en}>
-            {c.title.es}
-          </div>
-          <div class="commit__sub" data-en={c.sub.en}>
-            {c.sub.es}
-          </div>
+          <div class="commit__title">{t(c.title, lang)}</div>
+          <div class="commit__sub">{t(c.sub, lang)}</div>
         </div>
       ))
     }

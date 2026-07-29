@@ -1,26 +1,27 @@
 ---
 import { META, HERO, heroIndex } from '../data/copy.ts';
+import { langOf, t, startPath, servicePath } from '../data/i18n.ts';
+
+const lang = langOf(Astro.currentLocale);
 ---
 
 <section id="top">
   <!-- meta bar -->
   <div class="meta">
-    <span data-en={META.studio.en}>{META.studio.es}</span>
-    <span data-en={META.tagline.en}>{META.tagline.es}</span>
-    <span data-en={META.est.en}>{META.est.es}</span>
+    <span>{t(META.studio, lang)}</span>
+    <span>{t(META.tagline, lang)}</span>
+    <span>{t(META.est, lang)}</span>
   </div>
 
   <div class="hero">
     <!-- columna índice -->
     <div class="hero__index">
-      <div class="hero__index-label" data-en={HERO.whatWeDo.en}>{HERO.whatWeDo.es}</div>
+      <div class="hero__index-label">{t(HERO.whatWeDo, lang)}</div>
       {
         heroIndex.map((h) => (
-          <a href={`/servicios/${h.slug}`} class="hero__row">
+          <a href={servicePath(h.slug, lang)} class="hero__row">
             <span class="hero__num">{h.num}</span>
-            <span class="hero__label" data-en={h.label.en}>
-              {h.label.es}
-            </span>
+            <span class="hero__label">{t(h.label, lang)}</span>
           </a>
         ))
       }
@@ -33,27 +34,23 @@ import { META, HERO, heroIndex } from '../data/copy.ts';
     <div class="hero__display">
       <div class="hero__status">
         <span class="hero__dot" aria-hidden="true"></span>
-        <span data-en={HERO.status.en}>{HERO.status.es}</span>
+        <span>{t(HERO.status, lang)}</span>
       </div>
 
       <h1 class="hero__h1">
-        <span class="hero__line hero__line--solid" data-en={HERO.h1.line1.en}>
-          {HERO.h1.line1.es}
-        </span>
-        <span class="hero__line hero__line--outline" data-en={HERO.h1.line2.en}>
-          {HERO.h1.line2.es}
-        </span>
+        <span class="hero__line hero__line--solid">{t(HERO.h1.line1, lang)}</span>
+        <span class="hero__line hero__line--outline">{t(HERO.h1.line2, lang)}</span>
       </h1>
 
       <div class="hero__rule"></div>
 
-      <p class="hero__subtitle" data-en={HERO.subtitle.en}>{HERO.subtitle.es}</p>
+      <p class="hero__subtitle">{t(HERO.subtitle, lang)}</p>
 
-      <p class="hero__para" data-en={HERO.paragraph.en}>{HERO.paragraph.es}</p>
+      <p class="hero__para">{t(HERO.paragraph, lang)}</p>
 
       <div class="hero__btns">
-        <a href="/empezar" class="btn btn--blue" data-en={HERO.ctaStart.en}>{HERO.ctaStart.es}</a>
-        <a href="#trabajo" class="btn btn--paper" data-en={HERO.ctaWork.en}>{HERO.ctaWork.es}</a>
+        <a href={startPath(lang)} class="btn btn--blue">{t(HERO.ctaStart, lang)}</a>
+        <a href="#trabajo" class="btn btn--paper">{t(HERO.ctaWork, lang)}</a>
       </div>
     </div>
   </div>

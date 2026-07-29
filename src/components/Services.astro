@@ -1,27 +1,26 @@
 ---
 import { SERVICIOS_INTRO, services } from '../data/copy.ts';
+import { langOf, t, servicePath } from '../data/i18n.ts';
+
+const lang = langOf(Astro.currentLocale);
 ---
 
 <section id="servicios" class="section">
   <div class="head" data-reveal>
     <div>
       <div class="head__label">{SERVICIOS_INTRO.label}</div>
-      <h2 class="head__h2" data-en={SERVICIOS_INTRO.h2.en}>{SERVICIOS_INTRO.h2.es}</h2>
+      <h2 class="head__h2">{t(SERVICIOS_INTRO.h2, lang)}</h2>
     </div>
-    <p class="head__para" data-en={SERVICIOS_INTRO.para.en}>{SERVICIOS_INTRO.para.es}</p>
+    <p class="head__para">{t(SERVICIOS_INTRO.para, lang)}</p>
   </div>
 
   <div class="table">
     {
       services.map((s) => (
-        <a href={`/servicios/${s.slug}`} class="row" data-reveal>
+        <a href={servicePath(s.slug, lang)} class="row" data-reveal>
           <span class="row__num">{s.num}</span>
-          <h3 class="row__title" data-en={s.title.en}>
-            {s.title.es}
-          </h3>
-          <p class="row__desc" data-en={s.desc.en}>
-            {s.desc.es}
-          </p>
+          <h3 class="row__title">{t(s.title, lang)}</h3>
+          <p class="row__desc">{t(s.desc, lang)}</p>
           <span class="row__arrow" aria-hidden="true">
             →
           </span>

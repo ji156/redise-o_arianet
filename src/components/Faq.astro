@@ -1,14 +1,17 @@
 ---
 import { FAQ_INTRO, faqs } from '../data/copy.ts';
+import { langOf, t } from '../data/i18n.ts';
+
+const lang = langOf(Astro.currentLocale);
 ---
 
 <section id="faq" class="section">
   <div class="head" data-reveal>
     <div>
       <div class="head__label">{FAQ_INTRO.label}</div>
-      <h2 class="head__h2" data-en={FAQ_INTRO.h2.en}>{FAQ_INTRO.h2.es}</h2>
+      <h2 class="head__h2">{t(FAQ_INTRO.h2, lang)}</h2>
     </div>
-    <p class="head__para" data-en={FAQ_INTRO.para.en}>{FAQ_INTRO.para.es}</p>
+    <p class="head__para">{t(FAQ_INTRO.para, lang)}</p>
   </div>
 
   <div class="faq">
@@ -17,13 +20,11 @@ import { FAQ_INTRO, faqs } from '../data/copy.ts';
         <details class="faq__item" data-reveal>
           <summary class="faq__q">
             <span class="faq__index">{String(i + 1).padStart(2, '0')}</span>
-            <span class="faq__text" data-en={f.q.en}>
-              {f.q.es}
-            </span>
+            <span class="faq__text">{t(f.q, lang)}</span>
             <span class="faq__icon" aria-hidden="true" />
           </summary>
           <div class="faq__a">
-            <p data-en={f.a.en}>{f.a.es}</p>
+            <p>{t(f.a, lang)}</p>
           </div>
         </details>
       ))

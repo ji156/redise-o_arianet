@@ -4,10 +4,13 @@
  * Estas plantillas cubren los documentos habituales de una web en España
  * (LSSI-CE + RGPD/LOPDGDD); conviene que un asesor legal las revise.
  *
- * Cada documento se renderiza desde `src/pages/[legal].astro` con el layout
- * `Legal.astro`. El texto traducible usa el mismo patrón { es, en } que el
- * resto del sitio (intercambio de `textContent` vía `data-en`), por lo que los
- * párrafos deben ser TEXTO PLANO, sin etiquetas HTML internas.
+ * Cada documento se renderiza desde `src/pages/[legal].astro` (y su equivalente
+ * por idioma) con el layout `Legal.astro`. El texto traducible usa el mismo
+ * patrón { es, en } que el resto del sitio, por lo que los párrafos deben ser
+ * TEXTO PLANO, sin etiquetas HTML internas.
+ *
+ * La versión en castellano es la vinculante: las traducciones son de cortesía y
+ * el layout lo advierte al pie en cualquier idioma que no sea el castellano.
  */
 import type { Bi } from './copy.ts';
 import { BRAND, CONTACT } from './copy.ts';
@@ -23,6 +26,12 @@ export const LEGAL = {
   updated: { es: 'Última actualización: julio de 2026', en: 'Last updated: July 2026' },
   back: { es: '← Volver al inicio', en: '← Back to home' },
   index: { es: 'Documentos legales', en: 'Legal documents' },
+  /* Se muestra sólo fuera del castellano: la traducción ayuda a entender el
+     documento, pero el texto con valor legal es el original. */
+  translationNote: {
+    es: '',
+    en: 'Courtesy translation. Only the Spanish version is legally binding.',
+  },
 };
 
 /** Banner de consentimiento de cookies. */

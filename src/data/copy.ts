@@ -1,9 +1,9 @@
 /**
- * Diccionario de copy bilingüe (ES/EN) + configuración centralizada.
+ * Diccionario de copy multiidioma + configuración centralizada.
  *
- * Todo el texto traducible se modela como { es, en }. Cada componente renderiza
- * el ES como contenido visible y el EN en un atributo `data-en`; el script de
- * `reveal.ts`/toggle intercambia `textContent` en cliente sin recargar.
+ * Todo el texto traducible se modela como { es, en?, eu? }. Cada componente
+ * resuelve el idioma de la página con `t(valor, lang)` (ver `i18n.ts`) y
+ * renderiza ya la cadena correcta en el HTML: no hay intercambio en cliente.
  *
  * PLACEHOLDERS centralizados aquí (cambiar en un solo sitio):
  *  - BRAND ............ nombre del estudio
@@ -13,7 +13,12 @@
  *  - STRIPE_LINKS ..... Payment Links de Stripe, uno por plan (ver comentario junto al objeto)
  */
 
-export type Bi = { es: string; en: string };
+/**
+ * Cadena traducible. El tipo vive en `i18n.ts` (junto a `t()` y a la lista de
+ * idiomas) y se re-exporta aquí porque es de donde lo importa el resto del sitio.
+ */
+import type { Bi } from './i18n.ts';
+export type { Bi };
 
 /** Marca — único sitio donde vive el nombre del estudio. */
 export const BRAND = 'arianet';
@@ -87,7 +92,7 @@ export const areas: { num: string; name: string; href: string | null; desc: Bi }
   {
     num: '01',
     name: 'Irún',
-    href: '/diseno-web-irun',
+    href: '/diseno-web-irun/',
     desc: {
       es: 'Nuestra base. Comercios, hostelería y pymes del Bidasoa, la zona que mejor conocemos.',
       en: 'Our home base. Shops, restaurants and small businesses in the Bidasoa area — the ground we know best.',
@@ -96,7 +101,7 @@ export const areas: { num: string; name: string; href: string | null; desc: Bi }
   {
     num: '02',
     name: 'Donostia · San Sebastián',
-    href: '/diseno-web-san-sebastian',
+    href: '/diseno-web-san-sebastian/',
     desc: {
       es: 'Comercio, hostelería, estudios y profesionales de Donostia y su comarca.',
       en: 'Shops, restaurants, studios and professionals in Donostia and its surroundings.',
@@ -105,7 +110,7 @@ export const areas: { num: string; name: string; href: string | null; desc: Bi }
   {
     num: '03',
     name: 'Gipuzkoa',
-    href: '/paginas-web-gipuzkoa',
+    href: '/paginas-web-gipuzkoa/',
     desc: {
       es: 'Toda la provincia: Errenteria, Oiartzun, Pasaia, Lezo, Hernani, Tolosa, Eibar.',
       en: 'The whole province: Errenteria, Oiartzun, Pasaia, Lezo, Hernani, Tolosa, Eibar.',
@@ -114,7 +119,7 @@ export const areas: { num: string; name: string; href: string | null; desc: Bi }
   {
     num: '04',
     name: 'Hondarribia',
-    href: '/diseno-web-hondarribia',
+    href: '/diseno-web-hondarribia/',
     desc: {
       es: 'Restaurantes, hoteles y comercio del casco histórico y la Marina.',
       en: 'Restaurants, hotels and shops in the old town and the Marina.',
@@ -157,6 +162,42 @@ export const STRIPE_LINKS: Record<string, string> = {
 };
 
 /** Barra meta del hero. */
+/**
+ * Título y descripción de respaldo, para cualquier página que no pase los
+ * suyos. Van por idioma porque un `<title>` en castellano dentro de /en/ tira
+ * por tierra la razón de publicar el idioma.
+ *
+ * El castellano lleva la ciudad delante a propósito: es la primera línea que
+ * lee Google y sin ella no competimos por ninguna búsqueda local. El inglés no
+ * la necesita — quien busca en inglés no busca "Irún", busca el servicio.
+ */
+/** Descripción del negocio para el JSON-LD (`ProfessionalService`). */
+export const BUSINESS_DESCRIPTION: Bi = {
+  es: 'Estudio de diseño y programación de páginas web en Irún (Gipuzkoa). Páginas web a medida, tiendas online, branding y SEO local para negocios de Irún, Donostia-San Sebastián y toda Gipuzkoa.',
+  en: 'Web design and development studio based in Irún, Basque Country (Spain). Custom websites, online stores, branding and local SEO for small businesses.',
+};
+
+/** Nombre del catálogo de servicios del JSON-LD. */
+export const OFFER_CATALOG: Bi = {
+  es: 'Servicios de diseño y desarrollo web',
+  en: 'Web design and development services',
+};
+
+export const SEO_DEFAULT: { title: Bi; description: Bi; imageAlt: Bi } = {
+  title: {
+    es: 'Diseño de páginas web en Irún y Gipuzkoa | arianet',
+    en: 'Web design and development studio | arianet',
+  },
+  description: {
+    es: 'Diseño y programación de páginas web en Irún. Webs a medida, tiendas online y SEO local para negocios de Irún, San Sebastián y Gipuzkoa. Desde 29 €/mes.',
+    en: 'Custom websites, online stores and SEO for small businesses. Remote studio based in Irún, Basque Country. Flat rate from €29/month, no lock-in.',
+  },
+  imageAlt: {
+    es: `${BRAND} — estudio digital`,
+    en: `${BRAND} — digital studio`,
+  },
+};
+
 export const META = {
   studio: { es: 'DISEÑO Y PROGRAMACIÓN WEB', en: 'WEB DESIGN & DEVELOPMENT' },
   tagline: { es: 'IRÚN · GIPUZKOA', en: 'IRÚN · GIPUZKOA / SPAIN' },
@@ -174,6 +215,8 @@ export const NAV = {
     { href: '#faq', label: { es: 'FAQ', en: 'FAQ' } },
   ],
   cta: { es: 'HABLEMOS →', en: "LET'S TALK →" },
+  /** `aria-label` del logotipo y primer nivel de las migas del JSON-LD. */
+  home: { es: 'Inicio', en: 'Home' },
   menu: { es: 'MENÚ', en: 'MENU' },
   close: { es: 'CERRAR', en: 'CLOSE' },
   language: { es: 'IDIOMA', en: 'LANGUAGE' },
@@ -314,7 +357,7 @@ export const services: {
   slug: string;
   title: Bi;
   desc: Bi;
-  seo: { title: string; description: string };
+  seo: { title: Bi; description: Bi };
 }[] = [
   {
     num: '01',
@@ -325,9 +368,16 @@ export const services: {
       en: 'Logo, palette and a visual system that makes you memorable.',
     },
     seo: {
-      title: 'Diseño de logos y branding en Irún, Gipuzkoa',
-      description:
-        'Diseño de logotipos e identidad de marca para negocios de Irún, San Sebastián y Gipuzkoa. Logo, paleta, tipografías y guía de marca. Presupuesto sin compromiso.',
+      title: {
+        es: 'Diseño de logos y branding en Irún, Gipuzkoa',
+        en: 'Logo design and brand identity',
+      },
+      description: {
+        es:
+          'Diseño de logotipos e identidad de marca para negocios de Irún, San Sebastián y Gipuzkoa. Logo, paleta, tipografías y guía de marca. Presupuesto sin compromiso.',
+        en:
+          'Logo, colour palette, typography and brand guidelines for small businesses. Remote studio based in Irún, Basque Country. Free quote, no strings attached.',
+      },
     },
   },
   {
@@ -342,9 +392,16 @@ export const services: {
        servicio ("a medida, sin plantillas") y la home se queda la consulta
        local. Dos páginas casi idénticas se restan la una a la otra. */
     seo: {
-      title: 'Diseño de páginas web a medida, sin plantillas',
-      description:
-        'Diseñamos y programamos tu web desde cero, adaptada a tu negocio: responsive, rápida y con SEO técnico desde el primer día. Estudio en Irún, Gipuzkoa.',
+      title: {
+        es: 'Diseño de páginas web a medida, sin plantillas',
+        en: 'Custom web design and development — never templates',
+      },
+      description: {
+        es:
+          'Diseñamos y programamos tu web desde cero, adaptada a tu negocio: responsive, rápida y con SEO técnico desde el primer día. Estudio en Irún, Gipuzkoa.',
+        en:
+          'We design and build your website from scratch, tailored to your business: responsive, fast and with technical SEO from day one. Remote studio in the Basque Country.',
+      },
     },
   },
   {
@@ -356,9 +413,16 @@ export const services: {
       en: 'Fast, easy-to-manage e-commerce that converts.',
     },
     seo: {
-      title: 'Crear tienda online en Irún y Gipuzkoa | E-commerce',
-      description:
-        'Creamos tu tienda online: catálogo, carrito, pagos seguros y panel para gestionarla tú. Para comercios de Irún, San Sebastián y toda Gipuzkoa. Desde 99 €/mes.',
+      title: {
+        es: 'Crear tienda online en Irún y Gipuzkoa | E-commerce',
+        en: 'Online store development | E-commerce',
+      },
+      description: {
+        es:
+          'Creamos tu tienda online: catálogo, carrito, pagos seguros y panel para gestionarla tú. Para comercios de Irún, San Sebastián y toda Gipuzkoa. Desde 99 €/mes.',
+        en:
+          'We build your online store: catalogue, cart, secure payments and a panel you manage yourself. Flat rate from €99/month, no lock-in.',
+      },
     },
   },
   {
@@ -370,9 +434,16 @@ export const services: {
       en: 'Campaign pages with one single goal: converting.',
     },
     seo: {
-      title: 'Landing pages para campañas | Irún, Gipuzkoa',
-      description:
-        'Páginas de campaña con un único objetivo: que te contacten. Copy persuasivo, analítica y listas en días. Para negocios de Irún, Donostia y Gipuzkoa.',
+      title: {
+        es: 'Landing pages para campañas | Irún, Gipuzkoa',
+        en: 'Landing pages for campaigns',
+      },
+      description: {
+        es:
+          'Páginas de campaña con un único objetivo: que te contacten. Copy persuasivo, analítica y listas en días. Para negocios de Irún, Donostia y Gipuzkoa.',
+        en:
+          'Campaign pages with a single goal: getting people to contact you. Persuasive copy, analytics and live in days rather than months.',
+      },
     },
   },
   {
@@ -384,9 +455,16 @@ export const services: {
       en: 'Clear interfaces for web and mobile apps.',
     },
     seo: {
-      title: 'Diseño UX/UI de apps y aplicaciones web | arianet',
-      description:
-        'Diseño de interfaces para aplicaciones web y móviles: flujos, sistema de diseño y prototipos navegables antes de programar. Estudio en Irún, Gipuzkoa.',
+      title: {
+        es: 'Diseño UX/UI de apps y aplicaciones web | arianet',
+        en: 'UX/UI design for apps and web applications',
+      },
+      description: {
+        es:
+          'Diseño de interfaces para aplicaciones web y móviles: flujos, sistema de diseño y prototipos navegables antes de programar. Estudio en Irún, Gipuzkoa.',
+        en:
+          'Interface design for web and mobile applications: user flows, design system and clickable prototypes before a single line of code is written.',
+      },
     },
   },
   {
@@ -401,9 +479,16 @@ export const services: {
        "diseño de interfaces de apps" y éste "desarrollo de apps nativas". Con
        titles parecidos competirían entre sí por la misma búsqueda. */
     seo: {
-      title: 'Desarrollo de apps para iOS y Android | arianet',
-      description:
-        'Desarrollo de aplicaciones móviles nativas para iOS y Android: diseño, programación y publicación en App Store y Google Play. Estudio en Irún, Gipuzkoa.',
+      title: {
+        es: 'Desarrollo de apps para iOS y Android | arianet',
+        en: 'Native iOS and Android app development',
+      },
+      description: {
+        es:
+          'Desarrollo de aplicaciones móviles nativas para iOS y Android: diseño, programación y publicación en App Store y Google Play. Estudio en Irún, Gipuzkoa.',
+        en:
+          'Native mobile app development for iOS and Android: design, build and publishing on the App Store and Google Play.',
+      },
     },
   },
   {
@@ -415,9 +500,16 @@ export const services: {
       en: 'Technical and content optimization so people find you.',
     },
     seo: {
-      title: 'Posicionamiento SEO en Irún y San Sebastián',
-      description:
-        'SEO técnico y de contenido para salir en Google cuando tu cliente te busca. Posicionamiento local para negocios de Irún, Donostia-San Sebastián y Gipuzkoa.',
+      title: {
+        es: 'Posicionamiento SEO en Irún y San Sebastián',
+        en: 'SEO and search engine positioning',
+      },
+      description: {
+        es:
+          'SEO técnico y de contenido para salir en Google cuando tu cliente te busca. Posicionamiento local para negocios de Irún, Donostia-San Sebastián y Gipuzkoa.',
+        en:
+          'Technical and content SEO so you show up on Google when your customer is searching. Local positioning for small businesses.',
+      },
     },
   },
   {
@@ -429,9 +521,16 @@ export const services: {
       en: 'Updates, security and ongoing support.',
     },
     seo: {
-      title: 'Mantenimiento de páginas web | Irún, Gipuzkoa',
-      description:
-        'Mantenimiento web mensual: actualizaciones, seguridad, copias de seguridad y soporte real. Incluido en la tarifa plana, sin permanencia. Estudio en Irún.',
+      title: {
+        es: 'Mantenimiento de páginas web | Irún, Gipuzkoa',
+        en: 'Website maintenance and support',
+      },
+      description: {
+        es:
+          'Mantenimiento web mensual: actualizaciones, seguridad, copias de seguridad y soporte real. Incluido en la tarifa plana, sin permanencia. Estudio en Irún.',
+        en:
+          'Monthly website maintenance: updates, security, backups and real support. Included in the flat rate, with no lock-in.',
+      },
     },
   },
 ];
@@ -1089,6 +1188,20 @@ export const faqs: { q: Bi; a: Bi }[] = [
 
 /** Formulario "Empezar proyecto" (/empezar). */
 export const EMPEZAR = {
+  /* El title no reutiliza el H2 de la página ("CUÉNTANOS DE TU PROYECTO"): en
+     los resultados de Google se leería como un grito y no contiene ninguna
+     palabra que alguien busque. Ésta es la página de conversión — el title y la
+     descripción se escriben para quien está pidiendo presupuesto. */
+  seo: {
+    title: {
+      es: 'Pide presupuesto para tu web | arianet, Irún',
+      en: 'Get a quote for your website | arianet',
+    },
+    description: {
+      es: 'Cuéntanos qué necesitas y te enviamos presupuesto en menos de 24 horas, sin compromiso. Páginas web y tiendas online en Irún, San Sebastián y Gipuzkoa.',
+      en: 'Tell us what you need and we will send you a quote within 24 hours, no strings attached. Websites and online stores, built remotely from the Basque Country.',
+    },
+  },
   label: '(EMPEZAR PROYECTO)',
   h2: { es: 'CUÉNTANOS DE TU PROYECTO', en: 'TELL US ABOUT YOUR PROJECT' },
   para: {
@@ -1549,6 +1662,8 @@ export const LOCAL_PAGE = {
   faqTitle: { es: 'Preguntas frecuentes', en: 'Frequently asked' },
   pricingTitle: { es: 'Cuánto cuesta', en: 'What it costs' },
   pricingCta: { es: 'VER TODAS LAS TARIFAS →', en: 'SEE ALL PLANS →' },
+  footerPricing: { es: 'Tarifas', en: 'Pricing' },
+  footerStart: { es: 'Empezar proyecto', en: 'Start a project' },
   cta: { es: 'EMPEZAR PROYECTO →', en: 'START A PROJECT →' },
   ctaNote: {
     es: 'Cuéntanos qué necesitas. Te respondemos en menos de 24 horas, sin compromiso.',
@@ -1590,28 +1705,31 @@ export const FOOTER = {
   areaCol: {
     heading: { es: 'ZONA', en: 'AREA' },
     links: [
-      { href: '/diseno-web-irun', label: { es: 'Diseño web en Irún', en: 'Web design in Irún' } },
+      { href: '/diseno-web-irun/', label: { es: 'Diseño web en Irún', en: 'Web design in Irún' } },
       {
-        href: '/diseno-web-san-sebastian',
+        href: '/diseno-web-san-sebastian/',
         label: { es: 'Diseño web en San Sebastián', en: 'Web design in San Sebastián' },
       },
       {
-        href: '/diseno-web-hondarribia',
+        href: '/diseno-web-hondarribia/',
         label: { es: 'Diseño web en Hondarribia', en: 'Web design in Hondarribia' },
       },
       {
-        href: '/paginas-web-gipuzkoa',
+        href: '/paginas-web-gipuzkoa/',
         label: { es: 'Páginas web en Gipuzkoa', en: 'Websites in Gipuzkoa' },
       },
     ],
   },
+  /* Aquí va el SLUG canónico, no la ruta: los documentos legales existen en
+     todos los idiomas y cada uno tiene su propia URL, así que la ruta la
+     construye el componente con `legalPath()`. */
   legalCol: {
     heading: { es: 'LEGAL', en: 'LEGAL' },
     links: [
-      { href: '/aviso-legal', label: { es: 'Aviso legal', en: 'Legal notice' } },
-      { href: '/privacidad', label: { es: 'Privacidad', en: 'Privacy' } },
-      { href: '/cookies', label: { es: 'Cookies', en: 'Cookies' } },
-      { href: '/terminos', label: { es: 'Términos', en: 'Terms' } },
+      { slug: 'aviso-legal', label: { es: 'Aviso legal', en: 'Legal notice' } },
+      { slug: 'privacidad', label: { es: 'Privacidad', en: 'Privacy' } },
+      { slug: 'cookies', label: { es: 'Cookies', en: 'Cookies' } },
+      { slug: 'terminos', label: { es: 'Términos', en: 'Terms' } },
     ],
   },
   copyright: { es: `© ${YEAR} ${BRAND} ESTUDIO`, en: `© ${YEAR} ${BRAND} STUDIO` },

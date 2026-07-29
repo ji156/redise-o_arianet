@@ -1,14 +1,17 @@
 ---
 import { PROYECTOS_INTRO, packages } from '../data/copy.ts';
+import { langOf, t } from '../data/i18n.ts';
+
+const lang = langOf(Astro.currentLocale);
 ---
 
 <section id="proyectos" class="section">
   <div class="head" data-reveal>
     <div>
       <div class="head__label">{PROYECTOS_INTRO.label}</div>
-      <h2 class="head__h2" data-en={PROYECTOS_INTRO.h2.en}>{PROYECTOS_INTRO.h2.es}</h2>
+      <h2 class="head__h2">{t(PROYECTOS_INTRO.h2, lang)}</h2>
     </div>
-    <p class="head__para" data-en={PROYECTOS_INTRO.para.en}>{PROYECTOS_INTRO.para.es}</p>
+    <p class="head__para">{t(PROYECTOS_INTRO.para, lang)}</p>
   </div>
 
   <div class="grid">
@@ -16,21 +19,17 @@ import { PROYECTOS_INTRO, packages } from '../data/copy.ts';
       packages.map((p) => (
         <div class="card" data-reveal>
           <div class="card__top">
-            <h3 class="card__title" data-en={p.title.en}>
-              {p.title.es}
-            </h3>
+            <h3 class="card__title">{t(p.title, lang)}</h3>
             <span class="card__num">{p.num}</span>
           </div>
-          <p class="card__line" data-en={p.line.en}>
-            {p.line.es}
-          </p>
+          <p class="card__line">{t(p.line, lang)}</p>
           <div class="card__items">
             {p.items.map((it) => (
               <div class="item">
                 <span class="item__plus" aria-hidden="true">
                   +
                 </span>
-                <span data-en={it.en}>{it.es}</span>
+                <span>{t(it, lang)}</span>
               </div>
             ))}
           </div>

@@ -8,15 +8,18 @@
  * paso, reparte enlaces internos hacia las tres landings de ciudad.
  */
 import { AREAS_INTRO, areas } from '../data/copy.ts';
+import { langOf, t } from '../data/i18n.ts';
+
+const lang = langOf(Astro.currentLocale);
 ---
 
 <section id="zona" class="section">
   <div class="head" data-reveal>
     <div>
       <div class="head__label">{AREAS_INTRO.label}</div>
-      <h2 class="head__h2" data-en={AREAS_INTRO.h2.en}>{AREAS_INTRO.h2.es}</h2>
+      <h2 class="head__h2">{t(AREAS_INTRO.h2, lang)}</h2>
     </div>
-    <p class="head__para" data-en={AREAS_INTRO.para.en}>{AREAS_INTRO.para.es}</p>
+    <p class="head__para">{t(AREAS_INTRO.para, lang)}</p>
   </div>
 
   <div class="areas">
@@ -31,9 +34,7 @@ import { AREAS_INTRO, areas } from '../data/copy.ts';
           >
             <span class="area__num">{a.num}</span>
             <h3 class="area__name">{a.name}</h3>
-            <p class="area__desc" data-en={a.desc.en}>
-              {a.desc.es}
-            </p>
+            <p class="area__desc">{t(a.desc, lang)}</p>
             {a.href && (
               <span class="area__arrow" aria-hidden="true">
                 →

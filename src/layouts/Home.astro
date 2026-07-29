@@ -1,0 +1,55 @@
+---
+/**
+ * Portada. Vive en un layout, no en `pages/index.astro`, porque la sirven dos
+ * rutas — `/` y `/en/` — y el contenido es el mismo: cada componente resuelve
+ * su idioma con `Astro.currentLocale`, que sale del prefijo de la URL.
+ *
+ * Al activar el euskera basta con añadir `pages/eu/index.astro` con estas
+ * mismas tres líneas.
+ */
+import Base from './Base.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import Marquee from '../components/Marquee.astro';
+import Work from '../components/Work.astro';
+import Services from '../components/Services.astro';
+import Deliverables from '../components/Deliverables.astro';
+import Manifesto from '../components/Manifesto.astro';
+import Process from '../components/Process.astro';
+import Pricing from '../components/Pricing.astro';
+import Faq from '../components/Faq.astro';
+import Areas from '../components/Areas.astro';
+import CTA from '../components/CTA.astro';
+import Footer from '../components/Footer.astro';
+import { faqs } from '../data/copy.ts';
+import { faqSchema } from '../data/schema.ts';
+import { homeAlternates, langOf } from '../data/i18n.ts';
+
+const lang = langOf(Astro.currentLocale);
+
+// El FAQPage se genera desde el mismo array que pinta la sección FAQ: si las
+// preguntas del schema no están visibles en la página, Google lo ignora.
+const schema = [faqSchema(faqs, lang)];
+
+// El título y la descripción salen de SEO_DEFAULT (ver Base.astro), que ya los
+// tiene por idioma: repetirlos aquí obligaría a mantenerlos en dos sitios.
+const alternates = homeAlternates();
+---
+
+<Base schema={schema} alternates={alternates}>
+  <Nav alternates={alternates} />
+  <main>
+    <Hero />
+    <Marquee />
+    <Services />
+    <Deliverables />
+    <Manifesto />
+    <Process />
+    <Work />
+    <Pricing />
+    <Faq />
+    <Areas />
+    <CTA />
+  </main>
+  <Footer />
+</Base>

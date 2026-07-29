@@ -1,0 +1,23 @@
+---
+/**
+ * Páginas de servicio en inglés.
+ *
+ * El nombre de la carpeta (`services`) tiene que coincidir con
+ * SEGMENT.services.en, y cada `slug` con SERVICE_SLUGS[…].en: de ahí salen los
+ * enlaces internos y los hreflang, y si divergen apuntarían a un 404.
+ */
+import ServiceDetail from '../../../layouts/ServiceDetail.astro';
+import { services, serviceDetails } from '../../../data/copy.ts';
+import { serviceSlug } from '../../../data/i18n.ts';
+
+export function getStaticPaths() {
+  return services.map((service) => ({
+    params: { slug: serviceSlug(service.slug, 'en') },
+    props: { service, detail: serviceDetails.find((d) => d.slug === service.slug)! },
+  }));
+}
+
+const { service, detail } = Astro.props;
+---
+
+<ServiceDetail service={service} detail={detail} />

@@ -1,38 +1,57 @@
 ---
 import { BRAND, NAV } from '../data/copy.ts';
+import { LANG_NAME, LANG_SHORT, langOf, otherLangs, t } from '../data/i18n.ts';
+import type { Alternates } from '../data/i18n.ts';
+
+interface Props {
+  /** Rutas equivalentes de la página actual; de ahí salen los enlaces del selector. */
+  alternates?: Alternates;
+}
+
+const { alternates = {} } = Astro.props;
+const lang = langOf(Astro.currentLocale);
+const langLinks = otherLangs(lang, alternates);
 ---
 
 <nav class="nav">
-  <a href="#top" class="nav__brand" aria-label={`${BRAND} — inicio`}>
+  <a href="#top" class="nav__brand" aria-label={`${BRAND} — ${t(NAV.home, lang)}`}>
     <img src="/logo-wordmark-compact.png" alt={BRAND} width="1180" height="240" class="nav__logo" />
   </a>
 
   <div class="nav__links">
-    {
-      NAV.links.map((l) => (
-        <a href={l.href} class="nav__link" data-en={l.label.en}>
-          {l.label.es}
-        </a>
-      ))
-    }
+    {NAV.links.map((l) => <a href={l.href} class="nav__link">{t(l.label, lang)}</a>)}
   </div>
 
   <div class="nav__actions">
-    <button type="button" class="nav__toggle" data-lang-toggle aria-label="Switch to English">
-      EN
-    </button>
-    <a href="#contacto" class="nav__cta" data-en={NAV.cta.en}>{NAV.cta.es}</a>
+    {
+      /* Enlaces, no un botón: cada idioma es ya una URL propia, y como tal
+         tiene que poder abrirse en otra pestaña, compartirse e indexarse. */
+      langLinks.length > 0 && (
+        <div class="nav__langs">
+          {langLinks.map((l) => (
+            <a
+              href={l.href}
+              class="nav__toggle"
+              hreflang={l.code}
+              lang={l.code}
+              aria-label={LANG_NAME[l.code]}
+            >
+              {LANG_SHORT[l.code]}
+            </a>
+          ))}
+        </div>
+      )
+    }
+    <a href="#contacto" class="nav__cta">{t(NAV.cta, lang)}</a>
     <button
       type="button"
       class="nav__burger"
       data-menu-toggle
       aria-expanded="false"
       aria-controls="nav-menu"
-      aria-label={NAV.menuToggle.open.es}
-      data-label-open-es={NAV.menuToggle.open.es}
-      data-label-open-en={NAV.menuToggle.open.en}
-      data-label-close-es={NAV.menuToggle.close.es}
-      data-label-close-en={NAV.menuToggle.close.en}
+      aria-label={t(NAV.menuToggle.open, lang)}
+      data-label-open={t(NAV.menuToggle.open, lang)}
+      data-label-close={t(NAV.menuToggle.close, lang)}
     >
       <span class="nav__burger-box" aria-hidden="true"><span class="nav__burger-line"></span></span>
     </button>
@@ -42,18 +61,28 @@ import { BRAND, NAV } from '../data/copy.ts';
 <!-- Panel desplegable (sólo móvil/tablet ≤900px) -->
 <div class="nav-menu" id="nav-menu" data-menu-panel>
   <div class="nav-menu__inner">
+    {NAV.links.map((l) => <a href={l.href} class="nav-menu__link">{t(l.label, lang)}</a>)}
     {
-      NAV.links.map((l) => (
-        <a href={l.href} class="nav-menu__link" data-en={l.label.en}>
-          {l.label.es}
-        </a>
-      ))
+      langLinks.length > 0 && (
+        <div class="nav-menu__lang">
+          <span class="nav-menu__lang-label">{t(NAV.language, lang)}</span>
+          <span class="nav-menu__lang-links">
+            {langLinks.map((l) => (
+              <a
+                href={l.href}
+                class="nav-menu__lang-value"
+                hreflang={l.code}
+                lang={l.code}
+                aria-label={LANG_NAME[l.code]}
+              >
+                {LANG_SHORT[l.code]}
+              </a>
+            ))}
+          </span>
+        </div>
+      )
     }
-    <button type="button" class="nav-menu__lang" data-lang-toggle aria-label="Switch to English">
-      <span class="nav-menu__lang-label" data-en={NAV.language.en}>{NAV.language.es}</span>
-      <span class="nav-menu__lang-value" data-lang-value>EN</span>
-    </button>
-    <a href="#contacto" class="nav-menu__cta" data-en={NAV.cta.en}>{NAV.cta.es}</a>
+    <a href="#contacto" class="nav-menu__cta">{t(NAV.cta, lang)}</a>
   </div>
 </div>
 
@@ -110,9 +139,16 @@ import { BRAND, NAV } from '../data/copy.ts';
     align-items: stretch;
   }
 
-  .nav__toggle {
-    align-self: center;
+  /* Contenedor del selector: con un solo idioma alternativo se ve igual que el
+     antiguo botón; al activar el euskera caben dos sin tocar nada. */
+  .nav__langs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     margin: 0 14px;
+  }
+
+  .nav__toggle {
     font-family: var(--font-mono);
     font-size: 13px;
     font-weight: 700;
@@ -120,7 +156,7 @@ import { BRAND, NAV } from '../data/copy.ts';
     border: var(--line-primary);
     color: var(--ink);
     padding: 7px 12px;
-    cursor: pointer;
+    text-decoration: none;
     letter-spacing: 0.04em;
     transition: background 0.15s, color 0.15s;
   }
@@ -230,7 +266,7 @@ import { BRAND, NAV } from '../data/copy.ts';
     .nav__cta {
       padding: 0 22px;
     }
-    .nav__toggle {
+    .nav__langs {
       margin: 0 10px;
     }
   }
@@ -239,7 +275,7 @@ import { BRAND, NAV } from '../data/copy.ts';
   @media (max-width: 900px) {
     .nav__links,
     .nav__cta,
-    .nav__toggle {
+    .nav__langs {
       display: none; /* el cambio de idioma se traslada al panel */
     }
     .nav__burger {
@@ -304,7 +340,9 @@ import { BRAND, NAV } from '../data/copy.ts';
       padding-left: 28px;
     }
 
-    /* fila de cambio de idioma (estética de link + badge con el idioma destino) */
+    /* fila de cambio de idioma: etiqueta + un badge por idioma destino. Ya no
+       es un botón que conmuta, sino una fila con un enlace por idioma, así que
+       el resalte va en cada badge y no en la fila entera. */
     .nav-menu__lang {
       display: flex;
       align-items: center;
@@ -312,19 +350,14 @@ import { BRAND, NAV } from '../data/copy.ts';
       width: 100%;
       padding: 22px 20px;
       background: var(--paper);
-      border: none;
       border-bottom: 1px solid var(--hairline);
-      cursor: pointer;
       color: var(--ink);
-      text-align: left;
-      transition: background 0.15s, color 0.15s, padding-left 0.15s;
     }
 
-    .nav-menu__lang:hover,
-    .nav-menu__lang:focus-visible {
-      background: var(--blue);
-      color: #fff;
-      padding-left: 28px;
+    .nav-menu__lang-links {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     .nav-menu__lang-label {
@@ -342,6 +375,16 @@ import { BRAND, NAV } from '../data/copy.ts';
       letter-spacing: 0.04em;
       border: 2px solid currentColor;
       padding: 5px 12px;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .nav-menu__lang-value:hover,
+    .nav-menu__lang-value:focus-visible {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: #fff;
     }
 
     .nav-menu__cta {

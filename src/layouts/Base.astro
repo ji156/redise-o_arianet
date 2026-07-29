@@ -15,7 +15,9 @@ import '@fontsource/space-mono/latin-400.css';
 import '@fontsource/space-mono/latin-700.css';
 
 import '../styles/global.css';
-import { BRAND } from '../data/copy.ts';
+import { BRAND, SEO_DEFAULT } from '../data/copy.ts';
+import { DEFAULT_LANG, OG_LOCALE, t } from '../data/i18n.ts';
+import type { Alternates, Lang } from '../data/i18n.ts';
 import { businessSchema, webSiteSchema } from '../data/schema.ts';
 import CookieBanner from '../components/CookieBanner.astro';
 
@@ -26,39 +28,68 @@ interface Props {
   schema?: Record<string, unknown>[];
   /** Excluye la página del índice (404, gracias, etc.). */
   noindex?: boolean;
+  /** Idioma de la página. Por defecto, el que deduce Astro de la ruta. */
+  lang?: Lang;
+  /**
+   * Rutas equivalentes de esta página en cada idioma, de donde salen los
+   * `hreflang`. Vacío = la página existe sólo en su idioma (landings locales),
+   * y entonces no se declara ninguna alternativa.
+   */
+  alternates?: Alternates;
 }
 
-const {
-  // Título y descripción por defecto = los de la home. Llevan la ciudad delante
-  // a propósito: es la primera línea que lee Google y la que ve el usuario en
-  // los resultados, y sin ella no competimos por ninguna búsqueda local.
-  title = 'Diseño de páginas web en Irún y Gipuzkoa | arianet',
-  description = 'Diseño y programación de páginas web en Irún. Webs a medida, tiendas online y SEO local para negocios de Irún, San Sebastián y Gipuzkoa. Desde 29 €/mes.',
-  schema = [],
-  noindex = false,
-} = Astro.props;
+const { title, description, schema = [], noindex = false, alternates = {} } = Astro.props;
+
+// `Astro.currentLocale` sale del prefijo de la ruta (/en/…), con el castellano
+// como valor para la raíz. La prop `lang` sólo hace falta donde no hay prefijo
+// que leer.
+const lang: Lang = Astro.props.lang ?? ((Astro.currentLocale as Lang) || DEFAULT_LANG);
+
+const pageTitle = title ?? t(SEO_DEFAULT.title, lang);
+const pageDescription = description ?? t(SEO_DEFAULT.description, lang);
 
 // URLs absolutas para canonical y Open Graph (requeridas por redes sociales).
 // `Astro.site` viene de astro.config.mjs (https://arianet.eu).
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const ogImage = new URL('/og-image.png', Astro.site).href;
 
+const abs = (path: string) => new URL(path, Astro.site).href;
+
+// Los hreflang sólo tienen sentido en grupo: una única alternativa apuntándose
+// a sí misma no aporta nada, así que por debajo de dos idiomas no se emiten.
+const altEntries = Object.entries(alternates) as [Lang, string][];
+const hasAlternates = altEntries.length > 1;
+
 // El negocio y el sitio se declaran en TODAS las páginas: cada una refuerza la
 // misma entidad local en lugar de dejarla sólo en la home.
-const jsonLd = [businessSchema(), webSiteSchema(), ...schema];
+const jsonLd = [businessSchema(lang), webSiteSchema(lang), ...schema];
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
 
-    <title>{title}</title>
-    <meta name="description" content={description} />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
     <meta name="theme-color" content="#0A0A0A" />
     <link rel="canonical" href={canonical} />
+    {
+      /* Versiones por idioma. Cada página debe listarse a sí misma además de a
+         sus alternativas, o Google descarta el grupo entero. `x-default` marca
+         a dónde mandar al resto del mundo: el castellano, que es la versión
+         completa. */
+      hasAlternates && (
+        <>
+          {altEntries.map(([code, path]) => (
+            <link rel="alternate" hreflang={code} href={abs(path)} />
+          ))}
+          <link rel="alternate" hreflang="x-default" href={abs(alternates.es ?? '/')} />
+        </>
+      )
+    }
     {
       /* max-snippet/max-image-preview: sin esto Google recorta el fragmento y
          usa miniatura pequeña; con esto puede mostrar descripción larga e
@@ -80,20 +111,24 @@ const jsonLd = [businessSchema(), webSiteSchema(), ...schema];
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={BRAND} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={`${BRAND} — estudio digital`} />
-    <meta property="og:locale" content="es_ES" />
-    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:image:alt" content={t(SEO_DEFAULT.imageAlt, lang)} />
+    <meta property="og:locale" content={OG_LOCALE[lang]} />
+    {
+      altEntries
+        .filter(([code]) => code !== lang)
+        .map(([code]) => <meta property="og:locale:alternate" content={OG_LOCALE[code]} />)
+    }
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
     <meta name="twitter:image" content={ogImage} />
 
     {/* 96x96 primero: Google exige un favicon múltiplo de 48px para mostrarlo en resultados */}
@@ -133,13 +168,11 @@ const jsonLd = [businessSchema(), webSiteSchema(), ...schema];
 
     <script>
       import { initReveal } from '../scripts/reveal.ts';
-      import { initLangToggle } from '../scripts/lang.ts';
       import { initMenu } from '../scripts/menu.ts';
       import { initCookies } from '../scripts/cookies.ts';
 
       const boot = () => {
         initReveal();
-        initLangToggle();
         initMenu();
         initCookies();
       };
