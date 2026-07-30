@@ -1,0 +1,23 @@
+---
+/**
+ * Páginas de servicio en euskera.
+ *
+ * El nombre de la carpeta (`zerbitzuak`) tiene que coincidir con
+ * SEGMENT.services.eu, y cada `slug` con SERVICE_SLUGS[…].eu: de ahí salen los
+ * enlaces internos y los hreflang, y si divergen apuntarían a un 404.
+ */
+import ServiceDetail from '../../../layouts/ServiceDetail.astro';
+import { services, serviceDetails } from '../../../data/copy.ts';
+import { serviceSlug } from '../../../data/i18n.ts';
+
+export function getStaticPaths() {
+  return services.map((service) => ({
+    params: { slug: serviceSlug(service.slug, 'eu') },
+    props: { service, detail: serviceDetails.find((d) => d.slug === service.slug)! },
+  }));
+}
+
+const { service, detail } = Astro.props;
+---
+
+<ServiceDetail service={service} detail={detail} />

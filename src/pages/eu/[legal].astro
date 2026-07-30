@@ -1,0 +1,23 @@
+---
+/**
+ * Documentos legales en euskera (/eu/lege-oharra, /eu/pribatutasuna,
+ * /eu/cookieak, /eu/baldintzak). Los slugs salen de LEGAL_SLUGS en i18n.ts.
+ *
+ * La versión en castellano es la vinculante; la traducción es de cortesía y así
+ * lo dice el propio texto de cada documento.
+ */
+import Legal from '../../layouts/Legal.astro';
+import { legalDocs } from '../../data/legal.ts';
+import { legalSlug } from '../../data/i18n.ts';
+
+export function getStaticPaths() {
+  return legalDocs.map((doc) => ({
+    params: { legal: legalSlug(doc.slug, 'eu') },
+    props: { doc },
+  }));
+}
+
+const { doc } = Astro.props;
+---
+
+<Legal doc={doc} />

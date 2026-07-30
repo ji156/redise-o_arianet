@@ -8,7 +8,7 @@ const lang = langOf(Astro.currentLocale);
 <section id="faq" class="section">
   <div class="head" data-reveal>
     <div>
-      <div class="head__label">{FAQ_INTRO.label}</div>
+      <div class="head__label">{t(FAQ_INTRO.label, lang)}</div>
       <h2 class="head__h2">{t(FAQ_INTRO.h2, lang)}</h2>
     </div>
     <p class="head__para">{t(FAQ_INTRO.para, lang)}</p>

@@ -27,10 +27,10 @@ export const DEFAULT_LANG: Lang = 'es';
 /**
  * Idiomas PUBLICADOS, en orden de aparición en el selector.
  *
- * El euskera está previsto en tipos y rutas pero aún no traducido: añadir
- * 'eu' aquí lo activa en todo el sitio de golpe, sin tocar ningún componente.
+ * Esta lista es lo único que activa un idioma: de ella salen el selector del
+ * nav, los `hreflang` del <head> y las entradas del sitemap.
  */
-export const LANGS: Lang[] = ['es', 'en'];
+export const LANGS: Lang[] = ['es', 'eu', 'en'];
 
 /**
  * Cadena traducible. `es` es obligatorio porque es el respaldo de `t()`; el
@@ -79,7 +79,6 @@ export const prefix = (lang: Lang): string => (lang === DEFAULT_LANG ? '' : `/${
  * inglés, que es justo el motivo de publicar el idioma.
  */
 export const SEGMENT = {
-  // TODO(eu): confirmar con el traductor antes de activar el euskera.
   services: { es: 'servicios', en: 'services', eu: 'zerbitzuak' },
   start: { es: 'empezar', en: 'start', eu: 'hasi' },
 } satisfies Record<string, Record<Lang, string>>;
@@ -92,22 +91,22 @@ export const SEGMENT = {
  * servicio a servicio.
  */
 export const SERVICE_SLUGS: Record<string, Partial<Record<Lang, string>>> = {
-  branding: { en: 'branding' },
-  'diseno-web': { en: 'web-design' },
-  'tiendas-online': { en: 'ecommerce' },
-  'landing-pages': { en: 'landing-pages' },
-  'ux-ui': { en: 'ux-ui-design' },
-  'apps-moviles': { en: 'mobile-apps' },
-  seo: { en: 'seo' },
-  mantenimiento: { en: 'maintenance' },
+  branding: { en: 'branding', eu: 'brandinga' },
+  'diseno-web': { en: 'web-design', eu: 'web-diseinua' },
+  'tiendas-online': { en: 'ecommerce', eu: 'online-dendak' },
+  'landing-pages': { en: 'landing-pages', eu: 'landing-orriak' },
+  'ux-ui': { en: 'ux-ui-design', eu: 'ux-ui-diseinua' },
+  'apps-moviles': { en: 'mobile-apps', eu: 'mugikorreko-appak' },
+  seo: { en: 'seo', eu: 'seo' },
+  mantenimiento: { en: 'maintenance', eu: 'mantentze-lanak' },
 };
 
 /** Slug de cada documento legal por idioma, indexado por el slug canónico. */
 export const LEGAL_SLUGS: Record<string, Partial<Record<Lang, string>>> = {
-  'aviso-legal': { en: 'legal-notice' },
-  privacidad: { en: 'privacy' },
-  cookies: { en: 'cookies' },
-  terminos: { en: 'terms' },
+  'aviso-legal': { en: 'legal-notice', eu: 'lege-oharra' },
+  privacidad: { en: 'privacy', eu: 'pribatutasuna' },
+  cookies: { en: 'cookies', eu: 'cookieak' },
+  terminos: { en: 'terms', eu: 'baldintzak' },
 };
 
 const localized = (
