@@ -30,6 +30,16 @@ import { DEFAULT_LANG, OG_LOCALE, servicePath, t, type Lang } from './i18n.ts';
 export const BUSINESS_ID = `${SITE_URL}/#business`;
 
 /**
+ * Perfiles externos del estudio, para el `sameAs` del JSON-LD.
+ *
+ * `CONTACT.social` arranca con '#' de marcador, y un `sameAs` apuntando a un
+ * ancla vacía es peor que no ponerlo: le dice a Google que la entidad tiene
+ * perfiles y le da una URL que no existe. Al filtrar aquí, el día que se creen
+ * las cuentas basta con poner la URL real en `copy.ts`.
+ */
+const PERFILES = Object.values(CONTACT.social).filter((url) => url.startsWith('http'));
+
+/**
  * Ficha del negocio. `ProfessionalService` es un subtipo de `LocalBusiness`:
  * describe un servicio profesional con sede física y zona de cobertura, que es
  * exactamente el caso.
@@ -40,6 +50,11 @@ export function businessSchema(lang: Lang = DEFAULT_LANG) {
     '@type': 'ProfessionalService',
     '@id': BUSINESS_ID,
     name: BRAND,
+    /* "arianet" a secas ya lo tiene cogido una empresa italiana con años de
+       historial, así que por ese término no se compite. Declarar las variantes
+       con las que sí se puede ganar —las que teclea quien ya nos conoce— ayuda
+       a Google a ligarlas a ESTA entidad y no a la otra. */
+    alternateName: [BUSINESS.legalName, 'Arianet WebStudio', `${BRAND} ${BUSINESS.city}`],
     legalName: BUSINESS.legalName,
     vatID: BUSINESS.vatId,
     url: `${SITE_URL}/`,
@@ -80,7 +95,11 @@ export function businessSchema(lang: Lang = DEFAULT_LANG) {
     knowsLanguage: ['es', 'eu', 'en', 'fr'],
     priceRange: '€€',
     currenciesAccepted: 'EUR',
-    sameAs: [`${SITE_URL}/`],
+    /* `sameAs` sirve para ligar esta entidad con sus perfiles EXTERNOS (redes,
+       ficha de Google, directorios). Antes apuntaba a la propia web, que es
+       decir "yo soy yo": no aporta señal. Se emite solo si hay perfiles reales
+       que enlazar, así que rellenar CONTACT.social lo activa sin tocar esto. */
+    ...(PERFILES.length ? { sameAs: PERFILES } : {}),
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: t(OFFER_CATALOG, lang),
