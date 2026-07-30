@@ -1,43 +1,47 @@
 # Traducciones
 
-Material para encargar la traducción del sitio a un idioma nuevo. El euskera
-está previsto en el código pero todavía sin traducir.
+Material para mantener la traducción del sitio a un idioma distinto del
+castellano. El euskera está **publicado** (`/eu/…`), a la espera de que un
+traductor nativo lo revise: se tradujo internamente, no por un profesional.
 
 ## Ficheros
 
-- `extraer.cjs` — genera el CSV a partir de `src/data/copy.ts` y `src/data/legal.ts`.
-- `euskera-pendiente.csv` — lo que se envía al traductor.
+- `euskera.json` — diccionario castellano → euskera. Es la fuente: se edita aquí.
+- `importar.cjs` — vuelca `euskera.json` a los campos `eu:` de `src/data/copy.ts`
+  y `src/data/legal.ts`. Idempotente: lo que ya tiene `eu:` no se toca.
+- `extraer.cjs` — genera el CSV de revisión a partir del copy actual.
+- `euskera-revision.csv` — lo que se manda al revisor.
 
-## Encargar la traducción
+## Encargar la revisión
 
 ```bash
 node traducciones/extraer.cjs
 ```
 
-Regenera el CSV con el copy actual (vuelve a ejecutarlo si el texto ha cambiado
-desde la última vez). Sale una fila por cadena:
+Sale una fila por cadena, con el castellano, el inglés para desambiguar y el
+euskera publicado. Al revisor conviene pedirle dos cosas: **euskara batua**, y
+que respete las mayúsculas de los titulares — hay bastantes cadenas tipo
+`DÓNDE TRABAJAMOS` que son parte del diseño, no un grito.
 
-| columna | qué es |
-| --- | --- |
-| `fichero`, `seccion`, `linea` | de dónde sale la cadena; sirve para reimportarla |
-| `castellano` | el original, que es el texto a traducir |
-| `ingles_referencia` | la versión inglesa, para desambiguar |
-| `EUSKERA` | **la única columna que rellena el traductor** |
+## Aplicar lo que vuelva
 
-Al traductor conviene pedirle dos cosas: **euskara batua**, y que respete las
-mayúsculas de los titulares — hay bastantes cadenas tipo `DÓNDE TRABAJAMOS` que
-son parte del diseño, no un grito.
+1. Corregir las cadenas en `euskera.json` (la clave es el castellano tal cual
+   aparece en el fuente, con sus `${…}` incluidos).
+2. Quitar de `copy.ts`/`legal.ts` los `eu:` que hayan cambiado — el importador
+   respeta lo que ya está — y ejecutar:
 
-## Publicar el idioma cuando vuelva
+```bash
+node traducciones/importar.cjs
+```
 
-1. Volcar la columna `EUSKERA` a los campos `eu` de `copy.ts` y `legal.ts`.
-2. Confirmar los segmentos de ruta marcados `TODO(eu)` en `src/data/i18n.ts`
-   (`zerbitzuak`, `hasi`) y los slugs de `SERVICE_SLUGS` / `LEGAL_SLUGS`. Una vez
-   publicada una URL ya no conviene cambiarla, así que se decide antes.
-3. Crear las páginas de `src/pages/eu/`, copiando las de `src/pages/en/` (son
-   tres o cuatro ficheros de tres líneas).
-4. Añadir `'eu'` a `LANGS` en `src/data/i18n.ts`. Eso activa el selector de
-   idioma, los `hreflang` y el sitemap de golpe.
+## Añadir otro idioma
 
-No hace falta esperar a tenerlo todo traducido: `t()` cae al castellano en lo
-que falte, así que el idioma se puede publicar por partes.
+1. Añadir el código a `Lang` y a `LANGS` en `src/data/i18n.ts`, con su entrada
+   en `LANG_SHORT`, `LANG_NAME`, `OG_LOCALE`, `SEGMENT`, `SERVICE_SLUGS` y
+   `LEGAL_SLUGS`. Una vez publicada una URL ya no conviene cambiarla, así que
+   los slugs se deciden antes.
+2. Crear las páginas de `src/pages/<código>/`, copiando las de `src/pages/eu/`
+   (son cuatro ficheros de tres líneas).
+
+`t()` cae al castellano en lo que falte, así que un idioma se puede publicar por
+partes sin romper el build.

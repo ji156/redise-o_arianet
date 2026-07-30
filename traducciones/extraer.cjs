@@ -3,19 +3,20 @@
  *
  *   node traducciones/extraer.cjs
  *
- * Genera `traducciones/euskera-pendiente.csv` con una fila por cadena: el
- * castellano, el inglés como referencia y una columna vacía para el euskera.
- * Vuelve a ejecutarlo si el copy cambia antes de encargar la traducción.
+ * Genera `traducciones/euskera-revision.csv` con una fila por cadena: el
+ * castellano, el inglés como referencia y el euskera publicado. Es lo que se
+ * manda a un traductor nativo para que REVISE el idioma ya publicado; una
+ * cadena todavía sin traducir sale con la última columna vacía.
  *
  * La columna `seccion` es la constante exportada donde vive la cadena, y sirve
- * para reimportar: al volver el CSV relleno, cada fila se identifica por
- * fichero + línea + castellano.
+ * de contexto. Lo que vuelva del revisor se aplica editando
+ * `traducciones/euskera.json` y ejecutando `node traducciones/importar.cjs`.
  */
 const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
-const OUT = path.join(__dirname, 'euskera-pendiente.csv');
+const OUT = path.join(__dirname, 'euskera-revision.csv');
 const FILES = ['src/data/copy.ts', 'src/data/legal.ts'];
 
 const csv = (v) => `"${String(v).replace(/"/g, '""')}"`;
@@ -50,12 +51,22 @@ for (const file of FILES) {
     const es = strAt(src, m.index + 3);
     if (!es) continue;
 
-    // El `en:` que acompaña, si viene justo detrás del castellano.
+    // El `en:` y el `eu:` que acompañan, si vienen detrás del castellano.
     let en = '';
-    const enMatch = /^\s*,\s*\n?\s*en:/.exec(src.slice(es.end, es.end + 400));
+    let eu = '';
+    let fin = es.end;
+    const enMatch = /^\s*,\s*\n?\s*en:/.exec(src.slice(fin, fin + 400));
     if (enMatch) {
-      const v = strAt(src, es.end + enMatch[0].length);
-      if (v) en = v.text;
+      const v = strAt(src, fin + enMatch[0].length);
+      if (v) {
+        en = v.text;
+        fin = v.end;
+      }
+    }
+    const euMatch = /^\s*,\s*\n?\s*eu:/.exec(src.slice(fin, fin + 400));
+    if (euMatch) {
+      const v = strAt(src, fin + euMatch[0].length);
+      if (v) eu = v.text;
     }
 
     const text = es.text.replace(/\\n/g, ' ').trim();
@@ -63,7 +74,7 @@ for (const file of FILES) {
 
     const line = src.slice(0, m.index).split('\n').length;
     words += text.split(/\s+/).filter(Boolean).length;
-    rows.push([path.basename(file), sectionOf(line), line, text, en, '']);
+    rows.push([path.basename(file), sectionOf(line), line, text, en, eu.replace(/\\n/g, ' ')]);
   }
 }
 
