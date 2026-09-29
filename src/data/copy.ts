@@ -1321,9 +1321,9 @@ export const plans: {
         eu: 'Saioa hastea eta bezeroen gunea',
       },
       {
-        es: 'Gestión de productos y stock',
-        en: 'Product & stock management',
-        eu: 'Produktuen eta stockaren kudeaketa',
+        es: 'Panel propio para gestionar productos, variantes y stock',
+        en: 'Own dashboard for products, variants & stock',
+        eu: 'Produktuak, aldaerak eta stocka kudeatzeko panel propioa',
       },
       { es: 'Integraciones a medida', en: 'Custom integrations', eu: 'Neurrirako integrazioak' },
     ],
@@ -1351,14 +1351,19 @@ export const plans: {
         eu: 'Online dendaren guztia',
       },
       {
-        es: 'Catálogo de productos sin límite',
-        en: 'Unlimited product catalogue',
-        eu: 'Produktu-katalogo mugagabea',
+        es: 'Productos ilimitados en tu panel',
+        en: 'Unlimited products in your dashboard',
+        eu: 'Produktu mugagabeak zure panelean',
       },
       {
-        es: 'Integraciones avanzadas (marketplaces, CRM, email marketing)',
-        en: 'Advanced integrations (marketplaces, CRM, email marketing)',
-        eu: 'Integrazio aurreratuak (marketplaceak, CRM, email marketinga)',
+        es: 'Conexión con marketplaces, CRM y email marketing',
+        en: 'Connect with marketplaces, CRM & email marketing',
+        eu: 'Konexioa marketplace, CRM eta email marketingarekin',
+      },
+      {
+        es: 'Tienda multiidioma y venta internacional',
+        en: 'Multilingual store & international sales',
+        eu: 'Denda eleaniztuna eta nazioarteko salmenta',
       },
       {
         es: 'Informe mensual de rendimiento',
