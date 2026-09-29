@@ -373,9 +373,9 @@ export const legalDocs: LegalDoc[] = [
         },
         paragraphs: [
           {
-            es: 'Cada proyecto puede contar con una propuesta o condiciones particulares aceptadas por escrito por el cliente (plan, cuota, alcance, fases u otros acuerdos). En caso de discrepancia, las condiciones particulares prevalecen sobre estas condiciones generales.',
-            en: 'Each project may have a proposal or specific terms accepted in writing by the client (plan, fee, scope, phases or other agreements). In the event of any discrepancy, the specific terms prevail over these general terms.',
-            eu: 'Proiektu bakoitzak bezeroak idatziz onartutako proposamen bat edo baldintza partikularrak izan ditzake (plana, kuota, irismena, faseak edo beste akordio batzuk). Desadostasunik izanez gero, baldintza partikularrak baldintza orokor hauen gainetik nagusitzen dira.',
+            es: 'Cada proyecto puede contar con una propuesta o condiciones particulares aceptadas por escrito por el cliente (plan, cuota, alcance, fases u otros acuerdos). En caso de discrepancia, prevalecerán las condiciones particulares, salvo que las condiciones generales sean más beneficiosas para el cliente.',
+            en: 'Each project may have a proposal or specific terms accepted in writing by the client (plan, fee, scope, phases or other agreements). In the event of any discrepancy, the specific terms will prevail, unless the general terms are more favourable to the client.',
+            eu: 'Proiektu bakoitzak bezeroak idatziz onartutako proposamen bat edo baldintza partikularrak izan ditzake (plana, kuota, irismena, faseak edo beste akordio batzuk). Desadostasunik izanez gero, baldintza partikularrak nagusituko dira, baldintza orokorrak bezeroarentzat onuragarriagoak izan ezean.',
           },
         ],
       },
@@ -442,9 +442,9 @@ export const legalDocs: LegalDoc[] = [
           {
             list: [
               {
-                es: 'La creación, redacción o traducción de contenidos.',
-                en: 'The creation, writing or translation of content.',
-                eu: 'Edukiak sortzea, idaztea edo itzultzea.',
+                es: 'La redacción de contenidos extensos (fichas de producto, artículos, textos más allá de los básicos de la web) y la traducción de contenidos.',
+                en: 'The writing of extensive content (product listings, articles, text beyond the basic content of the website) and the translation of content.',
+                eu: 'Eduki luzeak idaztea (produktu-fitxak, artikuluak, webaren oinarrizko testuez haragoko testuak) eta edukiak itzultzea.',
               },
               {
                 es: 'La fotografía, el vídeo o el tratamiento de imágenes.',
@@ -493,9 +493,9 @@ export const legalDocs: LegalDoc[] = [
             eu: '«Aldaketatzat» hartzen da lehendik dauden edukiak edo diseinu-elementuak aldatzea: testuak, irudiak, prezioak, estekak edo lehendik dauden elementuen gaineko doikuntza bisualak, betiere egitura, funtzionalitateak, datu-eredua edo integrazioak aldatzen ez badituzte. Ez da aldaketatzat hartzen, garapen berritzat baizik, atal edo funtzionalitate berriak sortzea, ezta irismenean aurreikusi gabeko kanpoko zerbitzuekiko integrazioak ere.',
           },
           {
-            es: 'Cada modificación sobre un elemento distinto cuenta como un cambio (por ejemplo, cambiar el teléfono y tres precios son cuatro cambios). Un cambio no puede superar una hora de trabajo; si la supera, se presupuestará aparte.',
-            en: 'Each modification to a different element counts as one change (for example, changing the phone number and three prices is four changes). A change may not exceed one hour of work; if it does, it will be quoted separately.',
-            eu: 'Elementu desberdin baten gaineko aldaketa bakoitza aldaketa bat da (adibidez, telefonoa eta hiru prezio aldatzea lau aldaketa dira). Aldaketa batek ezin du ordubeteko lana gainditu; gainditzen badu, aparte aurrekontuztatuko da.',
+            es: 'Se considera «solicitud de cambio» el conjunto de modificaciones relacionadas que el cliente envía juntas en una misma petición. Cada solicitud cuenta como un solo cambio, siempre que en total no supere una hora de trabajo; si la supera, el exceso se presupuestará aparte.',
+            en: 'A “change request” means the set of related modifications that the client sends together in a single request. Each request counts as one change, provided that in total it does not exceed one hour of work; if it does, the excess will be quoted separately.',
+            eu: '«Aldaketa-eskaeratzat» hartzen da bezeroak eskaera berean batera bidaltzen dituen elkarrekin lotutako aldaketen multzoa. Eskaera bakoitza aldaketa bakar gisa zenbatzen da, betiere guztira ordubeteko lana gainditzen ez badu; gainditzen badu, soberakina aparte aurrekontuztatuko da.',
           },
           {
             es: 'Los cambios no utilizados en un mes no se acumulan para meses posteriores. En los planes con tienda online, la gestión del catálogo que el cliente realiza desde su propio panel no cuenta como cambio.',
@@ -576,9 +576,9 @@ export const legalDocs: LegalDoc[] = [
             eu: `Domeinua ez dago kuotan sartuta. Haren erregistroa ordainketa independente bat da, eta zenbatekoa aukeratutako izenaren eta luzapenaren araberakoa da. ${BRAND}ek bezeroaren kontura kudea dezake haren erosketa; kasu horretan, domeinua bezeroaren izenean erregistratuko da, teknikoki posible den guztietan, eta bere erregistratzailearen baldintzei jarraituko die.`,
           },
           {
-            es: `Las renovaciones del dominio corren a cargo del cliente. ${BRAND} no responde de la pérdida del dominio si el cliente no paga o no autoriza la renovación después de los avisos. Al finalizar el servicio, ${BRAND} facilitará al cliente el código de transferencia del dominio.`,
-            en: `Domain renewals are at the client’s expense. ${BRAND} is not liable for the loss of the domain if the client does not pay for or authorise the renewal after being notified. When the service ends, ${BRAND} will provide the client with the domain transfer code.`,
-            eu: `Domeinuaren berritzeak bezeroaren kontura dira. ${BRAND}ek ez du domeinua galtzearen erantzukizunik, bezeroak abisuen ondoren berritzea ordaintzen edo baimentzen ez badu. Zerbitzua amaitzean, ${BRAND}ek domeinuaren transferentzia-kodea emango dio bezeroari.`,
+            es: `Las renovaciones del dominio corren a cargo del cliente. ${BRAND} no responde de la pérdida del dominio si el cliente no paga o no autoriza la renovación después de los avisos. Al finalizar el servicio, ${BRAND} facilitará al cliente el código de transferencia del dominio o realizará las actuaciones necesarias para permitir su traslado a otro proveedor, cuando proceda.`,
+            en: `Domain renewals are at the client’s expense. ${BRAND} is not liable for the loss of the domain if the client does not pay for or authorise the renewal after being notified. When the service ends, ${BRAND} will provide the client with the domain transfer code or take the steps necessary to allow its transfer to another provider, where applicable.`,
+            eu: `Domeinuaren berritzeak bezeroaren kontura dira. ${BRAND}ek ez du domeinua galtzearen erantzukizunik, bezeroak abisuen ondoren berritzea ordaintzen edo baimentzen ez badu. Zerbitzua amaitzean, ${BRAND}ek domeinuaren transferentzia-kodea emango dio bezeroari, edo domeinua beste hornitzaile batera eramateko beharrezko jarduketak egingo ditu, hala badagokio.`,
           },
         ],
       },
@@ -590,9 +590,9 @@ export const legalDocs: LegalDoc[] = [
         },
         paragraphs: [
           {
-            es: `Las tiendas online pueden utilizar servicios de terceros, como pasarelas de pago (por ejemplo, Stripe o Redsys), transportistas o herramientas externas. Sus comisiones y tarifas las factura directamente cada proveedor al cliente y no forman parte de la cuota. ${BRAND} no es responsable del funcionamiento, las caídas ni los cambios de condiciones de estos servicios.`,
-            en: `Online stores may use third-party services, such as payment gateways (for example, Stripe or Redsys), carriers or external tools. Their commissions and fees are billed directly by each provider to the client and are not part of the fee. ${BRAND} is not responsible for the operation, outages or changes in terms of these services.`,
-            eu: `Online dendek hirugarrenen zerbitzuak erabil ditzakete, hala nola ordainketa-pasabideak (adibidez, Stripe edo Redsys), garraiolariak edo kanpoko tresnak. Horien komisioak eta tarifak hornitzaile bakoitzak zuzenean fakturatzen dizkio bezeroari, eta ez dira kuotaren parte. ${BRAND} ez da zerbitzu horien funtzionamenduaren, erorketen edo baldintza-aldaketen erantzule.`,
+            es: `Las tiendas online pueden utilizar servicios de terceros, como pasarelas de pago (por ejemplo, Stripe o Redsys), transportistas o herramientas externas. Sus comisiones y tarifas las factura directamente cada proveedor al cliente y no forman parte de la cuota, salvo que las condiciones particulares indiquen otra cosa. ${BRAND} no es responsable del funcionamiento, las caídas ni los cambios de condiciones de estos servicios.`,
+            en: `Online stores may use third-party services, such as payment gateways (for example, Stripe or Redsys), carriers or external tools. Their commissions and fees are billed directly by each provider to the client and are not part of the fee, unless the specific terms state otherwise. ${BRAND} is not responsible for the operation, outages or changes in terms of these services.`,
+            eu: `Online dendek hirugarrenen zerbitzuak erabil ditzakete, hala nola ordainketa-pasabideak (adibidez, Stripe edo Redsys), garraiolariak edo kanpoko tresnak. Horien komisioak eta tarifak hornitzaile bakoitzak zuzenean fakturatzen dizkio bezeroari, eta ez dira kuotaren parte, baldintza partikularrek bestelakorik adierazi ezean. ${BRAND} ez da zerbitzu horien funtzionamenduaren, erorketen edo baldintza-aldaketen erantzule.`,
           },
         ],
       },
@@ -763,9 +763,9 @@ export const legalDocs: LegalDoc[] = [
         },
         paragraphs: [
           {
-            es: `${BRAND} podrá modificar estas condiciones comunicándolo a los clientes con al menos 30 días de antelación. Las condiciones particulares ya aceptadas se mantendrán durante su vigencia.`,
-            en: `${BRAND} may amend these terms by notifying clients at least 30 days in advance. Specific terms already accepted will remain in place for as long as they are in force.`,
-            eu: `${BRAND}ek baldintza hauek aldatu ahal izango ditu, bezeroei gutxienez 30 egun lehenago jakinaraziz. Dagoeneko onartutako baldintza partikularrak mantendu egingo dira indarrean dauden bitartean.`,
+            es: `${BRAND} podrá modificar estas condiciones por cambios legales, técnicos, operativos o del servicio, comunicándolo a los clientes con al menos 30 días de antelación. Si la modificación afecta sustancialmente al servicio contratado y el cliente no está de acuerdo, podrá cancelar el servicio sin penalización antes de su entrada en vigor. Las condiciones particulares ya aceptadas se mantendrán durante su vigencia.`,
+            en: `${BRAND} may amend these terms due to legal, technical, operational or service changes, by notifying clients at least 30 days in advance. If the amendment substantially affects the contracted service and the client does not agree, they may cancel the service without penalty before it comes into force. Specific terms already accepted will remain in place for as long as they are in force.`,
+            eu: `${BRAND}ek baldintza hauek aldatu ahal izango ditu lege-, teknika-, eragiketa- edo zerbitzu-aldaketengatik, bezeroei gutxienez 30 egun lehenago jakinaraziz. Aldaketak kontratatutako zerbitzuari funtsean eragiten badio eta bezeroa ados ez badago, zerbitzua bertan behera utzi ahal izango du, zigorrik gabe, aldaketa indarrean sartu aurretik. Dagoeneko onartutako baldintza partikularrak mantendu egingo dira indarrean dauden bitartean.`,
           },
         ],
       },
@@ -843,6 +843,11 @@ export const legalDocs: LegalDoc[] = [
                 eu: 'Datuak bezeroaren jarraibide dokumentatuen arabera eta zerbitzua emateko soilik tratatzea.',
               },
               {
+                es: 'No utilizar los datos personales para fines propios ni para finalidades distintas de la prestación del servicio contratado.',
+                en: 'Not use the personal data for its own purposes or for purposes other than the provision of the contracted service.',
+                eu: 'Datu pertsonalak ez erabiltzea helburu propioetarako, ezta kontratatutako zerbitzua emateaz bestelako helburuetarako ere.',
+              },
+              {
                 es: 'Informar inmediatamente al cliente si considera que una instrucción infringe el RGPD.',
                 en: 'Inform the client immediately if it considers that an instruction infringes the GDPR.',
                 eu: 'Bezeroari berehala jakinaraztea, jarraibide batek DBEO urratzen duela uste badu.',
@@ -878,9 +883,9 @@ export const legalDocs: LegalDoc[] = [
                 eu: 'Zerbitzua amaitzean, datuak bezeroari itzultzea eta ezabatzea, baldintza hauen 11. puntuaren arabera.',
               },
               {
-                es: 'Poner a disposición del cliente la información necesaria para demostrar el cumplimiento de estas obligaciones, y permitir auditorías o inspecciones razonables.',
-                en: 'Make available to the client the information needed to demonstrate compliance with these obligations, and allow reasonable audits or inspections.',
-                eu: 'Betebehar hauek betetzen direla frogatzeko beharrezkoa den informazioa bezeroaren eskura jartzea, eta arrazoizko auditoretzak edo ikuskapenak ahalbidetzea.',
+                es: `Poner a disposición del cliente la información necesaria para demostrar el cumplimiento de estas obligaciones, y permitir auditorías o inspecciones razonables, con preaviso razonable y respetando la confidencialidad; los costes extraordinarios que generen correrán a cargo del cliente, salvo que se detecte un incumplimiento de ${BRAND}.`,
+                en: `Make available to the client the information needed to demonstrate compliance with these obligations, and allow reasonable audits or inspections, with reasonable notice and respecting confidentiality; any extraordinary costs they generate will be borne by the client, unless a breach by ${BRAND} is detected.`,
+                eu: `Betebehar hauek betetzen direla frogatzeko beharrezkoa den informazioa bezeroaren eskura jartzea, eta arrazoizko auditoretzak edo ikuskapenak ahalbidetzea, arrazoizko aurreabisuarekin eta konfidentzialtasuna errespetatuz; horiek sortzen dituzten aparteko kostuak bezeroaren kontura izango dira, ${BRAND}en ez-betetzeren bat antzematen ez bada.`,
               },
             ],
           },
