@@ -373,9 +373,9 @@ export const legalDocs: LegalDoc[] = [
         },
         paragraphs: [
           {
-            es: 'Cada proyecto puede contar con una propuesta o condiciones particulares aceptadas por escrito por el cliente (plan, cuota, alcance, fases, permanencia u otros acuerdos). En caso de discrepancia, las condiciones particulares prevalecen sobre estas condiciones generales.',
-            en: 'Each project may have a proposal or specific terms accepted in writing by the client (plan, fee, scope, phases, minimum commitment period or other agreements). In the event of any discrepancy, the specific terms prevail over these general terms.',
-            eu: 'Proiektu bakoitzak bezeroak idatziz onartutako proposamen bat edo baldintza partikularrak izan ditzake (plana, kuota, irismena, faseak, iraunkortasuna edo beste akordio batzuk). Desadostasunik izanez gero, baldintza partikularrak baldintza orokor hauen gainetik nagusitzen dira.',
+            es: 'Cada proyecto puede contar con una propuesta o condiciones particulares aceptadas por escrito por el cliente (plan, cuota, alcance, fases u otros acuerdos). En caso de discrepancia, las condiciones particulares prevalecen sobre estas condiciones generales.',
+            en: 'Each project may have a proposal or specific terms accepted in writing by the client (plan, fee, scope, phases or other agreements). In the event of any discrepancy, the specific terms prevail over these general terms.',
+            eu: 'Proiektu bakoitzak bezeroak idatziz onartutako proposamen bat edo baldintza partikularrak izan ditzake (plana, kuota, irismena, faseak edo beste akordio batzuk). Desadostasunik izanez gero, baldintza partikularrak baldintza orokor hauen gainetik nagusitzen dira.',
           },
         ],
       },
@@ -536,9 +536,9 @@ export const legalDocs: LegalDoc[] = [
             eu: `Plan batzuek abian jartzeko hasierako kuota bakar bat izan dezakete, indarrean dauden tarifen arabera. ${BRAND}ek kuota horretatik denbora mugatu batez salbuesten duten promozioak eskain ditzake. Hasierako kuota ez da itzulgarria zerbitzua hasi ondoren.`,
           },
           {
-            es: `${BRAND} puede actualizar sus precios comunicándolo al cliente con al menos 30 días de antelación. Si el cliente no está de acuerdo, puede cancelar el servicio antes de que se aplique el nuevo precio, sin perjuicio de la permanencia pactada, en su caso.`,
-            en: `${BRAND} may update its prices by notifying the client at least 30 days in advance. If the client does not agree, they may cancel the service before the new price applies, without prejudice to any agreed minimum commitment period.`,
-            eu: `${BRAND}ek bere prezioak egunera ditzake, bezeroari gutxienez 30 egun lehenago jakinaraziz. Bezeroa ados ez badago, zerbitzua bertan behera utz dezake prezio berria aplikatu aurretik, hala badagokio, itundutako iraunkortasunari kalterik egin gabe.`,
+            es: `${BRAND} puede actualizar sus precios comunicándolo al cliente con al menos 30 días de antelación. Si el cliente no está de acuerdo, puede cancelar el servicio antes de que se aplique el nuevo precio.`,
+            en: `${BRAND} may update its prices by notifying the client at least 30 days in advance. If the client does not agree, they may cancel the service before the new price applies.`,
+            eu: `${BRAND}ek bere prezioak egunera ditzake, bezeroari gutxienez 30 egun lehenago jakinaraziz. Bezeroa ados ez badago, zerbitzua bertan behera utz dezake prezio berria aplikatu aurretik.`,
           },
         ],
       },
@@ -578,20 +578,15 @@ export const legalDocs: LegalDoc[] = [
       },
       {
         heading: {
-          es: '11. Duración, permanencia y cancelación',
-          en: '11. Term, minimum commitment and cancellation',
-          eu: '11. Iraupena, iraunkortasuna eta bertan behera uztea',
+          es: '11. Duración y cancelación',
+          en: '11. Term and cancellation',
+          eu: '11. Iraupena eta bertan behera uztea',
         },
         paragraphs: [
           {
-            es: 'Con carácter general, no existe permanencia. En proyectos a medida, las condiciones particulares podrán establecer un periodo mínimo de contratación.',
-            en: 'As a general rule, there is no minimum commitment period. For custom projects, the specific terms may establish a minimum contract period.',
-            eu: 'Oro har, ez dago iraunkortasunik. Neurrirako proiektuetan, baldintza partikularrek gutxieneko kontratazio-aldi bat ezarri ahal izango dute.',
-          },
-          {
-            es: 'El cliente puede cancelar el servicio en cualquier momento comunicándolo por escrito con al menos 30 días de antelación, y respetando, en su caso, la permanencia pactada. Si se cancela antes de terminar una permanencia pactada, el cliente abonará las cuotas pendientes hasta completarla, salvo que las condiciones particulares indiquen otra cosa.',
-            en: 'The client may cancel the service at any time by giving written notice at least 30 days in advance, subject to any agreed minimum commitment period. If the service is cancelled before an agreed minimum commitment period has ended, the client will pay the fees outstanding until it is completed, unless the specific terms state otherwise.',
-            eu: 'Bezeroak edozein unetan utz dezake zerbitzua bertan behera, idatziz eta gutxienez 30 egun lehenago jakinaraziz, eta, hala badagokio, itundutako iraunkortasuna errespetatuz. Itundutako iraunkortasuna amaitu aurretik bertan behera uzten bada, bezeroak hura osatu arte falta diren kuotak ordainduko ditu, baldintza partikularrek bestelakorik adierazi ezean.',
+            es: 'No existe permanencia. El cliente puede cancelar el servicio en cualquier momento comunicándolo por escrito con al menos 30 días de antelación.',
+            en: 'There is no minimum commitment period. The client may cancel the service at any time by giving written notice at least 30 days in advance.',
+            eu: 'Ez dago iraunkortasunik. Bezeroak edozein unetan utz dezake zerbitzua bertan behera, idatziz eta gutxienez 30 egun lehenago jakinaraziz.',
           },
           {
             es: `Al finalizar el servicio, la web deja de estar operativa y se da de baja. En los 30 días siguientes, y si el cliente lo solicita, ${BRAND} le entregará una exportación de sus contenidos y datos (textos, imágenes aportadas por el cliente y, en tiendas online, productos, clientes y pedidos) en un formato estándar. Transcurrido ese plazo, los datos se eliminarán.`,
@@ -820,9 +815,9 @@ export const legalDocs: LegalDoc[] = [
           {
             lead: { es: '4. Subencargados.', en: '4. Sub-processors.', eu: '4. Azpieragileak.' },
             text: {
-              es: `El cliente autoriza a ${BRAND} a recurrir a los siguientes subencargados para prestar el servicio: Hetzner Online GmbH (Alemania), como proveedor de alojamiento, y Cloudflare, Inc., como proveedor de CDN y seguridad. ${BRAND} informará al cliente de cualquier cambio previsto, y el cliente podrá oponerse.`,
-              en: `The client authorises ${BRAND} to engage the following sub-processors to provide the service: Hetzner Online GmbH (Germany), as hosting provider, and Cloudflare, Inc., as CDN and security provider. ${BRAND} will inform the client of any planned change, and the client may object.`,
-              eu: `Bezeroak baimena ematen dio ${BRAND}i zerbitzua emateko azpieragile hauetara jotzeko: Hetzner Online GmbH (Alemania), ostatatze-hornitzaile gisa, eta Cloudflare, Inc., CDN eta segurtasun hornitzaile gisa. ${BRAND}ek aurreikusitako edozein aldaketaren berri emango dio bezeroari, eta bezeroak aurka egin ahal izango du.`,
+              es: `El cliente autoriza a ${BRAND} a recurrir a los siguientes subencargados para prestar el servicio: Hetzner Online GmbH (Alemania), como proveedor de alojamiento, y Cloudflare, Inc., como proveedor de CDN y seguridad, con las garantías adecuadas previstas en el RGPD para las transferencias internacionales, como el Marco de Privacidad de Datos UE-EE. UU. o las cláusulas contractuales tipo. ${BRAND} informará al cliente de cualquier cambio previsto, y el cliente podrá oponerse.`,
+              en: `The client authorises ${BRAND} to engage the following sub-processors to provide the service: Hetzner Online GmbH (Germany), as hosting provider, and Cloudflare, Inc., as CDN and security provider, with the appropriate safeguards provided for in the GDPR for international transfers, such as the EU-U.S. Data Privacy Framework or standard contractual clauses. ${BRAND} will inform the client of any planned change, and the client may object.`,
+              eu: `Bezeroak baimena ematen dio ${BRAND}i zerbitzua emateko azpieragile hauetara jotzeko: Hetzner Online GmbH (Alemania), ostatatze-hornitzaile gisa, eta Cloudflare, Inc., CDN eta segurtasun hornitzaile gisa, nazioarteko transferentzietarako DBEOn aurreikusitako berme egokiekin, hala nola EB-AEB Datuen Pribatutasun Esparrua edo kontratu-klausula tipoak. ${BRAND}ek aurreikusitako edozein aldaketaren berri emango dio bezeroari, eta bezeroak aurka egin ahal izango du.`,
             },
           },
           {
