@@ -488,9 +488,14 @@ export const legalDocs: LegalDoc[] = [
         },
         paragraphs: [
           {
-            es: 'Se considera «cambio» la modificación de contenidos o elementos de diseño ya existentes: textos, imágenes, precios, enlaces o pequeños ajustes visuales. No se considera cambio, sino un nuevo desarrollo, la creación de nuevas secciones o funcionalidades, ni las integraciones con servicios externos no previstas en el alcance.',
-            en: 'A “change” means the modification of existing content or design elements: text, images, prices, links or small visual adjustments. The creation of new sections or features, and integrations with external services not provided for in the scope, are not considered changes but new development.',
-            eu: '«Aldaketatzat» hartzen da lehendik dauden edukiak edo diseinu-elementuak aldatzea: testuak, irudiak, prezioak, estekak edo doikuntza bisual txikiak. Ez da aldaketatzat hartzen, garapen berritzat baizik, atal edo funtzionalitate berriak sortzea, ezta irismenean aurreikusi gabeko kanpoko zerbitzuekiko integrazioak ere.',
+            es: 'Se considera «cambio» la modificación de contenidos o elementos de diseño ya existentes: textos, imágenes, precios, enlaces o ajustes visuales sobre elementos existentes que no modifiquen la estructura, las funcionalidades, el modelo de datos ni las integraciones. No se considera cambio, sino un nuevo desarrollo, la creación de nuevas secciones o funcionalidades, ni las integraciones con servicios externos no previstas en el alcance.',
+            en: 'A “change” means the modification of existing content or design elements: text, images, prices, links or visual adjustments to existing elements that do not alter the structure, features, data model or integrations. The creation of new sections or features, and integrations with external services not provided for in the scope, are not considered changes but new development.',
+            eu: '«Aldaketatzat» hartzen da lehendik dauden edukiak edo diseinu-elementuak aldatzea: testuak, irudiak, prezioak, estekak edo lehendik dauden elementuen gaineko doikuntza bisualak, betiere egitura, funtzionalitateak, datu-eredua edo integrazioak aldatzen ez badituzte. Ez da aldaketatzat hartzen, garapen berritzat baizik, atal edo funtzionalitate berriak sortzea, ezta irismenean aurreikusi gabeko kanpoko zerbitzuekiko integrazioak ere.',
+          },
+          {
+            es: 'Cada modificación sobre un elemento distinto cuenta como un cambio (por ejemplo, cambiar el teléfono y tres precios son cuatro cambios). Un cambio no puede superar una hora de trabajo; si la supera, se presupuestará aparte.',
+            en: 'Each modification to a different element counts as one change (for example, changing the phone number and three prices is four changes). A change may not exceed one hour of work; if it does, it will be quoted separately.',
+            eu: 'Elementu desberdin baten gaineko aldaketa bakoitza aldaketa bat da (adibidez, telefonoa eta hiru prezio aldatzea lau aldaketa dira). Aldaketa batek ezin du ordubeteko lana gainditu; gainditzen badu, aparte aurrekontuztatuko da.',
           },
           {
             es: 'Los cambios no utilizados en un mes no se acumulan para meses posteriores. En los planes con tienda online, la gestión del catálogo que el cliente realiza desde su propio panel no cuenta como cambio.',
@@ -507,9 +512,19 @@ export const legalDocs: LegalDoc[] = [
         },
         paragraphs: [
           {
-            es: 'Los plazos de cada proyecto se fijan por escrito antes de empezar y son orientativos. Dependen de que el cliente facilite a tiempo la información, los contenidos y los materiales necesarios. Los retrasos en su entrega o en las validaciones del cliente ampliarán los plazos en la misma medida.',
-            en: 'The timelines for each project are set in writing before work begins and are indicative. They depend on the client providing the necessary information, content and materials on time. Delays in their delivery or in the client’s approvals will extend the timelines to the same extent.',
-            eu: 'Proiektu bakoitzaren epeak idatziz finkatzen dira hasi aurretik, eta orientagarriak dira. Bezeroak beharrezko informazioa, edukiak eta materialak garaiz ematearen mende daude. Horiek ematean edo bezeroaren balidazioetan gertatzen diren atzerapenek neurri berean luzatuko dituzte epeak.',
+            es: 'Se considera fecha de inicio del proyecto la fecha en que el cliente acepta por escrito la propuesta o las condiciones particulares.',
+            en: 'The project start date is the date on which the client accepts the proposal or the specific terms in writing.',
+            eu: 'Proiektuaren hasiera-datatzat hartzen da bezeroak proposamena edo baldintza partikularrak idatziz onartzen dituen eguna.',
+          },
+          {
+            es: `Los plazos de cada proyecto se fijan por escrito antes de empezar y son orientativos. Dependen de que el cliente facilite a tiempo la información, los contenidos y los materiales necesarios. Si se producen retrasos en su entrega o en las validaciones del cliente, el calendario se reajustará según la disponibilidad de ${BRAND}.`,
+            en: `The timelines for each project are set in writing before work begins and are indicative. They depend on the client providing the necessary information, content and materials on time. If there are delays in their delivery or in the client’s approvals, the schedule will be readjusted according to the availability of ${BRAND}.`,
+            eu: `Proiektu bakoitzaren epeak idatziz finkatzen dira hasi aurretik, eta orientagarriak dira. Bezeroak beharrezko informazioa, edukiak eta materialak garaiz ematearen mende daude. Horiek ematean edo bezeroaren balidazioetan atzerapenik gertatzen bada, egutegia ${BRAND}en erabilgarritasunaren arabera egokituko da.`,
+          },
+          {
+            es: `Si durante el desarrollo el cliente no entrega los materiales, no responde o no valida durante 30 días, el proyecto se considerará en pausa y su reanudación dependerá de la disponibilidad de ${BRAND}, sin perjuicio de lo previsto en el punto 7 sobre el inicio de la facturación.`,
+            en: `If, during development, the client fails to deliver materials, to respond or to give approval for 30 days, the project will be considered paused and its resumption will depend on the availability of ${BRAND}, without prejudice to the provisions of section 7 on the start of billing.`,
+            eu: `Garapenean zehar bezeroak 30 egunez materialik ematen ez badu, erantzuten ez badu edo balidatzen ez badu, proiektua etenda dagoela joko da, eta berriz ekitea ${BRAND}en erabilgarritasunaren araberakoa izango da, 7. puntuan fakturazioaren hasierari buruz aurreikusitakoari kalterik egin gabe.`,
           },
           {
             es: 'El diseño incluye hasta 2 rondas de revisión antes de su aprobación. Las revisiones adicionales, o los cambios sobre un diseño ya aprobado, podrán presupuestarse aparte.',
@@ -526,14 +541,14 @@ export const legalDocs: LegalDoc[] = [
         },
         paragraphs: [
           {
-            es: 'La cuota se factura mensualmente por adelantado, mediante domiciliación bancaria o tarjeta, desde la publicación de la web o, si esta se retrasa por causas imputables al cliente, a los 60 días del inicio del proyecto, salvo que las condiciones particulares indiquen otra cosa. Los precios publicados no incluyen IVA.',
-            en: 'The fee is billed monthly in advance, by direct debit or card, from the publication of the website or, if publication is delayed for reasons attributable to the client, from 60 days after the start of the project, unless the specific terms state otherwise. Published prices do not include VAT.',
-            eu: 'Kuota hilero eta aurretiaz fakturatzen da, banku-helbideratze edo txartel bidez, weba argitaratzen denetik aurrera edo, argitalpena bezeroari egotz dakizkiokeen arrazoiengatik atzeratzen bada, proiektua hasi eta 60 egunera, baldintza partikularrek bestelakorik adierazi ezean. Argitaratutako prezioek ez dute BEZa barne hartzen.',
+            es: 'La cuota se factura mensualmente por adelantado, mediante domiciliación bancaria o tarjeta, desde la publicación de la web o, si esta se retrasa por causas imputables al cliente, a los 60 días de la fecha de inicio del proyecto definida en el punto 6, salvo que las condiciones particulares indiquen otra cosa. Los precios publicados no incluyen IVA.',
+            en: 'The fee is billed monthly in advance, by direct debit or card, from the publication of the website or, if publication is delayed for reasons attributable to the client, from 60 days after the project start date defined in section 6, unless the specific terms state otherwise. Published prices do not include VAT.',
+            eu: 'Kuota hilero eta aurretiaz fakturatzen da, banku-helbideratze edo txartel bidez, weba argitaratzen denetik aurrera edo, argitalpena bezeroari egotz dakizkiokeen arrazoiengatik atzeratzen bada, 6. puntuan zehaztutako proiektuaren hasiera-datatik 60 egunera, baldintza partikularrek bestelakorik adierazi ezean. Argitaratutako prezioek ez dute BEZa barne hartzen.',
           },
           {
-            es: `Algunos planes pueden incluir una cuota de alta única de puesta en marcha, según las tarifas vigentes. ${BRAND} puede ofrecer promociones que eximan de esta cuota durante un periodo limitado. La cuota de alta no es reembolsable una vez iniciado el servicio.`,
-            en: `Some plans may include a one-time setup fee, according to current pricing. ${BRAND} may offer promotions that waive this fee for a limited period. The setup fee is non-refundable once the service has started.`,
-            eu: `Plan batzuek abian jartzeko hasierako kuota bakar bat izan dezakete, indarrean dauden tarifen arabera. ${BRAND}ek kuota horretatik denbora mugatu batez salbuesten duten promozioak eskain ditzake. Hasierako kuota ez da itzulgarria zerbitzua hasi ondoren.`,
+            es: `Algunos planes pueden incluir una cuota de alta única, según las tarifas vigentes. Esta cuota remunera los trabajos iniciales de puesta en marcha (análisis, configuración, diseño inicial y alta de la infraestructura) y no es reembolsable una vez aceptada la propuesta. ${BRAND} puede ofrecer promociones que eximan de ella durante un periodo limitado.`,
+            en: `Some plans may include a one-time setup fee, according to current pricing. This fee pays for the initial setup work (analysis, configuration, initial design and provisioning of the infrastructure) and is non-refundable once the proposal has been accepted. ${BRAND} may offer promotions that waive it for a limited period.`,
+            eu: `Plan batzuek hasierako kuota bakar bat izan dezakete, indarrean dauden tarifen arabera. Kuota horrek abian jartzeko hasierako lanak ordaintzen ditu (analisia, konfigurazioa, hasierako diseinua eta azpiegituraren alta), eta ez da itzulgarria proposamena onartu ondoren. ${BRAND}ek kuota horretatik denbora mugatu batez salbuesten duten promozioak eskain ditzake.`,
           },
           {
             es: `${BRAND} puede actualizar sus precios comunicándolo al cliente con al menos 30 días de antelación. Si el cliente no está de acuerdo, puede cancelar el servicio antes de que se aplique el nuevo precio.`,
@@ -560,6 +575,11 @@ export const legalDocs: LegalDoc[] = [
             en: `The domain is not included in the fee. Its registration is a separate payment whose amount depends on the chosen name and extension. ${BRAND} may handle its purchase on behalf of the client; in that case, the domain will be registered in the client’s name whenever technically possible, and will be subject to the terms of its registrar.`,
             eu: `Domeinua ez dago kuotan sartuta. Haren erregistroa ordainketa independente bat da, eta zenbatekoa aukeratutako izenaren eta luzapenaren araberakoa da. ${BRAND}ek bezeroaren kontura kudea dezake haren erosketa; kasu horretan, domeinua bezeroaren izenean erregistratuko da, teknikoki posible den guztietan, eta bere erregistratzailearen baldintzei jarraituko die.`,
           },
+          {
+            es: `Las renovaciones del dominio corren a cargo del cliente. ${BRAND} no responde de la pérdida del dominio si el cliente no paga o no autoriza la renovación después de los avisos. Al finalizar el servicio, ${BRAND} facilitará al cliente el código de transferencia del dominio.`,
+            en: `Domain renewals are at the client’s expense. ${BRAND} is not liable for the loss of the domain if the client does not pay for or authorise the renewal after being notified. When the service ends, ${BRAND} will provide the client with the domain transfer code.`,
+            eu: `Domeinuaren berritzeak bezeroaren kontura dira. ${BRAND}ek ez du domeinua galtzearen erantzukizunik, bezeroak abisuen ondoren berritzea ordaintzen edo baimentzen ez badu. Zerbitzua amaitzean, ${BRAND}ek domeinuaren transferentzia-kodea emango dio bezeroari.`,
+          },
         ],
       },
       {
@@ -584,14 +604,29 @@ export const legalDocs: LegalDoc[] = [
         },
         paragraphs: [
           {
-            es: 'No existe permanencia. El cliente puede cancelar el servicio en cualquier momento comunicándolo por escrito con al menos 30 días de antelación.',
-            en: 'There is no minimum commitment period. The client may cancel the service at any time by giving written notice at least 30 days in advance.',
-            eu: 'Ez dago iraunkortasunik. Bezeroak edozein unetan utz dezake zerbitzua bertan behera, idatziz eta gutxienez 30 egun lehenago jakinaraziz.',
+            es: 'El servicio no está sujeto a un periodo mínimo de permanencia. El cliente podrá cancelarlo en cualquier momento mediante comunicación escrita con al menos 30 días de antelación.',
+            en: 'The service is not subject to a minimum commitment period. The client may cancel it at any time by written notice given at least 30 days in advance.',
+            eu: 'Zerbitzuak ez du gutxieneko iraunkortasun-aldirik. Bezeroak edozein unetan utzi ahal izango du bertan behera, gutxienez 30 egun lehenago idatziz jakinarazita.',
           },
           {
-            es: `Al finalizar el servicio, la web deja de estar operativa y se da de baja. En los 30 días siguientes, y si el cliente lo solicita, ${BRAND} le entregará una exportación de sus contenidos y datos (textos, imágenes aportadas por el cliente y, en tiendas online, productos, clientes y pedidos) en un formato estándar. Transcurrido ese plazo, los datos se eliminarán.`,
-            en: `When the service ends, the website ceases to be operational and is taken down. Within the following 30 days, and if the client so requests, ${BRAND} will provide an export of their content and data (text, images supplied by the client and, for online stores, products, customers and orders) in a standard format. After that period, the data will be deleted.`,
-            eu: `Zerbitzua amaitzean, weba ez da operatibo egongo eta baja emango zaio. Ondorengo 30 egunetan, eta bezeroak hala eskatzen badu, ${BRAND}ek bere edukien eta datuen esportazio bat emango dio (testuak, bezeroak emandako irudiak eta, online dendetan, produktuak, bezeroak eta eskaerak), formatu estandar batean. Epe hori igarota, datuak ezabatu egingo dira.`,
+            es: 'El servicio se mantiene y se factura hasta el final del periodo de preaviso. Las cuotas ya abonadas no se reembolsan.',
+            en: 'The service is maintained and billed until the end of the notice period. Fees already paid are not refunded.',
+            eu: 'Zerbitzua aurreabisu-aldia amaitu arte mantentzen eta fakturatzen da. Dagoeneko ordaindutako kuotak ez dira itzultzen.',
+          },
+          {
+            es: 'Si el cliente cancela durante el desarrollo, antes de la publicación de la web, no tendrá derecho a recibir los trabajos realizados.',
+            en: 'If the client cancels during development, before the website is published, they will not be entitled to receive the work carried out.',
+            eu: 'Bezeroak garapenean zehar bertan behera uzten badu, weba argitaratu aurretik, ez du egindako lanak jasotzeko eskubiderik izango.',
+          },
+          {
+            es: `Al finalizar el servicio, la web deja de estar operativa y se da de baja. En los 30 días siguientes, y si el cliente lo solicita, ${BRAND} le entregará una exportación en un formato estándar. La exportación incluye los datos, contenidos e imágenes aportados por el cliente, y los datos de productos, clientes y pedidos. No incluye el código fuente, el diseño, los componentes propios, la configuración de servidores ni las licencias de ${BRAND}.`,
+            en: `When the service ends, the website ceases to be operational and is taken down. Within the following 30 days, and if the client so requests, ${BRAND} will provide an export in a standard format. The export includes the data, content and images supplied by the client, and the product, customer and order data. It does not include the source code, the design, proprietary components, server configuration or the licences of ${BRAND}.`,
+            eu: `Zerbitzua amaitzean, weba ez da operatibo egongo eta baja emango zaio. Ondorengo 30 egunetan, eta bezeroak hala eskatzen badu, ${BRAND}ek esportazio bat emango dio, formatu estandar batean. Esportazioak bezeroak emandako datuak, edukiak eta irudiak hartzen ditu barne, bai eta produktuen, bezeroen eta eskaeren datuak ere. Ez ditu barne hartzen iturburu-kodea, diseinua, osagai propioak, zerbitzarien konfigurazioa, ezta ${BRAND}en lizentziak ere.`,
+          },
+          {
+            es: 'Transcurrido ese plazo, los datos se eliminarán. Pueden persistir copias de seguridad residuales durante el ciclo normal de rotación, como máximo 90 días; no se usarán salvo para recuperación técnica y después se eliminarán.',
+            en: 'After that period, the data will be deleted. Residual backups may persist during the normal rotation cycle, for a maximum of 90 days; they will not be used except for technical recovery and will then be deleted.',
+            eu: 'Epe hori igarota, datuak ezabatu egingo dira. Hondar segurtasun-kopiak gorde daitezke errotazio-ziklo arruntak dirauen bitartean, gehienez 90 egunez; ez dira erabiliko berreskuratze teknikorako ez bada, eta ondoren ezabatu egingo dira.',
           },
         ],
       },
@@ -603,14 +638,24 @@ export const legalDocs: LegalDoc[] = [
         },
         paragraphs: [
           {
-            es: `El diseño, el código, la plataforma y la infraestructura de la web son desarrollados y mantenidos por ${BRAND}, que conserva su titularidad. El cliente dispone de un derecho de uso mientras mantenga el servicio en vigor.`,
-            en: `The design, code, platform and infrastructure of the website are developed and maintained by ${BRAND}, which retains ownership of them. The client has a right of use for as long as they keep the service active.`,
-            eu: `Webaren diseinua, kodea, plataforma eta azpiegitura ${BRAND}ek garatzen eta mantentzen ditu, eta horien titulartasuna gordetzen du. Bezeroak erabilera-eskubidea du zerbitzua indarrean mantentzen duen bitartean.`,
+            es: `Son de ${BRAND} el código, el diseño, los componentes, la plataforma, la infraestructura y las herramientas de la web. El cliente dispone de un derecho de uso mientras mantenga el servicio en vigor.`,
+            en: `The code, design, components, platform, infrastructure and tools of the website belong to ${BRAND}. The client has a right of use for as long as they keep the service active.`,
+            eu: `Webaren kodea, diseinua, osagaiak, plataforma, azpiegitura eta tresnak ${BRAND}enak dira. Bezeroak erabilera-eskubidea du zerbitzua indarrean mantentzen duen bitartean.`,
           },
           {
-            es: 'Los contenidos aportados por el cliente (textos, imágenes, logotipos, datos de productos y de clientes) son del cliente, que garantiza tener los derechos necesarios para usarlos.',
-            en: 'Content supplied by the client (text, images, logos, product and customer data) belongs to the client, who warrants that they hold the rights needed to use it.',
-            eu: 'Bezeroak emandako edukiak (testuak, irudiak, logotipoak, produktuen eta bezeroen datuak) bezeroarenak dira, eta bezeroak bermatzen du horiek erabiltzeko beharrezko eskubideak dituela.',
+            es: 'Son del cliente los textos, imágenes, logotipos, productos y datos que aporta. El cliente garantiza tener los derechos necesarios para usarlos.',
+            en: 'The text, images, logos, products and data supplied by the client belong to the client, who warrants that they hold the rights needed to use them.',
+            eu: 'Bezeroak ematen dituen testuak, irudiak, logotipoak, produktuak eta datuak bezeroarenak dira. Bezeroak bermatzen du horiek erabiltzeko beharrezko eskubideak dituela.',
+          },
+          {
+            es: 'Son de terceros las librerías, tipografías, imágenes de stock y otros elementos con licencia propia, que se rigen por sus respectivas licencias.',
+            en: 'Libraries, typefaces, stock images and other elements with their own licence belong to third parties and are governed by their respective licences.',
+            eu: 'Liburutegiak, tipografiak, stock irudiak eta lizentzia propioa duten beste elementu batzuk hirugarrenenak dira, eta dagozkien lizentziek arautzen dituzte.',
+          },
+          {
+            es: `Las licencias de terceros necesarias que aporta ${BRAND} están incluidas en la cuota mientras el servicio esté activo. Al finalizar el servicio, el cliente deberá adquirir las suyas propias si las necesita.`,
+            en: `The necessary third-party licences provided by ${BRAND} are included in the fee while the service is active. When the service ends, the client must acquire their own if they need them.`,
+            eu: `${BRAND}ek ematen dituen hirugarrenen beharrezko lizentziak kuotan sartuta daude zerbitzua aktibo dagoen bitartean. Zerbitzua amaitzean, bezeroak bereak eskuratu beharko ditu, behar baditu.`,
           },
           {
             es: `${BRAND} podrá mencionar el proyecto y mostrarlo en su portfolio, salvo que el cliente se oponga por escrito.`,
@@ -694,9 +739,14 @@ export const legalDocs: LegalDoc[] = [
             eu: `${BRAND}ek arrazoizko bitarteko guztiak jarriko ditu zerbitzuaren erabilgarritasuna, segurtasuna eta funtzionamendu egokia bermatzeko, eta aldian-aldian segurtasun-kopiak egingo ditu. Hala ere, ez du etenik gabeko funtzionamendua bermatzen, eta mantentze-lanengatik etenaldi puntualak egin ahal izango ditu, ahal denean aldez aurretik jakinaraziz.`,
           },
           {
-            es: `${BRAND} no será responsable de incidencias ajenas a su control, como fallos de proveedores o servicios de terceros, ataques informáticos pese a las medidas razonables adoptadas, o causas de fuerza mayor.`,
-            en: `${BRAND} will not be liable for incidents beyond its control, such as failures of third-party providers or services, cyberattacks despite the reasonable measures adopted, or force majeure.`,
-            eu: `${BRAND} ez da bere kontroletik kanpoko gorabeheren erantzule izango, hala nola hirugarrenen hornitzaileen edo zerbitzuen hutsegiteena, hartutako arrazoizko neurriak gorabehera gertatutako eraso informatikoena edo ezinbesteko kasuena.`,
+            es: 'Las copias de seguridad forman parte de las medidas de seguridad y continuidad del servicio, y no constituyen un servicio de archivo permanente.',
+            en: 'Backups are part of the security and continuity measures of the service, and do not constitute a permanent archiving service.',
+            eu: 'Segurtasun-kopiak zerbitzuaren segurtasun- eta jarraitutasun-neurrien parte dira, eta ez dira artxibatze-zerbitzu iraunkor bat.',
+          },
+          {
+            es: `${BRAND} no será responsable de incidencias ajenas a su control, como fallos de proveedores o servicios de terceros, ataques informáticos, siempre que ${BRAND} haya aplicado las medidas de seguridad que le correspondan, o causas de fuerza mayor.`,
+            en: `${BRAND} will not be liable for incidents beyond its control, such as failures of third-party providers or services, cyberattacks, provided that ${BRAND} has applied the security measures incumbent on it, or force majeure.`,
+            eu: `${BRAND} ez da bere kontroletik kanpoko gorabeheren erantzule izango, hala nola hirugarrenen hornitzaileen edo zerbitzuen hutsegiteena, eraso informatikoena —betiere ${BRAND}ek dagozkion segurtasun-neurriak aplikatu baditu— edo ezinbesteko kasuena.`,
           },
           {
             es: `En ningún caso ${BRAND} responderá del lucro cesante, la pérdida de ventas, de clientes o de oportunidades de negocio. La responsabilidad total de ${BRAND} derivada del servicio se limitará, como máximo, al importe de las cuotas abonadas por el cliente en los 12 meses anteriores al hecho que la origine. Estas limitaciones no se aplican en caso de dolo o culpa grave.`,
@@ -744,16 +794,28 @@ export const legalDocs: LegalDoc[] = [
           {
             lead: { es: '1. Objeto.', en: '1. Purpose.', eu: '1. Xedea.' },
             text: {
-              es: `${BRAND} (encargado) trata, por cuenta del cliente (responsable), los datos personales necesarios para prestar el servicio: alojamiento, mantenimiento y funcionamiento de la web o tienda online.`,
-              en: `${BRAND} (processor) processes, on behalf of the client (controller), the personal data needed to provide the service: hosting, maintenance and operation of the website or online store.`,
-              eu: `${BRAND}ek (eragilea) bezeroaren (arduraduna) kontura tratatzen ditu zerbitzua emateko beharrezkoak diren datu pertsonalak: webaren edo online dendaren ostatatzea, mantentze-lanak eta funtzionamendua.`,
+              es: `${BRAND} (encargado) trata, por cuenta del cliente (responsable), los datos personales necesarios para prestar el servicio.`,
+              en: `${BRAND} (processor) processes, on behalf of the client (controller), the personal data needed to provide the service.`,
+              eu: `${BRAND}ek (eragilea) bezeroaren (arduraduna) kontura tratatzen ditu zerbitzua emateko beharrezkoak diren datu pertsonalak.`,
             },
           },
           {
             lead: {
-              es: '2. Datos y personas afectadas.',
-              en: '2. Data and data subjects.',
-              eu: '2. Datuak eta eragindako pertsonak.',
+              es: '2. Naturaleza, finalidad y duración.',
+              en: '2. Nature, purpose and duration.',
+              eu: '2. Izaera, helburua eta iraupena.',
+            },
+            text: {
+              es: 'El tratamiento consiste en el alojamiento, el mantenimiento y el funcionamiento de la web o tienda online del cliente, y su finalidad es prestar el servicio contratado. Su duración es la del servicio.',
+              en: 'The processing consists of the hosting, maintenance and operation of the client’s website or online store, and its purpose is to provide the contracted service. Its duration is that of the service.',
+              eu: 'Tratamendua bezeroaren webaren edo online dendaren ostatatzean, mantentze-lanetan eta funtzionamenduan datza, eta haren helburua kontratatutako zerbitzua ematea da. Tratamenduak zerbitzuak adina iraungo du.',
+            },
+          },
+          {
+            lead: {
+              es: '3. Datos y personas afectadas.',
+              en: '3. Data and data subjects.',
+              eu: '3. Datuak eta eragindako pertsonak.',
             },
             text: {
               es: 'Datos identificativos, de contacto, de pedidos y de facturación de los clientes, usuarios y contactos de la web del cliente.',
@@ -763,9 +825,9 @@ export const legalDocs: LegalDoc[] = [
           },
           {
             lead: {
-              es: `3. Obligaciones de ${BRAND}.`,
-              en: `3. Obligations of ${BRAND}.`,
-              eu: `3. ${BRAND}en betebeharrak.`,
+              es: `4. Obligaciones de ${BRAND}.`,
+              en: `4. Obligations of ${BRAND}.`,
+              eu: `4. ${BRAND}en betebeharrak.`,
             },
             text: {
               es: `${BRAND} se compromete a:`,
@@ -779,6 +841,11 @@ export const legalDocs: LegalDoc[] = [
                 es: 'Tratar los datos solo según las instrucciones documentadas del cliente y para prestar el servicio.',
                 en: 'Process the data only on the client’s documented instructions and in order to provide the service.',
                 eu: 'Datuak bezeroaren jarraibide dokumentatuen arabera eta zerbitzua emateko soilik tratatzea.',
+              },
+              {
+                es: 'Informar inmediatamente al cliente si considera que una instrucción infringe el RGPD.',
+                en: 'Inform the client immediately if it considers that an instruction infringes the GDPR.',
+                eu: 'Bezeroari berehala jakinaraztea, jarraibide batek DBEO urratzen duela uste badu.',
               },
               {
                 es: 'Garantizar la confidencialidad de las personas autorizadas a tratar los datos.',
@@ -801,30 +868,35 @@ export const legalDocs: LegalDoc[] = [
                 eu: 'Bezeroari laguntzea interesdunek beren eskubideak baliatzeko egiten dituzten eskaerei erantzuten.',
               },
               {
+                es: 'Asistir al cliente en el cumplimiento de sus obligaciones de seguridad y, cuando corresponda, en las evaluaciones de impacto.',
+                en: 'Assist the client in complying with its security obligations and, where applicable, with data protection impact assessments.',
+                eu: 'Bezeroari laguntzea bere segurtasun-betebeharrak betetzen eta, hala badagokio, eraginaren ebaluazioetan.',
+              },
+              {
                 es: 'Al finalizar el servicio, devolver los datos al cliente y suprimirlos, conforme al punto 11 de estas condiciones.',
                 en: 'When the service ends, return the data to the client and delete them, in accordance with section 11 of these terms.',
                 eu: 'Zerbitzua amaitzean, datuak bezeroari itzultzea eta ezabatzea, baldintza hauen 11. puntuaren arabera.',
               },
               {
-                es: 'Poner a disposición del cliente la información necesaria para demostrar el cumplimiento de estas obligaciones.',
-                en: 'Make available to the client the information needed to demonstrate compliance with these obligations.',
-                eu: 'Betebehar hauek betetzen direla frogatzeko beharrezkoa den informazioa bezeroaren eskura jartzea.',
+                es: 'Poner a disposición del cliente la información necesaria para demostrar el cumplimiento de estas obligaciones, y permitir auditorías o inspecciones razonables.',
+                en: 'Make available to the client the information needed to demonstrate compliance with these obligations, and allow reasonable audits or inspections.',
+                eu: 'Betebehar hauek betetzen direla frogatzeko beharrezkoa den informazioa bezeroaren eskura jartzea, eta arrazoizko auditoretzak edo ikuskapenak ahalbidetzea.',
               },
             ],
           },
           {
-            lead: { es: '4. Subencargados.', en: '4. Sub-processors.', eu: '4. Azpieragileak.' },
+            lead: { es: '5. Subencargados.', en: '5. Sub-processors.', eu: '5. Azpieragileak.' },
             text: {
-              es: `El cliente autoriza a ${BRAND} a recurrir a los siguientes subencargados para prestar el servicio: Hetzner Online GmbH (Alemania), como proveedor de alojamiento, y Cloudflare, Inc., como proveedor de CDN y seguridad, con las garantías adecuadas previstas en el RGPD para las transferencias internacionales, como el Marco de Privacidad de Datos UE-EE. UU. o las cláusulas contractuales tipo. ${BRAND} informará al cliente de cualquier cambio previsto, y el cliente podrá oponerse.`,
-              en: `The client authorises ${BRAND} to engage the following sub-processors to provide the service: Hetzner Online GmbH (Germany), as hosting provider, and Cloudflare, Inc., as CDN and security provider, with the appropriate safeguards provided for in the GDPR for international transfers, such as the EU-U.S. Data Privacy Framework or standard contractual clauses. ${BRAND} will inform the client of any planned change, and the client may object.`,
-              eu: `Bezeroak baimena ematen dio ${BRAND}i zerbitzua emateko azpieragile hauetara jotzeko: Hetzner Online GmbH (Alemania), ostatatze-hornitzaile gisa, eta Cloudflare, Inc., CDN eta segurtasun hornitzaile gisa, nazioarteko transferentzietarako DBEOn aurreikusitako berme egokiekin, hala nola EB-AEB Datuen Pribatutasun Esparrua edo kontratu-klausula tipoak. ${BRAND}ek aurreikusitako edozein aldaketaren berri emango dio bezeroari, eta bezeroak aurka egin ahal izango du.`,
+              es: `El cliente autoriza a ${BRAND} a recurrir a los siguientes subencargados para prestar el servicio: Hetzner Online GmbH (Alemania), como proveedor de alojamiento, y Cloudflare, Inc., como proveedor de CDN y seguridad, con las garantías adecuadas previstas en el capítulo V del RGPD para las transferencias internacionales. ${BRAND} informará al cliente de cualquier cambio previsto. El cliente podrá oponerse en un plazo de 15 días por motivos relacionados con la protección de datos; si no se encuentra una alternativa razonable, el cliente podrá cancelar el servicio sin penalización.`,
+              en: `The client authorises ${BRAND} to engage the following sub-processors to provide the service: Hetzner Online GmbH (Germany), as hosting provider, and Cloudflare, Inc., as CDN and security provider, with the appropriate safeguards provided for in Chapter V of the GDPR for international transfers. ${BRAND} will inform the client of any planned change. The client may object within 15 days on grounds relating to data protection; if no reasonable alternative is found, the client may cancel the service without penalty.`,
+              eu: `Bezeroak baimena ematen dio ${BRAND}i zerbitzua emateko azpieragile hauetara jotzeko: Hetzner Online GmbH (Alemania), ostatatze-hornitzaile gisa, eta Cloudflare, Inc., CDN eta segurtasun hornitzaile gisa, nazioarteko transferentzietarako DBEOren V. kapituluan aurreikusitako berme egokiekin. ${BRAND}ek aurreikusitako edozein aldaketaren berri emango dio bezeroari. Bezeroak 15 eguneko epean aurka egin ahal izango du, datuen babesarekin lotutako arrazoiengatik; arrazoizko alternatibarik aurkitzen ez bada, bezeroak zerbitzua bertan behera utzi ahal izango du, zigorrik gabe.`,
             },
           },
           {
             lead: {
-              es: '5. Obligaciones del cliente.',
-              en: '5. Obligations of the client.',
-              eu: '5. Bezeroaren betebeharrak.',
+              es: '6. Obligaciones del cliente.',
+              en: '6. Obligations of the client.',
+              eu: '6. Bezeroaren betebeharrak.',
             },
             text: {
               es: 'El cliente, como responsable, garantiza que los datos se han obtenido lícitamente y que ha informado a los interesados conforme al RGPD.',
