@@ -878,9 +878,9 @@ export const legalDocs: LegalDoc[] = [
                 eu: 'Bezeroari laguntzea bere segurtasun-betebeharrak betetzen eta, hala badagokio, eraginaren ebaluazioetan.',
               },
               {
-                es: 'Al finalizar el servicio, devolver los datos al cliente y suprimirlos, conforme al punto 11 de estas condiciones.',
-                en: 'When the service ends, return the data to the client and delete them, in accordance with section 11 of these terms.',
-                eu: 'Zerbitzua amaitzean, datuak bezeroari itzultzea eta ezabatzea, baldintza hauen 11. puntuaren arabera.',
+                es: 'Al finalizar el servicio, a elección del cliente, suprimir o devolver los datos personales y suprimir las copias existentes, salvo que la normativa aplicable exija su conservación, sin perjuicio del régimen de copias de seguridad residuales previsto en el punto 11.',
+                en: 'When the service ends, at the client’s choice, delete or return the personal data and delete existing copies, unless applicable law requires their retention, without prejudice to the arrangements for residual backups set out in section 11.',
+                eu: 'Zerbitzua amaitzean, bezeroak aukeratzen duenaren arabera, datu pertsonalak ezabatzea edo itzultzea, eta dauden kopiak ezabatzea, aplikatu beharreko araudiak horiek gordetzea eskatzen ez badu, 11. puntuan hondar segurtasun-kopietarako aurreikusitako araubideari kalterik egin gabe.',
               },
               {
                 es: `Poner a disposición del cliente la información necesaria para demostrar el cumplimiento de estas obligaciones, y permitir auditorías o inspecciones razonables, con preaviso razonable y respetando la confidencialidad; los costes extraordinarios que generen correrán a cargo del cliente, salvo que se detecte un incumplimiento de ${BRAND}.`,
