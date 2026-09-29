@@ -744,9 +744,9 @@ export const legalDocs: LegalDoc[] = [
             eu: 'Segurtasun-kopiak zerbitzuaren segurtasun- eta jarraitutasun-neurrien parte dira, eta ez dira artxibatze-zerbitzu iraunkor bat.',
           },
           {
-            es: `${BRAND} no será responsable de incidencias ajenas a su control, como fallos de proveedores o servicios de terceros, ataques informáticos, siempre que ${BRAND} haya aplicado las medidas de seguridad que le correspondan, o causas de fuerza mayor.`,
-            en: `${BRAND} will not be liable for incidents beyond its control, such as failures of third-party providers or services, cyberattacks, provided that ${BRAND} has applied the security measures incumbent on it, or force majeure.`,
-            eu: `${BRAND} ez da bere kontroletik kanpoko gorabeheren erantzule izango, hala nola hirugarrenen hornitzaileen edo zerbitzuen hutsegiteena, eraso informatikoena —betiere ${BRAND}ek dagozkion segurtasun-neurriak aplikatu baditu— edo ezinbesteko kasuena.`,
+            es: `${BRAND} no será responsable de incidencias ajenas a su control, como fallos de proveedores o servicios de terceros, ataques informáticos (siempre que ${BRAND} haya aplicado las medidas de seguridad que le correspondan) o causas de fuerza mayor.`,
+            en: `${BRAND} will not be liable for incidents beyond its control, such as failures of third-party providers or services, cyberattacks (provided that ${BRAND} has applied the security measures incumbent on it) or force majeure.`,
+            eu: `${BRAND} ez da bere kontroletik kanpoko gorabeheren erantzule izango, hala nola hirugarrenen hornitzaileen edo zerbitzuen hutsegiteena, eraso informatikoena (betiere ${BRAND}ek dagozkion segurtasun-neurriak aplikatu baditu) edo ezinbesteko kasuena.`,
           },
           {
             es: `En ningún caso ${BRAND} responderá del lucro cesante, la pérdida de ventas, de clientes o de oportunidades de negocio. La responsabilidad total de ${BRAND} derivada del servicio se limitará, como máximo, al importe de las cuotas abonadas por el cliente en los 12 meses anteriores al hecho que la origine. Estas limitaciones no se aplican en caso de dolo o culpa grave.`,
