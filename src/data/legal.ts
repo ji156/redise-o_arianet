@@ -442,9 +442,9 @@ export const legalDocs: LegalDoc[] = [
           {
             list: [
               {
-                es: 'La redacción de contenidos extensos (fichas de producto, artículos, textos más allá de los básicos de la web) y la traducción de contenidos.',
-                en: 'The writing of extensive content (product listings, articles, text beyond the basic content of the website) and the translation of content.',
-                eu: 'Eduki luzeak idaztea (produktu-fitxak, artikuluak, webaren oinarrizko testuez haragoko testuak) eta edukiak itzultzea.',
+                es: `La redacción de contenidos extensos (fichas de producto, artículos, textos más allá de los básicos de las secciones principales de la web, que ${BRAND} redacta a partir de la información que facilita el cliente) y la traducción de contenidos.`,
+                en: `The writing of extensive content (product listings, articles, text beyond the basic content of the main sections of the website, which ${BRAND} writes from the information provided by the client) and the translation of content.`,
+                eu: `Eduki luzeak idaztea (produktu-fitxak, artikuluak, webaren atal nagusietako oinarrizko testuez haragoko testuak; oinarrizko testu horiek ${BRAND}ek idazten ditu, bezeroak emandako informaziotik abiatuta) eta edukiak itzultzea.`,
               },
               {
                 es: 'La fotografía, el vídeo o el tratamiento de imágenes.',
@@ -609,9 +609,9 @@ export const legalDocs: LegalDoc[] = [
             eu: 'Zerbitzuak ez du gutxieneko iraunkortasun-aldirik. Bezeroak edozein unetan utzi ahal izango du bertan behera, gutxienez 30 egun lehenago idatziz jakinarazita.',
           },
           {
-            es: 'El servicio se mantiene y se factura hasta el final del periodo de preaviso. Las cuotas ya abonadas no se reembolsan.',
-            en: 'The service is maintained and billed until the end of the notice period. Fees already paid are not refunded.',
-            eu: 'Zerbitzua aurreabisu-aldia amaitu arte mantentzen eta fakturatzen da. Dagoeneko ordaindutako kuotak ez dira itzultzen.',
+            es: 'El servicio se mantiene y se factura hasta el final del periodo de preaviso. Las cuotas ya abonadas no se reembolsan, salvo que legalmente corresponda o se acuerde expresamente otra cosa.',
+            en: 'The service is maintained and billed until the end of the notice period. Fees already paid are not refunded, unless required by law or expressly agreed otherwise.',
+            eu: 'Zerbitzua aurreabisu-aldia amaitu arte mantentzen eta fakturatzen da. Dagoeneko ordaindutako kuotak ez dira itzultzen, legez hala badagokio edo berariaz bestelakorik adosten bada izan ezik.',
           },
           {
             es: 'Si el cliente cancela durante el desarrollo, antes de la publicación de la web, no tendrá derecho a recibir los trabajos realizados.',
@@ -892,9 +892,9 @@ export const legalDocs: LegalDoc[] = [
           {
             lead: { es: '5. Subencargados.', en: '5. Sub-processors.', eu: '5. Azpieragileak.' },
             text: {
-              es: `El cliente autoriza a ${BRAND} a recurrir a los siguientes subencargados para prestar el servicio: Hetzner Online GmbH (Alemania), como proveedor de alojamiento, y Cloudflare, Inc., como proveedor de CDN y seguridad, con las garantías adecuadas previstas en el capítulo V del RGPD para las transferencias internacionales. ${BRAND} informará al cliente de cualquier cambio previsto. El cliente podrá oponerse en un plazo de 15 días por motivos relacionados con la protección de datos; si no se encuentra una alternativa razonable, el cliente podrá cancelar el servicio sin penalización.`,
-              en: `The client authorises ${BRAND} to engage the following sub-processors to provide the service: Hetzner Online GmbH (Germany), as hosting provider, and Cloudflare, Inc., as CDN and security provider, with the appropriate safeguards provided for in Chapter V of the GDPR for international transfers. ${BRAND} will inform the client of any planned change. The client may object within 15 days on grounds relating to data protection; if no reasonable alternative is found, the client may cancel the service without penalty.`,
-              eu: `Bezeroak baimena ematen dio ${BRAND}i zerbitzua emateko azpieragile hauetara jotzeko: Hetzner Online GmbH (Alemania), ostatatze-hornitzaile gisa, eta Cloudflare, Inc., CDN eta segurtasun hornitzaile gisa, nazioarteko transferentzietarako DBEOren V. kapituluan aurreikusitako berme egokiekin. ${BRAND}ek aurreikusitako edozein aldaketaren berri emango dio bezeroari. Bezeroak 15 eguneko epean aurka egin ahal izango du, datuen babesarekin lotutako arrazoiengatik; arrazoizko alternatibarik aurkitzen ez bada, bezeroak zerbitzua bertan behera utzi ahal izango du, zigorrik gabe.`,
+              es: `El cliente autoriza a ${BRAND} a recurrir a los siguientes subencargados para prestar el servicio: Hetzner Online GmbH (Alemania), como proveedor de alojamiento, y Cloudflare, Inc., como proveedor de CDN y seguridad, con las garantías adecuadas previstas en el capítulo V del RGPD para las transferencias internacionales. ${BRAND} exigirá a los subencargados, mediante contrato, obligaciones de protección de datos equivalentes a las previstas en este Anexo en lo que resulte aplicable. ${BRAND} informará al cliente de cualquier cambio previsto. El cliente podrá oponerse en un plazo de 15 días por motivos relacionados con la protección de datos; si no se encuentra una alternativa razonable, el cliente podrá cancelar el servicio sin penalización.`,
+              en: `The client authorises ${BRAND} to engage the following sub-processors to provide the service: Hetzner Online GmbH (Germany), as hosting provider, and Cloudflare, Inc., as CDN and security provider, with the appropriate safeguards provided for in Chapter V of the GDPR for international transfers. ${BRAND} will require sub-processors, by contract, to meet data protection obligations equivalent to those set out in this Annex, as applicable. ${BRAND} will inform the client of any planned change. The client may object within 15 days on grounds relating to data protection; if no reasonable alternative is found, the client may cancel the service without penalty.`,
+              eu: `Bezeroak baimena ematen dio ${BRAND}i zerbitzua emateko azpieragile hauetara jotzeko: Hetzner Online GmbH (Alemania), ostatatze-hornitzaile gisa, eta Cloudflare, Inc., CDN eta segurtasun hornitzaile gisa, nazioarteko transferentzietarako DBEOren V. kapituluan aurreikusitako berme egokiekin. ${BRAND}ek, kontratu bidez, eranskin honetan aurreikusitakoen baliokideak diren datuak babesteko betebeharrak eskatuko dizkie azpieragileei, aplikagarria den neurrian. ${BRAND}ek aurreikusitako edozein aldaketaren berri emango dio bezeroari. Bezeroak 15 eguneko epean aurka egin ahal izango du, datuen babesarekin lotutako arrazoiengatik; arrazoizko alternatibarik aurkitzen ez bada, bezeroak zerbitzua bertan behera utzi ahal izango du, zigorrik gabe.`,
             },
           },
           {
