@@ -1119,14 +1119,14 @@ export const MANIFIESTO = {
 export const commitments: { title: Bi; sub: Bi }[] = [
   {
     title: {
-      es: 'Revisiones sin límite en el diseño',
-      en: 'Unlimited design revisions',
-      eu: 'Diseinuan berrikuspen mugagabeak',
+      es: 'Revisiones del diseño incluidas',
+      en: 'Design revisions included',
+      eu: 'Diseinu-berrikuspenak barne',
     },
     sub: {
-      es: 'Hasta que estés 100% contento con tu web.',
-      en: "Until you're 100% happy with your site.",
-      eu: 'Zure webarekin % 100 pozik egon arte.',
+      es: 'Ajustamos el diseño contigo hasta su aprobación.',
+      en: 'We fine-tune the design with you until you approve it.',
+      eu: 'Diseinua zurekin batera doitzen dugu, onartu arte.',
     },
   },
   {
@@ -1212,7 +1212,7 @@ export const TARIFAS_INTRO = {
   from: { es: 'DESDE', en: 'FROM', eu: 'HEMENDIK AURRERA' },
   perMonth: { es: '/mes', en: '/mo', eu: '/hil' },
   altaLabel: { es: '+ alta única', en: '+ one-time setup', eu: '+ hasierako kuota' },
-  noAlta: { es: 'Sin cuota de alta', en: 'No setup fee', eu: 'Hasierako kuotarik gabe' },
+  noAlta: { es: 'Sin cuota de alta, siempre', en: 'No setup fee, ever', eu: 'Hasierako kuotarik gabe, beti' },
   altaFreePromo: {
     es: 'Alta gratis por tiempo limitado',
     en: 'Free setup for a limited time',
@@ -1413,9 +1413,9 @@ export const faqs: { q: Bi; a: Bi }[] = [
       eu: 'Zenbat denbora behar du proiektu batek?',
     },
     a: {
-      es: 'Una landing puede estar lista en pocos días; una web a medida o una tienda, entre 2 y 4 semanas según el alcance. Fijamos plazos claros antes de empezar.',
-      en: 'A landing page can be ready in a few days; a custom site or store, 2 to 4 weeks depending on scope. We agree on clear timelines before starting.',
-      eu: 'Landing bat egun gutxitan egon daiteke prest; neurrirako web bat edo denda bat, 2 eta 4 aste artean irismenaren arabera. Epe argiak finkatzen ditugu hasi aurretik.',
+      es: 'Una landing puede estar lista en pocos días. Una web a medida o una tienda online depende del alcance: lo fijamos por escrito antes de empezar.',
+      en: 'A landing page can be ready in a few days. A custom site or online store depends on scope: we put it in writing before starting.',
+      eu: 'Landing bat egun gutxitan egon daiteke prest. Neurrirako web bat edo online denda bat irismenaren araberakoa da: idatziz finkatzen dugu hasi aurretik.',
     },
   },
   {
