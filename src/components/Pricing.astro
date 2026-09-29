@@ -33,9 +33,12 @@ const lang = langOf(Astro.currentLocale);
             </div>
             <div class="plan__alta">
               {pl.alta && (
-                <span>
-                  <span>{t(TARIFAS_INTRO.altaLabel, lang)}</span> {pl.alta}€
-                </span>
+                <>
+                  <span class="plan__alta-struck">
+                    <span>{t(TARIFAS_INTRO.altaLabel, lang)}</span> {pl.alta}€
+                  </span>
+                  <span class="plan__alta--free">{t(TARIFAS_INTRO.altaFreePromo, lang)}</span>
+                </>
               )}
               {!pl.alta && (
                 <span class="plan__alta--free">{t(TARIFAS_INTRO.noAlta, lang)}</span>
@@ -202,9 +205,17 @@ const lang = langOf(Astro.currentLocale);
     margin-top: 6px;
   }
 
+  .plan__alta-struck {
+    display: block;
+    text-decoration: line-through;
+    color: var(--grey-muted);
+  }
+
   .plan__alta--free {
+    display: block;
     color: var(--blue);
     font-weight: 700;
+    margin-top: 2px;
   }
 
   .plan__items {

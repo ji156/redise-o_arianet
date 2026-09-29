@@ -1213,6 +1213,11 @@ export const TARIFAS_INTRO = {
   perMonth: { es: '/mes', en: '/mo', eu: '/hil' },
   altaLabel: { es: '+ alta única', en: '+ one-time setup', eu: '+ hasierako kuota' },
   noAlta: { es: 'Sin cuota de alta', en: 'No setup fee', eu: 'Hasierako kuotarik gabe' },
+  altaFreePromo: {
+    es: 'Alta gratis por tiempo limitado',
+    en: 'Free setup for a limited time',
+    eu: 'Hasierako kuota doan, denbora mugatuz',
+  },
   changesLabel: { es: 'CAMBIOS INCLUIDOS', en: 'INCLUDED CHANGES', eu: 'ALDAKETAK BARNE' },
   cta: { es: 'EMPEZAR →', en: 'GET STARTED →', eu: 'HASI →' },
   swipe: {
@@ -1221,9 +1226,9 @@ export const TARIFAS_INTRO = {
     eu: 'LERRATU PLANAK IKUSTEKO →',
   },
   footnote: {
-    es: '* Precios sin IVA. Dominio sujeto a disponibilidad y precio, pago único aparte. Cada plan incluye una alta única de puesta en marcha (ver cada tarjeta). En Tienda online y Premium, gestionar tu catálogo desde tu propio panel no cuenta como cambio; las comisiones de la pasarela de pago las cobra directamente tu proveedor de pago. Sin permanencia — cancela cuando quieras.',
-    en: "* Prices exclude VAT. Domain subject to availability and price, one-time payment. Each plan includes a one-time setup fee (see each card). On Online store and Premium, managing your catalogue from your own panel doesn't count as a change; payment gateway fees are charged directly by your payment provider. No lock-in — cancel whenever you want.",
-    eu: '* Prezioak BEZ gabe. Domeinua erabilgarritasunaren eta prezioaren mende, ordainketa bakarra aparte. Plan bakoitzak abian jartzeko hasierako kuota bakar bat barne hartzen du (ikus txartel bakoitza). Online denda eta Premium planetan, zure katalogoa zure panelatik kudeatzea ez da aldaketatzat hartzen; ordainketa-pasabidearen komisioak zure ordainketa-hornitzaileak kobratzen ditu zuzenean. Iraunkortasunik gabe — utzi bertan behera nahi duzunean.',
+    es: '* Precios sin IVA. Dominio sujeto a disponibilidad y precio, pago único aparte. Alta de puesta en marcha gratis por tiempo limitado. En Tienda online y Premium, gestionar tu catálogo desde tu propio panel no cuenta como cambio; las comisiones de la pasarela de pago las cobra directamente tu proveedor de pago. Sin permanencia — cancela cuando quieras.',
+    en: "* Prices exclude VAT. Domain subject to availability and price, one-time payment. Free setup for a limited time. On Online store and Premium, managing your catalogue from your own panel doesn't count as a change; payment gateway fees are charged directly by your payment provider. No lock-in — cancel whenever you want.",
+    eu: '* Prezioak BEZ gabe. Domeinua erabilgarritasunaren eta prezioaren mende, ordainketa bakarra aparte. Abian jartzeko hasierako kuota doan, denbora mugatuz. Online denda eta Premium planetan, zure katalogoa zure panelatik kudeatzea ez da aldaketatzat hartzen; ordainketa-pasabidearen komisioak zure ordainketa-hornitzaileak kobratzen ditu zuzenean. Iraunkortasunik gabe — utzi bertan behera nahi duzunean.',
   },
 };
 
@@ -1325,7 +1330,7 @@ export const plans: {
         en: 'Own dashboard for products, variants & stock',
         eu: 'Produktuak, aldaerak eta stocka kudeatzeko panel propioa',
       },
-      { es: 'Integraciones a medida', en: 'Custom integrations', eu: 'Neurrirako integrazioak' },
+      { es: 'Envíos por peso y zonas', en: 'Shipping by weight & zones', eu: 'Bidalketak pisuaren eta zonen arabera' },
     ],
     changes: {
       es: 'Hasta 5 cambios de contenido/diseño al mes*',
@@ -1432,9 +1437,9 @@ export const faqs: { q: Bi; a: Bi }[] = [
       eu: 'Hileroko kuotaz gain, beste kosturik badago?',
     },
     a: {
-      es: 'Solo una alta única al empezar (entre 49€ y 129€ según el plan; gratis en Premium) que cubre la puesta en marcha. Aparte de eso, únicamente el dominio es un pago aparte si lo compramos por ti. Sin sorpresas después.',
-      en: "Just a one-time setup fee when you start (between €49 and €129 depending on the plan; free on Premium) that covers getting everything up and running. Beyond that, only the domain is a separate payment if we buy it for you. No surprises after that.",
-      eu: 'Hasieran hasierako kuota bakar bat besterik ez (49 € eta 129 € artean planaren arabera; doan Premium planean), abian jartzea estaltzen duena. Horretaz aparte, domeinua bakarrik da aparteko ordainketa, guk zure izenean erosten badugu. Ondoren ezustekorik ez.',
+      es: 'Ahora mismo no: la alta de puesta en marcha es gratis en todos los planes, por tiempo limitado en Esencial, Profesional y Tienda online (en Premium no se cobra nunca). Aparte de eso, únicamente el dominio es un pago aparte si lo compramos por ti. Sin sorpresas después.',
+      en: 'Not right now: the setup fee is free across all plans — for a limited time on Essential, Professional and Online store (on Premium we never charge it). Beyond that, only the domain is a separate payment if we buy it for you. No surprises after that.',
+      eu: 'Momentu honetan ez: hasierako kuota doan dago plan guztietan — denbora mugatuz Funtsezkoan, Profesionalean eta Online dendan (Premiumean ez da inoiz kobratzen). Horretaz aparte, domeinua bakarrik da aparteko ordainketa, guk zure izenean erosten badugu. Ondoren ezustekorik ez.',
     },
   },
   {
