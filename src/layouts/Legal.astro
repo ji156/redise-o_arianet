@@ -73,15 +73,27 @@ const title = `${t(doc.title, lang)} — ${BRAND}`;
           <p class="legal__translation-note">{t(LEGAL.translationNote, lang)}</p>
         )
       }
-      <p class="legal__updated">{t(LEGAL.updated, lang)}</p>
+      <p class="legal__updated">{t(doc.updated ?? LEGAL.updated, lang)}</p>
 
       {
         doc.sections.map((s) => (
-          <section class="legal__section">
+          <section class:list={['legal__section', { 'legal__section--annex': s.annex }]}>
             <h2 class="legal__h2">{t(s.heading, lang)}</h2>
-            {s.paragraphs.map((p) => (
-              <p class="legal__p">{t(p, lang)}</p>
-            ))}
+            {s.paragraphs.map((p) =>
+              'list' in p ? (
+                <ul class="legal__list">
+                  {p.list.map((li) => (
+                    <li>{t(li, lang)}</li>
+                  ))}
+                </ul>
+              ) : 'lead' in p ? (
+                <p class="legal__p">
+                  <strong>{t(p.lead, lang)}</strong> {t(p.text, lang)}
+                </p>
+              ) : (
+                <p class="legal__p">{t(p, lang)}</p>
+              ),
+            )}
           </section>
         ))
       }
@@ -280,6 +292,31 @@ const title = `${t(doc.title, lang)} — ${BRAND}`;
     line-height: 1.65;
     color: var(--grey-body);
     margin-bottom: 12px;
+  }
+
+  .legal__p strong {
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .legal__list {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--grey-body);
+    margin: 0 0 12px;
+    padding-left: 22px;
+    list-style: disc;
+  }
+
+  .legal__list li {
+    margin-bottom: 6px;
+  }
+
+  .legal__section--annex {
+    margin-top: 48px;
+    padding-top: 34px;
+    border-top: var(--line-primary);
   }
 
   /* --- pie --- */
